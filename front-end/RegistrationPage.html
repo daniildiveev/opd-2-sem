@@ -6,22 +6,38 @@
          <br>
          <input type="text" id="user-password" placeholder="Password">
          <br>
-         <button type="button" id="submit">Submit</button>
+         <button type="button" id="register">Register</button>
+         <button type="button" id="login">Log In</button>
      </div>
 
      <script>
          function applyBindings(){
-             document.getElementById("submit").addEventListener("click", get_user_data)
+             document.getElementById("register").addEventListener("click", function (){
+                 get_user_data(true)
+             })
+
+             document.getElementById("login").addEventListener("click", function (){
+                 get_user_data(false)
+             })
          }
 
          applyBindings()
 
-         function get_user_data() {
+         function get_user_data(register) {
             login = document.getElementById("user-name").value
             password = document.getElementById("user-password").value
 
             var xhr = new XMLHttpRequest()
-            var url = "/login/register"
+            var url
+
+            if (register){
+                url = "/login/register"
+            }
+
+            else{
+                url = "/login"
+            }
+            
             xhr.open("POST", url, true)
             xhr.setRequestHeader("Content-Type", "application/json")
             var data = JSON.stringify({"login" : login, "password" : password})
