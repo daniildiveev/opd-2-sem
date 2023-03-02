@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+ <body>
+     <div id="login-form">
+         <input type="text" id="user-name" placeholder="Login">
+         <br>
+         <input type="text" id="user-password" placeholder="Password">
+         <br>
+         <button type="button" id="submit">Submit</button>
+     </div>
+
+     <script>
+         function applyBindings(){
+             document.getElementById("submit").addEventListener("click", get_user_data)
+         }
+
+         applyBindings()
+
+         function get_user_data() {
+            login = document.getElementById("user-name").value
+            password = document.getElementById("user-password").value
+
+            var xhr = new XMLHttpRequest()
+            var url = "/login"
+            xhr.open("POST", url, true)
+            xhr.setRequestHeader("Content-Type", "application/json")
+            var data = JSON.stringify({"login" : login, "password" : password})
+            xhr.send(data)
+         }
+     </script>
+ </body>  
+</html>
