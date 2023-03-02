@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
  <body>
-     <div id="login-form">
-         <input type="text" id="user-name" placeholder="Login">
-         <br>
-         <input type="text" id="user-password" placeholder="Password">
-         <br>
-         <button type="button" id="register">Register</button>
-         <button type="button" id="login">Log In</button>
-     </div>
+     <form id="login-form">
+        <input type="text" id="user-name" placeholder="Login" required>
+        <br><br>
+        <input type="password" id="user-password" placeholder="Password" required>
+        <br><br>
+        <input type="password" id="confirm-password" placeholder="Confirm password" required><br><br>
+        <button type="button" id="register">Register</button>
+        <button type="button" id="login">Login</button>
+     </form>
 
      <script>
          function applyBindings(){
@@ -23,9 +24,22 @@
 
          applyBindings()
 
+         function clear_form(){
+            document.getElementById("user-name").value = "";
+            document.getElementById("user-password").value = "";
+            document.getElementById("confirm-password").value = "";
+         }
+
          function get_user_data(register) {
             login = document.getElementById("user-name").value
             password = document.getElementById("user-password").value
+            confirmPassword = document.getElementById("confirm-password").value
+
+            // validate password
+            if (password !== confirmPassword) {
+                clear_form()
+                alert("Password doesn't match")
+            }
 
             var xhr = new XMLHttpRequest()
             var url
@@ -42,6 +56,8 @@
             xhr.setRequestHeader("Content-Type", "application/json")
             var data = JSON.stringify({"login" : login, "password" : password})
             xhr.send(data)
+
+            clear_form()
          }
      </script>
  </body>  
