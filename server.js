@@ -19,7 +19,31 @@ app.get('/characteristics', function (req, res) {
 })
 
 app.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname, 'front-end/LoginPage.html'))
+    res.sendFile(path.join(__dirname, 'front-end/RegistrationPage.html'))
+})
+
+app.post('/login', async function(req, res) {
+    username = req.body["login"]
+    password = req.body["password"]
+
+    const user = users.find(user => user.name = username)
+
+    if (user == null){
+        res.status(404)
+    }
+
+    try{
+        if (await bcrypt.compare(password, user.password)){
+            res.redirect('/') //TODO: fix
+        }
+        else{
+            res.send('Not allowed')
+        }
+    }
+
+    catch (e){
+        console.log(e)
+    }
 })
 
 app.post('/login/register', async function (req, res) {
@@ -28,7 +52,7 @@ app.post('/login/register', async function (req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 10)
     console.log(hashedPassword)
-    const user = {user:username, password:hashedPassword}
+    const user = {name:username, password:hashedPassword}
     users.push(user)
 
 })
