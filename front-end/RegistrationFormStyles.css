@@ -1,0 +1,85 @@
+:root{
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67 , 0.95);
+    --addl-color: rgba(0, 103, 187, .8);
+    --font-family: Verdana, Geneva, sans-serif
+}
+
+.container{
+    border-radius: 6px;
+    block-size: 32em;
+    box-shadow: 0 0 1px .6em rgba(0, 0, 0, 0.004), 0 1px 1em rgba(0, 0, 0, 0.06);
+    inline-size: 375px;
+    overflow: auto;
+    padding: 2em;
+    background-color: white;
+    margin: 0 auto;
+    display: block;
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: var(--addl-color);
+    font-family: var(--font-family);
+    line-height: 1.5;
+    margin: 0;
+    min-block-size: 100vh;
+    padding: 5vmin;
+    place-items: center;
+}
+
+h1{
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0em 0em 1em;
+    font-family: var(--font-family);
+    font-weight: 500;
+}
+.first-button{
+    display: inline-block;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.2rem 5.2rem;
+    margin-top: 1.1rem;
+    transition: opacity .6s ease-in-out;
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+.second-button{
+    display: inline-block;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.2rem 4.05rem;
+    margin-top: 1.1rem;
+    transition: opacity .6s ease-in-out;
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+.first-button:hover{
+    opacity: .95;
+}
+.second-button:hover{
+    opacity: .95;
+}
+
+form {
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input{
+    padding: 0.9rem 0.9rem;
+    width: 100%;
+}

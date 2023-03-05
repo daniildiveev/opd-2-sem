@@ -73,6 +73,7 @@ body {
     margin-top: 3rem;
     transition: opacity .6s ease-in-out;
     text-decoration: none;
+
 }
 
 .button:hover {
