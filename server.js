@@ -78,6 +78,11 @@ server.get('/register', (req, res) => {
     res.render('RegistrationForm', {errorMessage});
 });
 
+server.get('/admin/register', (req, res) => {
+    const errorMessage = req.flash('error')[0]
+    res.render('AdminRegistrationForm', {errorMessage});
+})
+
 server.get('/characteristics', (req, res) => {
     res.render('SecondPage');
 })
@@ -97,8 +102,10 @@ server.post('/login', passport.authenticate('local', {
 
 server.post('/register', async (req, res, next) => {
     const { login, password } = req.body;
+    const isAdmin = false;
+
     try {
-        const user = await User.create({ login, password });
+        const user = await User.create({ login, password, isAdmin });
         req.login(user, (err) => {
             if (err) {
                 console.log(err);
@@ -111,6 +118,26 @@ server.post('/register', async (req, res, next) => {
         res.redirect("/register")
     }
 });
+
+server.post('/admin/register', async (req, res, next) => {
+    const { login, password } = req.body;
+    const isAdmin = true;
+
+    try {
+        const user = await User.create({ login, password, isAdmin });
+        req.login(user, (err) => {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            return res.redirect('/login');
+        });
+    } catch (err) {
+        req.flash('error', 'User already exists')
+        res.redirect("/admin/register")
+    }
+});
+
 
 sequelize.sync().then(() => {
     server.listen(3000, () => {
