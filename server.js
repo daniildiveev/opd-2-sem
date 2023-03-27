@@ -1,60 +1,106 @@
-const express = require('express')
-const path = require('path')
-const app = express()
-const bcrypt = require('bcrypt')
+const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash')
+const LocalStrategy = require('passport-local').Strategy;
+const { sequelize, User } = require('./models');
 
-app.use(express.static('front-end'))
-app.use(express.json())
+const server = express();
 
-const PORT = 3000;  
+server.use(express.json());
+server.use(express.static('front-end'));
+server.use(express.urlencoded({ extended: true }));
+server.use(session({ secret: 'my_secret', resave: false, saveUninitialized: false }));
+server.use(flash())
 
-users = []
-
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'front-end/MenuPageDraft.html'))
-})
-
-app.get('/characteristics', function (req, res) {
-    res.sendFile(path.join(__dirname, 'front-end/SecondPage.html'))
-})
-
-app.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname, 'front-end/RegistrationPage.html'))
-})
-
-app.post('/login', async function(req, res) {
-    username = req.body["login"]
-    password = req.body["password"]
-
-    const user = users.find(user => user.name = username)
-
-    if (user == null){
-        res.status(404)
-    }
-
-    try{
-        if (await bcrypt.compare(password, user.password)){
-            res.redirect('/') //TODO: fix
+passport.use('local', new LocalStrategy({ usernameField: 'login' }, async (login, password, done) => {
+    try {
+        const user = await User.findOne({ where: { login } });
+        if (!user) {
+            return done(null, false, { message: 'Incorrect email.' });
         }
-        else{
-            res.send('Not allowed')
+        const isValid = await user.validatePassword(password);
+
+        if (!isValid) {
+            console.log("Invalid user")
+            return done(null, false, { message: 'Incorrect password.' });
         }
-    }
 
-    catch (e){
-        console.log(e)
+        console.log("User found")
+
+        return done(null, user);
+    } catch (err) {
+        return done(err);
     }
+}));
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findByPk(id);
+        if (!user) {
+            return done(null, false);
+        }
+        return done(null, user);
+    } catch (err) {
+        return done(err);
+    }
+});
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+server.get('/', (req, res) => {
+    res.sendFile(__dirname + '/front-end/MenuPageDraft.html');
+});
+
+server.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/front-end/RegistrationPage.html');
+});
+
+server.get('/register', (req, res) => {
+    res.sendFile(__dirname + '/front-end/RegistrationPage.html');
+});
+
+server.get('/characteristics', (req, res) => {
+    res.sendFile(__dirname + '/front-end/SecondPage.html');
 })
 
-app.post('/login/register', async function (req, res) {
-    username = req.body["login"]
-    password = req.body["password"]
 
-    const hashedPassword = await bcrypt.hash(password, 10)
-    console.log(hashedPassword)
-    const user = {name:username, password:hashedPassword}
-    users.push(user)
+server.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true // enable flash messages
+}), function(req, res) {
+    res.redirect('/');
+}, function(req, res, next) {
+    req.flash('error', 'Invalid username or password');
+    res.redirect('/login');
+});
 
-})
 
-app.listen(PORT)
+server.post('/register', async (req, res, next) => {
+    const { login, password } = req.body;
+    try {
+        const user = await User.create({ login, password });
+        req.login(user, (err) => {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            return res.redirect('/');
+        });
+    } catch (err) {
+        console.log(err);
+        res.redirect('/');
+    }
+});
+
+sequelize.sync().then(() => {
+    server.listen(3000, () => {
+        console.log('Server running on http://localhost:3000');
+    });
+});
