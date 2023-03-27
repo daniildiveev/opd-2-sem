@@ -7,7 +7,8 @@ module.exports = function(sequelize) {
             type: Sequelize.STRING,
             unique: true
         },
-        password: Sequelize.STRING
+        password: Sequelize.STRING,
+        isAdmin: Sequelize.BOOLEAN
     });
 
     User.beforeCreate(async (user, options) => {
