@@ -27,6 +27,11 @@
 <header class="showcase">
     <div class="container showcase-inner">
         <h1>HEADING</h1>
+        <div id="username">
+            <% if (username) { %>
+                <p>Hi, <%= username %>!</p>
+            <% } %>
+        </div>
         <p>there will be some text, I don't really know which one,<br> but there will definitely be some shit</p>
         <a href="/characteristics" class="button">READ MORE</a>
     </div>
