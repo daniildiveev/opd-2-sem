@@ -57,7 +57,15 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.get('/', (req, res) => {
-    res.render('MenuPageDraft');
+    let username;
+    if(req.isAuthenticated()){
+        username = req.user.login;
+    }
+    else{
+        username = "";
+    }
+
+    res.render('MenuPageDraft', {username})
 });
 
 server.get('/login', (req, res) => {
@@ -96,7 +104,7 @@ server.post('/register', async (req, res, next) => {
                 console.log(err);
                 return next(err);
             }
-            return res.redirect('/');
+            return res.redirect('/login');
         });
     } catch (err) {
         req.flash('error', 'User already exists')
