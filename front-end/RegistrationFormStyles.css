@@ -83,3 +83,12 @@ form {
     padding: 0.9rem 0.9rem;
     width: 100%;
 }
+
+p{
+    font-size: 1.5rem;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0em 0em 3em;
+    font-family: var(--font-family);
+    font-weight: 500;
+}
