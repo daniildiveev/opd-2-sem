@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="RegistrationFormStyles.css">
+  <title>Admin registration form</title>
+</head>
+
+<section class = "container">
+  <header>
+    <div>
+      <h1>Registration form</h1>
+    </div>
+  </header>
+
+  <body>
+  <form id="login-form" method="POST">
+    <input type="text" name="login" id="user-name" placeholder="Login" required class = "input">
+    <br>
+    <input type="password" name="password" id="user-password" placeholder="Password" required class = "input">
+    <br>
+    <button class="first-button" type="submit" id="register">REGISTER</button>
+  </form>
+  </body>
+
+  <div id="error-message">
+    <% if (errorMessage) { %>
+      <p><%= errorMessage %></p>
+    <% } %>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('login-form');
+  const registerButton = document.getElementById('register');
+
+  registerButton.addEventListener('click', (event) => {
+    event.preventDefault(); // prevent default form submission
+    form.action = '/admin/register'; // set action to /register
+    form.submit(); // submit the form
+  });
+</script>
+</body>
+</html>
