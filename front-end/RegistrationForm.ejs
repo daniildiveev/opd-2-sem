@@ -23,6 +23,12 @@
     <button class="second-button" type="submit" id="register">REGISTER</button>
   </form>
   </body>
+
+  <div id="error-message">
+    <% if (errorMessage) { %>
+      <p><%= errorMessage %></p>
+    <% } %>
+  </div>
 </section>
 
 <script>
