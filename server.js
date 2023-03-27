@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash')
+const path = require('path')
 const LocalStrategy = require('passport-local').Strategy;
 const { sequelize, User } = require('./models');
 
@@ -12,12 +13,14 @@ server.use(express.static('front-end'));
 server.use(express.urlencoded({ extended: true }));
 server.use(session({ secret: 'my_secret', resave: false, saveUninitialized: false }));
 server.use(flash())
+server.set('views', path.join(__dirname, 'front-end'))
+server.set('view engine', 'ejs')
 
 passport.use('local', new LocalStrategy({ usernameField: 'login' }, async (login, password, done) => {
     try {
         const user = await User.findOne({ where: { login } });
         if (!user) {
-            return done(null, false, { message: 'Incorrect email.' });
+            return done(null, false, { message: 'User does not exist' });
         }
         const isValid = await user.validatePassword(password);
 
@@ -54,19 +57,21 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.get('/', (req, res) => {
-    res.sendFile(__dirname + '/front-end/MenuPageDraft.html');
+    res.render('MenuPageDraft');
 });
 
 server.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/front-end/RegistrationForm.html');
+    const errorMessage = req.flash('error')[0]
+    res.render('RegistrationForm', {errorMessage});
 });
 
 server.get('/register', (req, res) => {
-    res.sendFile(__dirname + '/front-end/RegistrationForm.html');
+    const errorMessage = req.flash('error')[0]
+    res.render('RegistrationForm', {errorMessage});
 });
 
 server.get('/characteristics', (req, res) => {
-    res.sendFile(__dirname + '/front-end/SecondPage.html');
+    res.render('SecondPage');
 })
 
 
@@ -94,8 +99,8 @@ server.post('/register', async (req, res, next) => {
             return res.redirect('/');
         });
     } catch (err) {
-        console.log(err);
-        res.redirect('/');
+        req.flash('error', 'User already exists')
+        res.redirect("/register")
     }
 });
 
