@@ -58,11 +58,11 @@ server.get('/', (req, res) => {
 });
 
 server.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/front-end/RegistrationPage.html');
+    res.sendFile(__dirname + '/front-end/RegistrationForm.html');
 });
 
 server.get('/register', (req, res) => {
-    res.sendFile(__dirname + '/front-end/RegistrationPage.html');
+    res.sendFile(__dirname + '/front-end/RegistrationForm.html');
 });
 
 server.get('/characteristics', (req, res) => {
