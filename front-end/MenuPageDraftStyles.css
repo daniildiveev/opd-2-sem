@@ -31,7 +31,9 @@ body {
 }
 
 .showcase {
-    background: var(--primary-color);
+    background: linear-gradient(to top, var(--primary-color), 20%, #0C2043);
+    /*background: linear-gradient(50deg, var(--primary-color), #06002C); #0C204D*/
+    /*background: var(--primary-color);*/
     color: #fff;
     height: 100vh;
     position: relative; /*normal flow*/
@@ -107,7 +109,7 @@ body {
     width: 60px;
     height: 60px;
     padding: 1rem;
-    background: var(--primary-color);
+    background: var(--overlay-color);
     display: flex;
     align-items: center;
     justify-content: center;

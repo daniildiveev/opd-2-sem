@@ -66,10 +66,10 @@ h1{
     letter-spacing: 0.1rem;
     font-weight: 500;
 }
-.first-button:hover{
+.first-button:hover {
     opacity: .95;
 }
-.second-button:hover{
+.second-button:hover {
     opacity: .95;
 }
 
@@ -79,7 +79,7 @@ form {
     flex-direction: column;
     align-items: center;
 }
-.input{
+.input {
     padding: 0.9rem 0.9rem;
     width: 100%;
 }

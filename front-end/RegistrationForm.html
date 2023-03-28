@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="RegistrationFormStyles.css">
-  <title>Registration form</title>
+  <title>Login form</title>
 </head>
 
 <section class = "container">
@@ -14,66 +14,24 @@
   </header>
 
   <body>
-  <form id="login-form">
-    <input type="text" id="user-name" placeholder="Login" required class = "input">
+  <form id="login-form" method="POST" action="/login">
+    <input type="text" name="login" id="user-name" placeholder="Login" required class = "input">
     <br>
-    <input type="password" id="user-password" placeholder="Password" required class = "input">
+    <input type="password" name="password" id="user-password" placeholder="Password" required class = "input">
     <br>
-    <input type="password" id="confirm-password" placeholder="Confirm password" required class = "input"><br>
-    <button class = "first-button" type="button" id="submit">LOGIN</button>
-    <button class = "second-button" type="button" id="login">REGISTER</button>
+    <button class="first-button" type="submit" id="login">LOGIN</button>
   </form>
-</section>
+  </body>
 
-<script>
-  function applyBindings(){
-    document.getElementById("register").addEventListener("click", function (){
-      get_user_data(true)
-    })
+  <div id="error-message">я
+    <% if (errorMessage) { %>
+    <p><%= errorMessage %></p>
+    <% } %>
+  </div>
+  <div id="register-button">
+    <button class = "second-button" type="button" id="login">CREATE ACCOUNT</button>
+  </div>
 
-    document.getElementById("login").addEventListener("click", function (){
-      get_user_data(false)
-    })
-  }
 
-  applyBindings()
-
-  function clear_form(){
-    document.getElementById("user-name").value = "";
-    document.getElementById("user-password").value = "";
-    document.getElementById("confirm-password").value = "";
-  }
-
-  function get_user_data(register) {
-    login = document.getElementById("user-name").value
-    password = document.getElementById("user-password").value
-    confirmPassword = document.getElementById("confirm-password").value
-
-    // validate password
-    if (password !== confirmPassword) {
-      clear_form()
-      alert("Password doesn't match")
-      return false;
-    }
-
-    var xhr = new XMLHttpRequest()
-    var url
-
-    if (register){
-      url = "/login/register"
-    }
-    else{
-      url = "/login"
-    }
-
-    xhr.open("POST", url, true)
-    xhr.setRequestHeader("Content-Type", "application/json")
-    var data = JSON.stringify({"login": login, "password": password})
-    xhr.send(data)
-
-    clear_form()
-  }
-
-</script>
-</body>
 </html>
+</section>
