@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../../WebstormProjects/itmo/bpaProjects/Preview/1stTest_styles.css">
+    <link rel="stylesheet" href="1stTestStyles.css">
     <title>1st Test</title>
 </head>
 <body>
@@ -12,12 +12,8 @@
             <h1>Тест: выбор профессиональных характеристик</h1>
         </div>
     </header>
-    <form id = "registration">
-        <input type="text" id="user-name" placeholder="enter profession" required class = "input">
-    </form>
-    <form id = "test1">
-
-
+    <form id = "test1" method="POST" action="/poll">
+        <input type="text" name="profession" id="user-name" placeholder="enter profession" required class = "input">
         <div class="question-form">
             <h2>Стремление к профессиональному совершенству</h2>
             <ul>
@@ -2202,25 +2198,8 @@
                 </li>
             </ul>
         </div>
-        <div class="question-form">
-            <h2></h2>
-            <ul>
-                <li>
-                    <input type="radio" name="question169" value="a" id="q169a">
-                    <label for="q169a">добавить</label>
-                </li>
-                <li>
-                    <input type="radio" name="question169" value="b" id="q169b">
-                    <label for="q169b">не добавлять</label>
-                </li>
-            </ul>
-        </div>
 
-        <template>
-            <button class="next-btn">next page</button>
-        </template>
-
-
+        <button class="next-btn" type="submit">Submit</button>
     </form>
 
 </section>
