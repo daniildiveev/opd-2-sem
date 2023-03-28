@@ -57,23 +57,32 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.get('/', (req, res) => {
-    let username, adminUser;
+    let username, adminUser, loggedIn;
     if(req.isAuthenticated()){
         username = req.user.login;
         adminUser = req.user.isAdmin;
+        loggedIn = true;
     }
     else{
         username = "";
         adminUser = false;
+        loggedIn = false;
     }
 
-    res.render('MenuPageDraft', {username, adminUser})
+    res.render('MenuPageDraft', {username, adminUser, loggedIn})
 });
 
 server.get('/login', (req, res) => {
     const errorMessage = req.flash('error')[0]
     res.render('LoginForm', {errorMessage});
 });
+
+server.get('/logout', (req, res) => {
+    req.logout(() => {
+        res.redirect('/');
+    });
+});
+
 
 server.get('/register', (req, res) => {
     const errorMessage = req.flash('error')[0]
@@ -126,7 +135,7 @@ server.post('/register', async (req, res, next) => {
                 console.log(err);
                 return next(err);
             }
-            return res.redirect('/login');
+            return res.redirect('/');
         });
     } catch (err) {
         req.flash('error', 'User already exists')
@@ -160,7 +169,7 @@ server.post('/poll', async (req, res) => {
     }
 
     else{
-        const id = req.user.id
+        const id = req.body.id
         const poll_results = "test_results"
         try {
             const poll = await Poll.create({id, poll_results})
