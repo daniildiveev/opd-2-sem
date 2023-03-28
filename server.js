@@ -79,8 +79,21 @@ server.get('/register', (req, res) => {
 });
 
 server.get('/admin/register', (req, res) => {
-    const errorMessage = req.flash('error')[0]
-    res.render('AdminRegistrationForm', {errorMessage});
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+        return
+    }
+
+    const checkAdmin = req.user.isAdmin;
+
+    if(!checkAdmin){
+        res.redirect('/')
+    }
+
+    else{
+        const errorMessage = req.flash('error')[0]
+        res.render('AdminRegistrationForm', {errorMessage});
+    }
 })
 
 server.get('/characteristics', (req, res) => {
@@ -130,7 +143,7 @@ server.post('/admin/register', async (req, res, next) => {
                 console.log(err);
                 return next(err);
             }
-            return res.redirect('/login');
+            return res.redirect("/admin/register");
         });
     } catch (err) {
         req.flash('error', 'User already exists')
