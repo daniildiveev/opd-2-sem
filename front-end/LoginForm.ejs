@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="RegistrationFormStyles.css">
+  <title>Registration form</title>
+</head>
+
+<section class = "container">
+  <header>
+    <div>
+      <h1>Registration form</h1>
+    </div>
+  </header>
+
+  <body>
+  <form id="login-form" method="POST" action="/login">
+    <input type="text" name="login" id="user-name" placeholder="Login" required class = "input">
+    <br>
+    <input type="password" name="password" id="user-password" placeholder="Password" required class = "input">
+    <br>
+    <button class="second-button" type="submit" id="login">LOGIN</button>
+  </form>
+  </body>
+
+  <div id="error-message">
+    <% if (errorMessage) { %>
+      <p><%= errorMessage %></p>
+    <% } %>
+  </div>
+
+  <div id="register-button">
+    <a href="/register">Create account</a>
+  </div>
+</section>
+</body>
+</html>
