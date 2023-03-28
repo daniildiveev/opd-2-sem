@@ -22,6 +22,11 @@
                             <a href="/admin/register">ADD NEW ADMIN</a>
                         <% } %>
                     </li>
+                    <li>
+                        <% if (loggedIn) { %>
+                            <a href="/logout">LOGOUT</a>
+                        <% } %>
+                    </li>
                 </ul>
             </div>
         </div>
