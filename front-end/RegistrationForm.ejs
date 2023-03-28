@@ -14,12 +14,11 @@
   </header>
 
   <body>
-  <form id="login-form" method="POST">
+  <form id="login-form" method="POST" action="/register">
     <input type="text" name="login" id="user-name" placeholder="Login" required class = "input">
     <br>
     <input type="password" name="password" id="user-password" placeholder="Password" required class = "input">
     <br>
-    <button class="first-button" type="submit" id="login">LOGIN</button>
     <button class="second-button" type="submit" id="register">REGISTER</button>
   </form>
   </body>
@@ -29,24 +28,10 @@
       <p><%= errorMessage %></p>
     <% } %>
   </div>
+
+  <div id="login-button">
+    <a href="/login">Already have an account?</a>
+  </div>
 </section>
-
-<script>
-  const form = document.getElementById('login-form');
-  const registerButton = document.getElementById('register');
-  const loginButton = document.getElementById('login');
-
-  registerButton.addEventListener('click', (event) => {
-    event.preventDefault(); // prevent default form submission
-    form.action = '/register'; // set action to /register
-    form.submit(); // submit the form
-  });
-
-  loginButton.addEventListener('click', (event) => {
-    event.preventDefault(); // prevent default form submission
-    form.action = '/login'; // set action to /login
-    form.submit(); // submit the form
-  });
-</script>
 </body>
 </html>

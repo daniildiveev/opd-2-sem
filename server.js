@@ -4,7 +4,7 @@ const passport = require('passport');
 const flash = require('connect-flash')
 const path = require('path')
 const LocalStrategy = require('passport-local').Strategy;
-const { sequelize, User } = require('./models');
+const { sequelize, User, Poll } = require('./models');
 
 const server = express();
 
@@ -70,7 +70,7 @@ server.get('/', (req, res) => {
 
 server.get('/login', (req, res) => {
     const errorMessage = req.flash('error')[0]
-    res.render('RegistrationForm', {errorMessage});
+    res.render('LoginForm', {errorMessage});
 });
 
 server.get('/register', (req, res) => {
@@ -137,6 +137,24 @@ server.post('/admin/register', async (req, res, next) => {
         res.redirect("/admin/register")
     }
 });
+
+server.post('/poll', async (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect("/login")
+        return;
+    }
+
+    else{
+        const id = req.user.id
+        const poll_results = "test_results"
+        try {
+            const poll = await Poll.create({id, poll_results})
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+})
 
 
 sequelize.sync().then(() => {
