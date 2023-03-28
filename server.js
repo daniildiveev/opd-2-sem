@@ -4,7 +4,7 @@ const passport = require('passport');
 const flash = require('connect-flash')
 const path = require('path')
 const LocalStrategy = require('passport-local').Strategy;
-const { sequelize, User, Poll } = require('./models');
+const { sequelize, User, Poll } = require('./models/index');
 
 const server = express();
 
@@ -111,6 +111,21 @@ server.get('/characteristics', (req, res) => {
     res.render('SecondPage');
 })
 
+server.get('/polls_results', async (req, res) => {
+        try {
+            const polls = await Poll.findAll();
+            console.log(polls)
+            res.render('ResultsPage', { polls });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
+})
+
+server.get('/poll', (req, res) => {
+    res.render('PollPage')
+})
+
 
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
@@ -169,10 +184,14 @@ server.post('/poll', async (req, res) => {
     }
 
     else{
-        const id = req.body.id
-        const poll_results = "test_results"
+        const user = req.user.id
+        const points = req.body.poll_results
+        const profession = req.body.profession
+
+        console.log(user, points, profession)
         try {
-            const poll = await Poll.create({id, poll_results})
+            const poll = await Poll.create({user, profession,  points})
+            return res.redirect('/poll')
         }
         catch (err){
             console.log(err)
