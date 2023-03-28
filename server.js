@@ -123,7 +123,7 @@ server.get('/polls_results', async (req, res) => {
 })
 
 server.get('/poll', (req, res) => {
-    res.render('PollPage')
+    res.render('1stTest')
 })
 
 
@@ -184,11 +184,25 @@ server.post('/poll', async (req, res) => {
     }
 
     else{
+        console.log(req.body)
         const user = req.user.id
-        const points = req.body.poll_results
         const profession = req.body.profession
 
-        console.log(user, points, profession)
+        let checked = "";
+
+        for(let i=1; i<169; i++){
+            if (req.body["question"+i] === "a"){
+                checked += "1"
+            }
+
+            else{
+                checked += "0"
+            }
+        }
+
+        const points = checked;
+
+        console.log(user, profession)
         try {
             const poll = await Poll.create({user, profession,  points})
             return res.redirect('/poll')
