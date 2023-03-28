@@ -57,15 +57,17 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 server.get('/', (req, res) => {
-    let username;
+    let username, adminUser;
     if(req.isAuthenticated()){
         username = req.user.login;
+        adminUser = req.user.isAdmin;
     }
     else{
         username = "";
+        adminUser = false;
     }
 
-    res.render('MenuPageDraft', {username})
+    res.render('MenuPageDraft', {username, adminUser})
 });
 
 server.get('/login', (req, res) => {
