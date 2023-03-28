@@ -18,6 +18,11 @@
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="/login">LOGIN</a></li>
                     <li><a href="/characteristics">CONTENT</a></li>
+                    <li>
+                        <% if (loggedIn) { %>
+                            <a href="/poll">POLL</a>
+                        <% } %>
+                    </li>
                     <li><% if (adminUser) { %>
                             <a href="/admin/register">ADD NEW ADMIN</a>
                         <% } %>
