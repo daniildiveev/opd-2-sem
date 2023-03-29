@@ -123,7 +123,20 @@ server.get('/polls_results', async (req, res) => {
 })
 
 server.get('/poll', (req, res) => {
-    res.render('1stTest')
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+        return
+    }
+
+    const checkAdmin = req.user.isAdmin;
+
+    if(!checkAdmin){
+        res.redirect('/')
+    }
+
+    else{
+        res.render('1stTest');
+    }
 })
 
 
@@ -205,7 +218,7 @@ server.post('/poll', async (req, res) => {
         console.log(user, profession)
         try {
             const poll = await Poll.create({user, profession,  points})
-            return res.redirect('/poll')
+            return res.redirect('/polls_results')
         }
         catch (err){
             console.log(err)
