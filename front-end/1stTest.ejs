@@ -13,7 +13,15 @@
         </div>
     </header>
     <form id = "test1" method="POST" action="/poll">
-        <input type="text" name="profession" id="user-name" placeholder="enter profession" required class = "input">
+        <select name="profession" id="profression-selector">
+            <option value="">Please choose an option</option>
+            <option value= "Data Scientist">Data Scientist</option>
+            <option value= "Backend developer">Backend developer</option>
+            <option value= "Frontend developer">Frontend developer</option>
+            <option value= "QA-engineer">QA-engineer</option>
+            <option value= "Cyber security specialist">Cyber security specialist</option>
+        </select>
+
         <div class="question-form">
             <h2>Стремление к профессиональному совершенству</h2>
             <ul>
@@ -2203,6 +2211,5 @@
     </form>
 
 </section>
-
 </body>
 </html>
