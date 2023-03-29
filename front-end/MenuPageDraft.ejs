@@ -16,10 +16,14 @@
                 <ul>
                     <li><a href="/">HOME PAGE</a></li>
                     <li><a href="#">ABOUT</a></li>
-                    <li><a href="/login">LOGIN</a></li>
+                    <li>
+                        <% if (!loggedIn) { %>
+                            <a href="/logout">LOGIN</a>
+                        <% } %>
+                    </li>
                     <li><a href="/characteristics">CONTENT</a></li>
                     <li>
-                        <% if (loggedIn) { %>
+                        <% if (adminUser) { %>
                             <a href="/poll">POLL</a>
                         <% } %>
                     </li>
