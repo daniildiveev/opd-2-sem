@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="RegistrationFormStyles.css">
+  <link rel="stylesheet" href="LoginFormStyle.css">
   <title>Login form</title>
 </head>
 
@@ -19,18 +19,18 @@
     <br>
     <input type="password" name="password" id="user-password" placeholder="Password" required class = "input">
     <br>
-    <button class="second-button" type="submit" id="login">LOGIN</button>
+    <button class="first-button" type="submit" id="register">LOGIN</button>
   </form>
   </body>
 
   <div id="error-message">
     <% if (errorMessage) { %>
-      <p><%= errorMessage %></p>
+      <p class = "error-message"><%= errorMessage %></p>
     <% } %>
   </div>
 
-  <div id="register-button">
-    <a href="/register">Create account</a>
+  <div id="login-button">
+    <a class = "second-button" href="/login"><p><u>Create account</u></p></a>
   </div>
 </section>
 </body>
