@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Оценивание характеристик</h1>
+<% if (profession) {%>
+    <h1><%= profession %></h1>
+<%}%>
+<form method="POST" action="/1st_test?profession=<%= profession %>">
+<table>
+    <thead>
+        <tr>
+            <th>Характеристика</th>
+            <th>Оценка</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% if (characteristics) {%>
+        <% characteristics.forEach((characteristic) => { %>
+        <tr>
+            <td><%= characteristic.name%></td>
+            <td>
+                <select name="value<%=characteristic.id%>">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+            </td>
+        </tr>
+        <% }); %>
+    <% }%>
+    </tbody>
+</table>
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
