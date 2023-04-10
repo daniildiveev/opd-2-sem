@@ -1,0 +1,37 @@
+:root {
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --addl-color: rgba(0, 103, 187, .8);
+    --font-style: 'Verdana', sans-serif;
+}
+
+body {
+    background-color: var(--primary-color);
+    font-family: var(--font-style);
+    color: white;
+}
+
+table {
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background-color: var(--overlay-color);
+}
+
+th,
+td {
+    padding: 0.5rem 1rem;
+    text-align: center;
+    border: 1px solid white;
+    font-weight: 500;
+    letter-spacing: 0.15rem;
+}
+
+th {
+    background-color: var(--overlay-color);
+    color: white;
+}
+caption{
+    letter-spacing: 0.4rem;
+    margin-bottom: 1.8em;
+    font-size: 1.6em;
+}

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" href="1stTestStyles.css"> -->
+    <title>1st Test</title>
+</head>
+<body>
+<section class = "container">
+    <header>
+        <div>
+            <h1>Тест: выбор профессиональных характеристик</h1>
+        </div>
+    </header>
+    <form id = "test1" method="POST" action="/poll_1_part_2">
+        <select name="profession" id="profression-selector">
+            <option value="">Please choose an option</option>
+            <option value= "Data Scientist">Data Scientist</option>
+            <option value= "Backend developer">Backend developer</option>
+            <option value= "Frontend developer">Frontend developer</option>
+            <option value= "QA-engineer">QA-engineer</option>
+            <option value= "Cyber security specialist">Cyber security specialist</option>
+        </select>
+
+        <table>
+            <thead>
+            <tr>
+                <td>Характеристика</td>
+                <td>Нужна?</td>
+            </tr>
+            </thead>
+
+            <tbody><tr>
+                <td name="character0">Стремление к профессиональному совершенству</td>
+                <td><input type="checkbox" name="question0" value="Стремление к профессиональному совершенству" id="q0_check"></td>
+            </tr><tr>
+                <td name="character1">Адекватная самооценка</td>
+                <td><input type="checkbox" name="question1" value="Адекватная самооценка" id="q1_check"></td>
+            </tr><tr>
+                <td name="character2">Самостоятельность</td>
+                <td><input type="checkbox" name="question2" value="Самостоятельность" id="q2_check"></td>
+            </tr><tr>
+                <td name="character3">Пунктуальность</td>
+                <td><input type="checkbox" name="question3" value="Пунктуальность" id="q3_check"></td>
+            </tr><tr>
+                <td name="character4">педантичность</td>
+                <td><input type="checkbox" name="question4" value="педантичность" id="q4_check"></td>
+            </tr><tr>
+                <td name="character5">Дисциплинированность</td>
+                <td><input type="checkbox" name="question5" value="Дисциплинированность" id="q5_check"></td>
+            </tr><tr>
+                <td name="character6">Аккуратность в работе</td>
+                <td><input type="checkbox" name="question6" value="Аккуратность в работе" id="q6_check"></td>
+            </tr><tr>
+                <td name="character7">Организованность</td>
+                <td><input type="checkbox" name="question7" value="Организованность" id="q7_check"></td>
+            </tr><tr>
+                <td name="character8">Самодисциплинированность</td>
+                <td><input type="checkbox" name="question8" value="Самодисциплинированность" id="q8_check"></td>
+            </tr><tr>
+                <td name="character9">Старательность</td>
+                <td><input type="checkbox" name="question9" value="Старательность" id="q9_check"></td>
+            </tr><tr>
+                <td name="character10">Исполнительность</td>
+                <td><input type="checkbox" name="question10" value="Исполнительность" id="q10_check"></td>
+            </tr><tr>
+                <td name="character11">Ответственность</td>
+                <td><input type="checkbox" name="question11" value="Ответственность" id="q11_check"></td>
+            </tr><tr>
+                <td name="character12">Трудолюбие</td>
+                <td><input type="checkbox" name="question12" value="Трудолюбие" id="q12_check"></td>
+            </tr><tr>
+                <td name="character13">Инициативность</td>
+                <td><input type="checkbox" name="question13" value="Инициативность" id="q13_check"></td>
+            </tr><tr>
+                <td name="character14">Самокритичность</td>
+                <td><input type="checkbox" name="question14" value="Самокритичность" id="q14_check"></td>
+            </tr><tr>
+                <td name="character15">Оптимистичность</td>
+                <td><input type="checkbox" name="question15" value="Оптимистичность" id="q15_check"></td>
+            </tr><tr>
+                <td name="character16">Самообладание</td>
+                <td><input type="checkbox" name="question16" value="Самообладание" id="q16_check"></td>
+            </tr><tr>
+                <td name="character17">способность к самонаблюдению</td>
+                <td><input type="checkbox" name="question17" value="способность к самонаблюдению" id="q17_check"></td>
+            </tr><tr>
+                <td name="character18">Предусмотрительность</td>
+                <td><input type="checkbox" name="question18" value="Предусмотрительность" id="q18_check"></td>
+            </tr><tr>
+                <td name="character19">Фрустрационная толерантность</td>
+                <td><input type="checkbox" name="question19" value="Фрустрационная толерантность" id="q19_check"></td>
+            </tr><tr>
+                <td name="character20">Самомобилизация</td>
+                <td><input type="checkbox" name="question20" value="Самомобилизация" id="q20_check"></td>
+            </tr><tr>
+                <td name="character21">Интернальность</td>
+                <td><input type="checkbox" name="question21" value="Интернальность" id="q21_check"></td>
+            </tr><tr>
+                <td name="character22">Экстернальность</td>
+                <td><input type="checkbox" name="question22" value="Экстернальность" id="q22_check"></td>
+            </tr><tr>
+                <td name="character23">Интрапунитивность</td>
+                <td><input type="checkbox" name="question23" value="Интрапунитивность" id="q23_check"></td>
+            </tr><tr>
+                <td name="character24">Экстрапунитивность</td>
+                <td><input type="checkbox" name="question24" value="Экстрапунитивность" id="q24_check"></td>
+            </tr><tr>
+                <td name="character25">Способность к планированию своей деятельности</td>
+                <td><input type="checkbox" name="question25" value="Способность к планированию своей деятельности" id="q25_check"></td>
+            </tr><tr>
+                <td name="character26">Способность организовывать свою деятельность в условиях большого потока информации и разнообразия поставленных задач</td>
+                <td><input type="checkbox" name="question26" value="Способность организовывать свою деятельность в условиях большого потока информации и разнообразия поставленных задач" id="q26_check"></td>
+            </tr><tr>
+                <td name="character27">Способность брать на себя ответственность за принимаемые решения и действия</td>
+                <td><input type="checkbox" name="question27" value="Способность брать на себя ответственность за принимаемые решения и действия" id="q27_check"></td>
+            </tr><tr>
+                <td name="character28">Способность принимать решение в нестандартных ситуациях</td>
+                <td><input type="checkbox" name="question28" value="Способность принимать решение в нестандартных ситуациях" id="q28_check"></td>
+            </tr><tr>
+                <td name="character29">Способность рационально действовать в экстремальных ситуациях</td>
+                <td><input type="checkbox" name="question29" value="Способность рационально действовать в экстремальных ситуациях" id="q29_check"></td>
+            </tr><tr>
+                <td name="character30">Способность эффективно действовать и принимать решения в условиях дефицита времени  </td>
+                <td><input type="checkbox" name="question30" value="Способность эффективно действовать и принимать решения в условиях дефицита времени  " id="q30_check"></td>
+            </tr><tr>
+                <td name="character31">Способность переносить неприятные ощущения</td>
+                <td><input type="checkbox" name="question31" value="Способность переносить неприятные ощущения" id="q31_check"></td>
+            </tr><tr>
+                <td name="character32">Способность аргументировано отстаивать свое мнение</td>
+                <td><input type="checkbox" name="question32" value="Способность аргументировано отстаивать свое мнение" id="q32_check"></td>
+            </tr><tr>
+                <td name="character33">Способность к переключениям с одной деятельности на другую</td>
+                <td><input type="checkbox" name="question33" value="Способность к переключениям с одной деятельности на другую" id="q33_check"></td>
+            </tr><tr>
+                <td name="character34">Способность преодолевать страх</td>
+                <td><input type="checkbox" name="question34" value="Способность преодолевать страх" id="q34_check"></td>
+            </tr><tr>
+                <td name="character35">Сильная воля</td>
+                <td><input type="checkbox" name="question35" value="Сильная воля" id="q35_check"></td>
+            </tr><tr>
+                <td name="character36">Порядочность</td>
+                <td><input type="checkbox" name="question36" value="Порядочность" id="q36_check"></td>
+            </tr><tr>
+                <td name="character37">Честность</td>
+                <td><input type="checkbox" name="question37" value="Честность" id="q37_check"></td>
+            </tr><tr>
+                <td name="character38">Решительность</td>
+                <td><input type="checkbox" name="question38" value="Решительность" id="q38_check"></td>
+            </tr><tr>
+                <td name="character39">Смелость</td>
+                <td><input type="checkbox" name="question39" value="Смелость" id="q39_check"></td>
+            </tr><tr>
+                <td name="character40">Способность к зрительным представлениям</td>
+                <td><input type="checkbox" name="question40" value="Способность к зрительным представлениям" id="q40_check"></td>
+            </tr><tr>
+                <td name="character41">Способность к пространственному воображению</td>
+                <td><input type="checkbox" name="question41" value="Способность к пространственному воображению" id="q41_check"></td>
+            </tr><tr>
+                <td name="character42">Способность наглядно представлять себе новое явление, ранее, не встречающееся в опыте, или старое, но в новых условиях</td>
+                <td><input type="checkbox" name="question42" value="Способность наглядно представлять себе новое явление, ранее, не встречающееся в опыте, или старое, но в новых условиях" id="q42_check"></td>
+            </tr><tr>
+                <td name="character43">Способность к переводу образа в словесное описание</td>
+                <td><input type="checkbox" name="question43" value="Способность к переводу образа в словесное описание" id="q43_check"></td>
+            </tr><tr>
+                <td name="character44">Способность к воссозданию образа по словесному описанию</td>
+                <td><input type="checkbox" name="question44" value="Способность к воссозданию образа по словесному описанию" id="q44_check"></td>
+            </tr><tr>
+                <td name="character45">Аналитичность  мышления</td>
+                <td><input type="checkbox" name="question45" value="Аналитичность  мышления" id="q45_check"></td>
+            </tr><tr>
+                <td name="character46">Синтетичность мышления</td>
+                <td><input type="checkbox" name="question46" value="Синтетичность мышления" id="q46_check"></td>
+            </tr><tr>
+                <td name="character47">Транссонантность мышления</td>
+                <td><input type="checkbox" name="question47" value="Транссонантность мышления" id="q47_check"></td>
+            </tr><tr>
+                <td name="character48">Логичность мышления</td>
+                <td><input type="checkbox" name="question48" value="Логичность мышления" id="q48_check"></td>
+            </tr><tr>
+                <td name="character49">Креативность мышления</td>
+                <td><input type="checkbox" name="question49" value="Креативность мышления" id="q49_check"></td>
+            </tr><tr>
+                <td name="character50">Оперативность мышления</td>
+                <td><input type="checkbox" name="question50" value="Оперативность мышления" id="q50_check"></td>
+            </tr><tr>
+                <td name="character51">Предметность мышления</td>
+                <td><input type="checkbox" name="question51" value="Предметность мышления" id="q51_check"></td>
+            </tr><tr>
+                <td name="character52">Образность мышления</td>
+                <td><input type="checkbox" name="question52" value="Образность мышления" id="q52_check"></td>
+            </tr><tr>
+                <td name="character53">Абстрактность мышления</td>
+                <td><input type="checkbox" name="question53" value="Абстрактность мышления" id="q53_check"></td>
+            </tr><tr>
+                <td name="character54">Вербальность мышления</td>
+                <td><input type="checkbox" name="question54" value="Вербальность мышления" id="q54_check"></td>
+            </tr><tr>
+                <td name="character55">Калькулятивность мышления</td>
+                <td><input type="checkbox" name="question55" value="Калькулятивность мышления" id="q55_check"></td>
+            </tr><tr>
+                <td name="character56">Зрительная оценка размеров предметов.</td>
+                <td><input type="checkbox" name="question56" value="Зрительная оценка размеров предметов." id="q56_check"></td>
+            </tr><tr>
+                <td name="character57">Зрительное восприятие расстояний между предметами</td>
+                <td><input type="checkbox" name="question57" value="Зрительное восприятие расстояний между предметами" id="q57_check"></td>
+            </tr><tr>
+                <td name="character58">Глазомер: линейный, угловой, объемный</td>
+                <td><input type="checkbox" name="question58" value="Глазомер: линейный, угловой, объемный" id="q58_check"></td>
+            </tr><tr>
+                <td name="character59">Глазомер динамический (способность оценивать направление и скорость</td>
+                <td><input type="checkbox" name="question59" value="Глазомер динамический (способность оценивать направление и скорость" id="q59_check"></td>
+            </tr><tr>
+                <td name="character60">движения предмета)</td>
+                <td><input type="checkbox" name="question60" value="движения предмета)" id="q60_check"></td>
+            </tr><tr>
+                <td name="character61">Способность к различению фигуры (предмета, отметки, сигнала и пр.) на малоконтрастном фоне</td>
+                <td><input type="checkbox" name="question61" value="Способность к различению фигуры (предмета, отметки, сигнала и пр.) на малоконтрастном фоне" id="q61_check"></td>
+            </tr><tr>
+                <td name="character62">Способность различать и опознавать замаскированные объекты.</td>
+                <td><input type="checkbox" name="question62" value="Способность различать и опознавать замаскированные объекты." id="q62_check"></td>
+            </tr><tr>
+                <td name="character63">Способность к восприятию пространственного соотношения предметов.</td>
+                <td><input type="checkbox" name="question63" value="Способность к восприятию пространственного соотношения предметов." id="q63_check"></td>
+            </tr><tr>
+                <td name="character64">Точность и оценка направления на источник звука.</td>
+                <td><input type="checkbox" name="question64" value="Точность и оценка направления на источник звука." id="q64_check"></td>
+            </tr><tr>
+                <td name="character65">Способность узнавать и различать ритмы</td>
+                <td><input type="checkbox" name="question65" value="Способность узнавать и различать ритмы" id="q65_check"></td>
+            </tr><tr>
+                <td name="character66">Способность восприятия устной речи</td>
+                <td><input type="checkbox" name="question66" value="Способность восприятия устной речи" id="q66_check"></td>
+            </tr><tr>
+                <td name="character67">Различение отрезков времени</td>
+                <td><input type="checkbox" name="question67" value="Различение отрезков времени" id="q67_check"></td>
+            </tr><tr>
+                <td name="character68">Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по визуальным признакам</td>
+                <td><input type="checkbox" name="question68" value="Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по визуальным признакам" id="q68_check"></td>
+            </tr><tr>
+                <td name="character69">Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по акустическим признакам</td>
+                <td><input type="checkbox" name="question69" value="Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по акустическим признакам" id="q69_check"></td>
+            </tr><tr>
+                <td name="character70">Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по кинестетическим признакам</td>
+                <td><input type="checkbox" name="question70" value="Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по кинестетическим признакам" id="q70_check"></td>
+            </tr><tr>
+                <td name="character71">Зрительная долговременная память на лица</td>
+                <td><input type="checkbox" name="question71" value="Зрительная долговременная память на лица" id="q71_check"></td>
+            </tr><tr>
+                <td name="character72">Зрительная долговременная память на образы предметного мира</td>
+                <td><input type="checkbox" name="question72" value="Зрительная долговременная память на образы предметного мира" id="q72_check"></td>
+            </tr><tr>
+                <td name="character73">Зрительная долговременная память на условные обозначения</td>
+                <td><input type="checkbox" name="question73" value="Зрительная долговременная память на условные обозначения" id="q73_check"></td>
+            </tr><tr>
+                <td name="character74">Зрительная долговременная память на цифры и даты</td>
+                <td><input type="checkbox" name="question74" value="Зрительная долговременная память на цифры и даты" id="q74_check"></td>
+            </tr><tr>
+                <td name="character75">Зрительная долговременная память на слова и фразы</td>
+                <td><input type="checkbox" name="question75" value="Зрительная долговременная память на слова и фразы" id="q75_check"></td>
+            </tr><tr>
+                <td name="character76">Зрительная долговременная память на семантику текста</td>
+                <td><input type="checkbox" name="question76" value="Зрительная долговременная память на семантику текста" id="q76_check"></td>
+            </tr><tr>
+                <td name="character77">Зрительная оперативная память на лица</td>
+                <td><input type="checkbox" name="question77" value="Зрительная оперативная память на лица" id="q77_check"></td>
+            </tr><tr>
+                <td name="character78">Зрительная оперативная память на образы предметного мира</td>
+                <td><input type="checkbox" name="question78" value="Зрительная оперативная память на образы предметного мира" id="q78_check"></td>
+            </tr><tr>
+                <td name="character79">Зрительная оперативная память на условные обозначения</td>
+                <td><input type="checkbox" name="question79" value="Зрительная оперативная память на условные обозначения" id="q79_check"></td>
+            </tr><tr>
+                <td name="character80">Зрительная оперативная память на цифры и даты</td>
+                <td><input type="checkbox" name="question80" value="Зрительная оперативная память на цифры и даты" id="q80_check"></td>
+            </tr><tr>
+                <td name="character81">Зрительная оперативная память на слова и фразы</td>
+                <td><input type="checkbox" name="question81" value="Зрительная оперативная память на слова и фразы" id="q81_check"></td>
+            </tr><tr>
+                <td name="character82">Зрительная оперативная память на семантику текста</td>
+                <td><input type="checkbox" name="question82" value="Зрительная оперативная память на семантику текста" id="q82_check"></td>
+            </tr><tr>
+                <td name="character83">Слуховая долговременная память на лица</td>
+                <td><input type="checkbox" name="question83" value="Слуховая долговременная память на лица" id="q83_check"></td>
+            </tr><tr>
+                <td name="character84">Слуховая долговременная память на образы предметного мира</td>
+                <td><input type="checkbox" name="question84" value="Слуховая долговременная память на образы предметного мира" id="q84_check"></td>
+            </tr><tr>
+                <td name="character85">Слуховая долговременная память на условные обозначения</td>
+                <td><input type="checkbox" name="question85" value="Слуховая долговременная память на условные обозначения" id="q85_check"></td>
+            </tr><tr>
+                <td name="character86">Слуховая долговременная память на цифры и даты</td>
+                <td><input type="checkbox" name="question86" value="Слуховая долговременная память на цифры и даты" id="q86_check"></td>
+            </tr><tr>
+                <td name="character87">Слуховая долговременная память на слова и фразы</td>
+                <td><input type="checkbox" name="question87" value="Слуховая долговременная память на слова и фразы" id="q87_check"></td>
+            </tr><tr>
+                <td name="character88">Слуховая долговременная память на семантику текста</td>
+                <td><input type="checkbox" name="question88" value="Слуховая долговременная память на семантику текста" id="q88_check"></td>
+            </tr><tr>
+                <td name="character89">Слуховая оперативная память на цифры и даты</td>
+                <td><input type="checkbox" name="question89" value="Слуховая оперативная память на цифры и даты" id="q89_check"></td>
+            </tr><tr>
+                <td name="character90">Слуховая оперативная память на семантику текста</td>
+                <td><input type="checkbox" name="question90" value="Слуховая оперативная память на семантику текста" id="q90_check"></td>
+            </tr><tr>
+                <td name="character91">Моторная память на простые движения</td>
+                <td><input type="checkbox" name="question91" value="Моторная память на простые движения" id="q91_check"></td>
+            </tr><tr>
+                <td name="character92">Моторная память на сложные движения</td>
+                <td><input type="checkbox" name="question92" value="Моторная память на сложные движения" id="q92_check"></td>
+            </tr><tr>
+                <td name="character93">Моторная память на положение и перемещение тела в пространстве</td>
+                <td><input type="checkbox" name="question93" value="Моторная память на положение и перемещение тела в пространстве" id="q93_check"></td>
+            </tr><tr>
+                <td name="character94">Тактильная память</td>
+                <td><input type="checkbox" name="question94" value="Тактильная память" id="q94_check"></td>
+            </tr><tr>
+                <td name="character95">Обонятельная память</td>
+                <td><input type="checkbox" name="question95" value="Обонятельная память" id="q95_check"></td>
+            </tr><tr>
+                <td name="character96">Вкусовая память</td>
+                <td><input type="checkbox" name="question96" value="Вкусовая память" id="q96_check"></td>
+            </tr><tr>
+                <td name="character97">Энергичность, витальность (активность)</td>
+                <td><input type="checkbox" name="question97" value="Энергичность, витальность (активность)" id="q97_check"></td>
+            </tr><tr>
+                <td name="character98">Умственная работоспособность</td>
+                <td><input type="checkbox" name="question98" value="Умственная работоспособность" id="q98_check"></td>
+            </tr><tr>
+                <td name="character99">Физическая работоспособность (выносливость)</td>
+                <td><input type="checkbox" name="question99" value="Физическая работоспособность (выносливость)" id="q99_check"></td>
+            </tr><tr>
+                <td name="character100">Нервноэмоциональная устойчивость</td>
+                <td><input type="checkbox" name="question100" value="Нервноэмоциональная устойчивость" id="q100_check"></td>
+            </tr><tr>
+                <td name="character101">Острота зрения</td>
+                <td><input type="checkbox" name="question101" value="Острота зрения" id="q101_check"></td>
+            </tr><tr>
+                <td name="character102">Адаптация зрения к темноте, свету</td>
+                <td><input type="checkbox" name="question102" value="Адаптация зрения к темноте, свету" id="q102_check"></td>
+            </tr><tr>
+                <td name="character103">Контрастная чувствительность монохроматического зрения</td>
+                <td><input type="checkbox" name="question103" value="Контрастная чувствительность монохроматического зрения" id="q103_check"></td>
+            </tr><tr>
+                <td name="character104">Цветовая дифференциальная чувствительность</td>
+                <td><input type="checkbox" name="question104" value="Цветовая дифференциальная чувствительность" id="q104_check"></td>
+            </tr><tr>
+                <td name="character105">Устойчивость зрительной чувствительности во времени</td>
+                <td><input type="checkbox" name="question105" value="Устойчивость зрительной чувствительности во времени" id="q105_check"></td>
+            </tr><tr>
+                <td name="character106">Острота слуха</td>
+                <td><input type="checkbox" name="question106" value="Острота слуха" id="q106_check"></td>
+            </tr><tr>
+                <td name="character107">Контрастная чувствительность слуха</td>
+                <td><input type="checkbox" name="question107" value="Контрастная чувствительность слуха" id="q107_check"></td>
+            </tr><tr>
+                <td name="character108">Слуховая дифференциальная чувствительность (способность различать: тембр, длительность, высоту, силу звука, ритм, фоновые или разнообразные шумы)</td>
+                <td><input type="checkbox" name="question108" value="Слуховая дифференциальная чувствительность (способность различать: тембр, длительность, высоту, силу звука, ритм, фоновые или разнообразные шумы)" id="q108_check"></td>
+            </tr><tr>
+                <td name="character109">Переносимость длительно действующего звукового раздражителя</td>
+                <td><input type="checkbox" name="question109" value="Переносимость длительно действующего звукового раздражителя" id="q109_check"></td>
+            </tr><tr>
+                <td name="character110">Чувствительность (осязание) пальцев</td>
+                <td><input type="checkbox" name="question110" value="Чувствительность (осязание) пальцев" id="q110_check"></td>
+            </tr><tr>
+                <td name="character111">Вибрационная чувствительность</td>
+                <td><input type="checkbox" name="question111" value="Вибрационная чувствительность" id="q111_check"></td>
+            </tr><tr>
+                <td name="character112">Мышечносуставная чувствительность усилий или сопротивления</td>
+                <td><input type="checkbox" name="question112" value="Мышечносуставная чувствительность усилий или сопротивления" id="q112_check"></td>
+            </tr><tr>
+                <td name="character113">Ощущение равновесия</td>
+                <td><input type="checkbox" name="question113" value="Ощущение равновесия" id="q113_check"></td>
+            </tr><tr>
+                <td name="character114">Ощущение ускорения</td>
+                <td><input type="checkbox" name="question114" value="Ощущение ускорения" id="q114_check"></td>
+            </tr><tr>
+                <td name="character115">Обонятельная чувствительность</td>
+                <td><input type="checkbox" name="question115" value="Обонятельная чувствительность" id="q115_check"></td>
+            </tr><tr>
+                <td name="character116">Способность узнавать и различать вкусовые ощущения</td>
+                <td><input type="checkbox" name="question116" value="Способность узнавать и различать вкусовые ощущения" id="q116_check"></td>
+            </tr><tr>
+                <td name="character117">Объем внимания</td>
+                <td><input type="checkbox" name="question117" value="Объем внимания" id="q117_check"></td>
+            </tr><tr>
+                <td name="character118">Концентрированность внимания</td>
+                <td><input type="checkbox" name="question118" value="Концентрированность внимания" id="q118_check"></td>
+            </tr><tr>
+                <td name="character119">Устойчивость внимания во времени</td>
+                <td><input type="checkbox" name="question119" value="Устойчивость внимания во времени" id="q119_check"></td>
+            </tr><tr>
+                <td name="character120">Переключаемость внимания</td>
+                <td><input type="checkbox" name="question120" value="Переключаемость внимания" id="q120_check"></td>
+            </tr><tr>
+                <td name="character121">Способность к распределению внимания между несколькими объектами или видами деятельности</td>
+                <td><input type="checkbox" name="question121" value="Способность к распределению внимания между несколькими объектами или видами деятельности" id="q121_check"></td>
+            </tr><tr>
+                <td name="character122">Помехоустойчивость внимания</td>
+                <td><input type="checkbox" name="question122" value="Помехоустойчивость внимания" id="q122_check"></td>
+            </tr><tr>
+                <td name="character123">Способность подмечать изменения в окружающей обстановке, не сосредотачивая сознательно на них внимание</td>
+                <td><input type="checkbox" name="question123" value="Способность подмечать изменения в окружающей обстановке, не сосредотачивая сознательно на них внимание" id="q123_check"></td>
+            </tr><tr>
+                <td name="character124">Умение подмечать незначительные (малозаметные) изменения в исследуемом объекте, в показаниях приборов</td>
+                <td><input type="checkbox" name="question124" value="Умение подмечать незначительные (малозаметные) изменения в исследуемом объекте, в показаниях приборов" id="q124_check"></td>
+            </tr><tr>
+                <td name="character125">Способность реагировать на неожиданный зрительный сигнал посредством определённых движений</td>
+                <td><input type="checkbox" name="question125" value="Способность реагировать на неожиданный зрительный сигнал посредством определённых движений" id="q125_check"></td>
+            </tr><tr>
+                <td name="character126">Способность реагировать на неожиданный слуховой сигнал посредством определённых движений</td>
+                <td><input type="checkbox" name="question126" value="Способность реагировать на неожиданный слуховой сигнал посредством определённых движений" id="q126_check"></td>
+            </tr><tr>
+                <td name="character127">Согласованность движений с процессами восприятия </td>
+                <td><input type="checkbox" name="question127" value="Согласованность движений с процессами восприятия " id="q127_check"></td>
+            </tr><tr>
+                <td name="character128">Способность к сенсомоторному слежению за движущимся объектом</td>
+                <td><input type="checkbox" name="question128" value="Способность к сенсомоторному слежению за движущимся объектом" id="q128_check"></td>
+            </tr><tr>
+                <td name="character129">Способность к выполнению мелких точных движений</td>
+                <td><input type="checkbox" name="question129" value="Способность к выполнению мелких точных движений" id="q129_check"></td>
+            </tr><tr>
+                <td name="character130">Способность к выполнению сложных двигательных действий</td>
+                <td><input type="checkbox" name="question130" value="Способность к выполнению сложных двигательных действий" id="q130_check"></td>
+            </tr><tr>
+                <td name="character131">Способность к выполнению плавных соразмерных движений</td>
+                <td><input type="checkbox" name="question131" value="Способность к выполнению плавных соразмерных движений" id="q131_check"></td>
+            </tr><tr>
+                <td name="character132">Координация движений ведущей руки</td>
+                <td><input type="checkbox" name="question132" value="Координация движений ведущей руки" id="q132_check"></td>
+            </tr><tr>
+                <td name="character133">Координация движений обеих рук</td>
+                <td><input type="checkbox" name="question133" value="Координация движений обеих рук" id="q133_check"></td>
+            </tr><tr>
+                <td name="character134">Координация движений рук и ног</td>
+                <td><input type="checkbox" name="question134" value="Координация движений рук и ног" id="q134_check"></td>
+            </tr><tr>
+                <td name="character135">Координация работы кистей рук и пальцев</td>
+                <td><input type="checkbox" name="question135" value="Координация работы кистей рук и пальцев" id="q135_check"></td>
+            </tr><tr>
+                <td name="character136">Твердость руки, устойчивость кистей рук</td>
+                <td><input type="checkbox" name="question136" value="Твердость руки, устойчивость кистей рук" id="q136_check"></td>
+            </tr><tr>
+                <td name="character137">Умение быстро записывать</td>
+                <td><input type="checkbox" name="question137" value="Умение быстро записывать" id="q137_check"></td>
+            </tr><tr>
+                <td name="character138">Красивый почерк</td>
+                <td><input type="checkbox" name="question138" value="Красивый почерк" id="q138_check"></td>
+            </tr><tr>
+                <td name="character139">Физическая сила.</td>
+                <td><input type="checkbox" name="question139" value="Физическая сила." id="q139_check"></td>
+            </tr><tr>
+                <td name="character140">Способность к быстрой выработке сенсомоторных навыков</td>
+                <td><input type="checkbox" name="question140" value="Способность к быстрой выработке сенсомоторных навыков" id="q140_check"></td>
+            </tr><tr>
+                <td name="character141">Способность к быстрой перестройке сенсомоторных навыков</td>
+                <td><input type="checkbox" name="question141" value="Способность к быстрой перестройке сенсомоторных навыков" id="q141_check"></td>
+            </tr><tr>
+                <td name="character142">Пластичность и выразительность движений</td>
+                <td><input type="checkbox" name="question142" value="Пластичность и выразительность движений" id="q142_check"></td>
+            </tr><tr>
+                <td name="character143">Отсутствие дефектов речи, хорошая дикция</td>
+                <td><input type="checkbox" name="question143" value="Отсутствие дефектов речи, хорошая дикция" id="q143_check"></td>
+            </tr><tr>
+                <td name="character144">Способность речевого аппарата к интенсивной и длительной работе.</td>
+                <td><input type="checkbox" name="question144" value="Способность речевого аппарата к интенсивной и длительной работе." id="q144_check"></td>
+            </tr><tr>
+                <td name="character145">Способность к изменению тембра.</td>
+                <td><input type="checkbox" name="question145" value="Способность к изменению тембра." id="q145_check"></td>
+            </tr><tr>
+                <td name="character146"> Способность к изменению силы звучания</td>
+                <td><input type="checkbox" name="question146" value=" Способность к изменению силы звучания" id="q146_check"></td>
+            </tr><tr>
+                <td name="character147"> Переносимость динамических физических нагрузок</td>
+                <td><input type="checkbox" name="question147" value=" Переносимость динамических физических нагрузок" id="q147_check"></td>
+            </tr><tr>
+                <td name="character148">Переносимость статических физических нагрузок</td>
+                <td><input type="checkbox" name="question148" value="Переносимость статических физических нагрузок" id="q148_check"></td>
+            </tr><tr>
+                <td name="character149">Быстрый переход из состояния покоя к интенсивной работе</td>
+                <td><input type="checkbox" name="question149" value="Быстрый переход из состояния покоя к интенсивной работе" id="q149_check"></td>
+            </tr><tr>
+                <td name="character150">Сохранение работоспособности при недостатке сна</td>
+                <td><input type="checkbox" name="question150" value="Сохранение работоспособности при недостатке сна" id="q150_check"></td>
+            </tr><tr>
+                <td name="character151">Сохранение работоспособности при развивающемся утомлении</td>
+                <td><input type="checkbox" name="question151" value="Сохранение работоспособности при развивающемся утомлении" id="q151_check"></td>
+            </tr><tr>
+                <td name="character152">Сохранение бдительности в условиях монотонии</td>
+                <td><input type="checkbox" name="question152" value="Сохранение бдительности в условиях монотонии" id="q152_check"></td>
+            </tr><tr>
+                <td name="character153">Сохранение бдительности в режиме ожидания</td>
+                <td><input type="checkbox" name="question153" value="Сохранение бдительности в режиме ожидания" id="q153_check"></td>
+            </tr><tr>
+                <td name="character154">Сохранение работоспособности в некомфортных температурных условиях</td>
+                <td><input type="checkbox" name="question154" value="Сохранение работоспособности в некомфортных температурных условиях" id="q154_check"></td>
+            </tr><tr>
+                <td name="character155">Сохранение работоспособности в условиях знакопеременных перегрузок</td>
+                <td><input type="checkbox" name="question155" value="Сохранение работоспособности в условиях знакопеременных перегрузок" id="q155_check"></td>
+            </tr><tr>
+                <td name="character156">Сохранение работоспособности в условиях воздействия вибрации</td>
+                <td><input type="checkbox" name="question156" value="Сохранение работоспособности в условиях воздействия вибрации" id="q156_check"></td>
+            </tr><tr>
+                <td name="character157">Сохранение работоспособности в условиях воздействия разнонаправленных перегрузок</td>
+                <td><input type="checkbox" name="question157" value="Сохранение работоспособности в условиях воздействия разнонаправленных перегрузок" id="q157_check"></td>
+            </tr><tr>
+                <td name="character158">Сохранение работоспособности в условиях гипо(гипер) барометрических колебаний</td>
+                <td><input type="checkbox" name="question158" value="Сохранение работоспособности в условиях гипо(гипер) барометрических колебаний" id="q158_check"></td>
+            </tr><tr>
+                <td name="character159">Сохранение работоспособности в условиях пониженного парциального давления кислорода</td>
+                <td><input type="checkbox" name="question159" value="Сохранение работоспособности в условиях пониженного парциального давления кислорода" id="q159_check"></td>
+            </tr><tr>
+                <td name="character160">Сохранение работоспособности в условиях пониженного парциального давления углекислого газа</td>
+                <td><input type="checkbox" name="question160" value="Сохранение работоспособности в условиях пониженного парциального давления углекислого газа" id="q160_check"></td>
+            </tr><tr>
+                <td name="character161">Сохранение работоспособности в условиях ограничения возможностей удовлетворения базовых жизненных потребностей (голод, жажда, отдых, сексуальная потребность)</td>
+                <td><input type="checkbox" name="question161" value="Сохранение работоспособности в условиях ограничения возможностей удовлетворения базовых жизненных потребностей (голод, жажда, отдых, сексуальная потребность)" id="q161_check"></td>
+            </tr><tr>
+                <td name="character162">Сохранение работоспособности в разных природноклиматических условиях</td>
+                <td><input type="checkbox" name="question162" value="Сохранение работоспособности в разных природноклиматических условиях" id="q162_check"></td>
+            </tr><tr>
+                <td name="character163">Способность переадаптироваться к новым средовым условиям  </td>
+                <td><input type="checkbox" name="question163" value="Способность переадаптироваться к новым средовым условиям  " id="q163_check"></td>
+            </tr><tr>
+                <td name="character164">Антропометрические характеристики</td>
+                <td><input type="checkbox" name="question164" value="Антропометрические характеристики" id="q164_check"></td>
+            </tr><tr>
+                <td name="character165">Особенности телосложения</td>
+                <td><input type="checkbox" name="question165" value="Особенности телосложения" id="q165_check"></td>
+            </tr><tr>
+                <td name="character166">Хорошее общее физическое развитие</td>
+                <td><input type="checkbox" name="question166" value="Хорошее общее физическое развитие" id="q166_check"></td>
+            </tr><tr>
+                <td name="character167">Физическая подготовленность к воздействию неблагоприятных факторов профессиональной деятельности</td>
+                <td><input type="checkbox" name="question167" value="Физическая подготовленность к воздействию неблагоприятных факторов профессиональной деятельности" id="q167_check"></td>
+            </tr><tr>
+                <td name="character168"></td>
+                <td><input type="checkbox" name="question168" value="" id="q168_check"></td>
+            </tr></tbody>
+        </table>
+
+        <button class="next-btn" type="submit">Submit</button>
+    </form>
+
+</section>
+<script>
+    const radios = document.querySelectorAll('input[type="checkbox"]');
+
+    // Add click event listener to each radio input
+    radios.forEach((radio) => {
+        radio.addEventListener('click', (event) => {
+            // Get count of checked radios
+            const countChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            // If count is >= 10, disable unchecked radios
+            if (countChecked >= 10) {
+                radios.forEach((radio) => {
+                    if (!radio.checked) {
+                        radio.disabled = true;
+                    }
+                });
+            } else {
+                // Enable all radios
+                radios.forEach((radio) => {
+                    radio.disabled = false;
+                });
+            }
+        });
+    });
+</script>
+</body>

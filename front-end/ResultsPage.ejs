@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Polls results</title>
+    <link rel="stylesheet" href="ResultPageStyle.css">
+
+</head>
+<body>
+<table>
+    <thead><caption>POLLS RESULT</caption>
+    <tr>
+        <th>Poll ID</th>
+        <th>User ID</th>
+        <th>Profession</th>
+        <th>Points</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% polls.forEach(poll => { %>
+        <tr>
+            <td><%= poll.id %></td>
+            <td><%= poll.user %></td>
+            <td><%= poll.profession %></td>
+            <td><%= poll.points %></td>
+        </tr>
+    <% }); %>
+    </tbody>
+</table>
+</body>
+</html>
