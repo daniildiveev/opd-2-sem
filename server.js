@@ -122,7 +122,7 @@ server.get('/polls_results', async (req, res) => {
         }
 })
 
-server.get('/poll', (req, res) => {
+server.get('/poll_1_part_1', (req, res) => {
     if(!req.isAuthenticated()){
         res.redirect('/login')
         return
@@ -135,10 +135,29 @@ server.get('/poll', (req, res) => {
     }
 
     else{
-        res.render('1stTest');
+        res.render('1stTest1stPart');
     }
 })
 
+server.get('/poll_1_part_2', (req, res) => {
+    if (!req.flash("passed_1_part")[0]){
+        res.redirect('/')
+    }
+    else {
+        const data = JSON.parse(decodeURIComponent(req.query.data));
+        console.log(data)
+        const profession = data.profession
+        let characteristics = []
+
+        for (let i = 0; i<169; i++){
+            if(data["question" + i]){
+                characteristics.push({id: i, name:data["question" + i]})
+            }
+        }
+
+        res.render('1stTest2ndPart', {profession, characteristics})
+    }
+})
 
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
@@ -190,42 +209,46 @@ server.post('/admin/register', async (req, res, next) => {
     }
 });
 
-server.post('/poll', async (req, res) => {
+server.post("/poll_1_part_2", async (req, res) => {
     if(!req.isAuthenticated()){
         res.redirect("/login")
         return;
     }
 
     else{
-        console.log(req.body)
-        const user = req.user.id
-        const profession = req.body.profession
-
-        let checked = "";
-
-        for(let i=1; i<169; i++){
-            if (req.body["question"+i] === "a"){
-                checked += "1"
-            }
-
-            else{
-                checked += "0"
-            }
-        }
-
-        const points = checked;
-
-        console.log(user, profession)
-        try {
-            const poll = await Poll.create({user, profession,  points})
-            return res.redirect('/polls_results')
-        }
-        catch (err){
-            console.log(err)
-        }
+        const data = req.body
+        req.flash("passed_1_part", true)
+        res.redirect(`/poll_1_part_2?data=${encodeURIComponent(JSON.stringify(data))}`)
     }
 })
 
+server.post("/1st_test", async (req, res) => {
+    console.log(req.body)
+    let results = ""
+
+    for (let i = 0; i < 169; i++) {
+        if (req.body["value" + i]){
+            results += req.body["value" + i]
+        }
+        else{
+            results += "0"
+        }
+    }
+
+    const profession = decodeURIComponent(req.query.profession)
+    const points = results
+    const user = req.user.id
+
+    try {
+        const poll = await Poll.create({user, profession,  points})
+        return res.redirect('/polls_results')
+    }
+    catch (err){
+        console.log(err)
+    }
+
+    res.redirect("/")
+})
 
 sequelize.sync().then(() => {
     server.listen(3000, () => {
