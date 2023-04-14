@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const UserModel = require('./user');
 const PollModel = require('./poll');
+const ReactionTestModel = require('./reactionTest')
 
 const sequelize = new Sequelize('opd_2_sem', 'postgres', 'N29EXFdw', {
     dialect: 'postgres',
@@ -9,9 +10,11 @@ const sequelize = new Sequelize('opd_2_sem', 'postgres', 'N29EXFdw', {
 
 const User = UserModel(sequelize);
 const Poll = PollModel(sequelize);
+const ReactionTest = ReactionTestModel(sequelize);
 
 module.exports = {
     sequelize,
     User,
-    Poll
+    Poll,
+    ReactionTest
 };
