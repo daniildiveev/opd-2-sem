@@ -10,7 +10,7 @@ const server = express();
 
 server.use(express.json());
 server.use(express.static('front-end'));
-server.use(express.static('js-scripts'))
+server.use(express.static('resources'));
 server.use(express.urlencoded({ extended: true }));
 server.use(session({ secret: 'my_secret', resave: false, saveUninitialized: false }));
 server.use(flash())
@@ -168,6 +168,15 @@ server.get('/light_test', (req, res) => {
         res.render('LightReactionTest')
     }
 })
+
+server.get('/sound_test', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('SoundReactionTest')
+    }
+})
+
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
