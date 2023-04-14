@@ -4,12 +4,13 @@ const passport = require('passport');
 const flash = require('connect-flash')
 const path = require('path')
 const LocalStrategy = require('passport-local').Strategy;
-const { sequelize, User, Poll } = require('./models/index');
+const {sequelize, User, Poll, ReactionTest} = require('./models/index');
 
 const server = express();
 
 server.use(express.json());
 server.use(express.static('front-end'));
+server.use(express.static('js-scripts'))
 server.use(express.urlencoded({ extended: true }));
 server.use(session({ secret: 'my_secret', resave: false, saveUninitialized: false }));
 server.use(flash())
@@ -114,7 +115,7 @@ server.get('/characteristics', (req, res) => {
 server.get('/polls_results', async (req, res) => {
         try {
             const polls = await Poll.findAll();
-            console.log(polls)
+
             res.render('ResultsPage', { polls });
         } catch (error) {
             console.error(error);
@@ -145,7 +146,7 @@ server.get('/poll_1_part_2', (req, res) => {
     }
     else {
         const data = JSON.parse(decodeURIComponent(req.query.data));
-        console.log(data)
+
         const profession = data.profession
         let characteristics = []
 
@@ -159,6 +160,14 @@ server.get('/poll_1_part_2', (req, res) => {
     }
 })
 
+
+server.get('/light_test', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('LightReactionTest')
+    }
+})
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
@@ -223,7 +232,6 @@ server.post("/poll_1_part_2", async (req, res) => {
 })
 
 server.post("/1st_test", async (req, res) => {
-    console.log(req.body)
     let results = ""
 
     for (let i = 0; i < 169; i++) {
@@ -248,6 +256,19 @@ server.post("/1st_test", async (req, res) => {
     }
 
     res.redirect("/")
+})
+
+server.post('/reaction_test', async (req, res) => {
+    const user = req.user.id
+    const type = req.body.testType
+    const reactionTime = req.body.reactionTime
+
+    try {
+        const reactionTest = await ReactionTest.create({user, type, reactionTime})
+        return res.redirect('/polls_results')
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 sequelize.sync().then(() => {
