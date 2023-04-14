@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+</body>
+<script>
+let bodyElement = document.getElementsByTagName("body")[0];
+let startTime, testStarted = false, testPassed = false;
+let testResults = []
+
+const audio = new Audio("../resources/voice_sans.mp3")
+
+async function sendData(){
+    if(testPassed){
+        const data = {
+            testType : "sound",
+            reactionTime: testResults.at(-1)
+        }
+
+        console.log(JSON.stringify(data))
+
+        await fetch('/reaction_test', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' },
+            redirect: 'follow'
+        }).then(data => {
+            console.log(data);
+            // Redirect to another URL
+            window.location.href = '/polls_results';
+        })
+            .catch(error => console.error(error));
+
+    }
+}
+
+// задаем функцию, которая будет вызываться при нажатии на клавишу пробел
+function handleKeyPress(event) {
+    // проверяем, что нажата именно клавиша пробел
+    if (event.keyCode === 32) {
+        if (testStarted){
+            let endTime = new Date().getTime(); // сохраняем время завершения изменения цвета фона
+            let reactionTime = endTime - startTime; // вычисляем время реакции пользователя
+            testResults.push(reactionTime)
+            alert("Ваше время реакции на звук: " + reactionTime + " мс"); // выводим результат пользователю
+            testStarted = false;
+
+            if (!testPassed){
+                const submitButton = document.createElement("button")
+                submitButton.innerHTML = "Отправить результат"
+                submitButton.onclick = sendData
+                bodyElement.appendChild(submitButton)
+            }
+
+            testPassed = true
+        }
+    }
+}
+
+// добавляем обработчик события нажатия на клавишу
+document.addEventListener("keydown", handleKeyPress);
+
+function startTest() {
+    setTimeout(() => {
+                audio.play()
+                startTime = new Date().getTime();
+                testStarted = true;
+                bodyElement.focus();
+            },
+            Math.random() * 5000 )
+}
+const startButton = document.createElement("button");
+startButton.innerHTML = "Начать тест";
+startButton.onclick = startTest;
+bodyElement.appendChild(startButton);
+
+alert("Нажмите на клавишу пробел, когда услышите звук")
+</script>
+</html>
