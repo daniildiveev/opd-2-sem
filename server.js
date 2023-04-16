@@ -186,6 +186,14 @@ server.get('/sound_test', (req, res) => {
     }
 })
 
+server.get('/visual_math_test', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('VisualMathTest')
+    }
+})
+
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
