@@ -5,6 +5,7 @@ const flash = require('connect-flash')
 const path = require('path')
 const LocalStrategy = require('passport-local').Strategy;
 const {sequelize, User, Poll, ReactionTest} = require('./models/index');
+const {ComplexReactionTest} = require("./models");
 
 const server = express();
 
@@ -168,6 +169,14 @@ server.get('/light_test', (req, res) => {
         res.render('LightReactionTest')
     }
 })
+{}
+server.get('/multiple_colours_test', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('MultipleColorReactionTest')
+    }
+})
 
 server.get('/sound_test', (req, res) => {
     if (!req.isAuthenticated()){
@@ -278,6 +287,22 @@ server.post('/reaction_test', async (req, res) => {
     } catch (e) {
         console.log(e)
     }
+})
+
+server.post('/complex_reaction_test', async (req, res) => {
+    const user = req.user.id
+    const type = req.body.testType
+    const reactionTime1 = req.body.reactionTimings[0]
+    const reactionTime2 = req.body.reactionTimings[1]
+    const reactionTime3 = req.body.reactionTimings[2]
+
+    try{
+        const complexReactionTest = await ComplexReactionTest.create({user, type, reactionTime1, reactionTime2, reactionTime3})
+        return res.redirect('/polls_results')
+    } catch (e){
+        console.log(e)
+    }
+
 })
 
 sequelize.sync().then(() => {
