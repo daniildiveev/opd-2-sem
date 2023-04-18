@@ -3,15 +3,19 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash')
 const path = require('path')
+const crypto = require('crypto')
 const LocalStrategy = require('passport-local').Strategy;
 const {sequelize, User, Poll, ReactionTest} = require('./models/index');
-const {ComplexReactionTest} = require("./models");
+const {ComplexReactionTest, InviteLink} = require("./models");
+const {filterTest, getUsers} = require('./js-scripts/databaseManipulations')
+const {login} = require("passport/lib/http/request");
 
 const server = express();
 
 server.use(express.json());
 server.use(express.static('front-end'));
 server.use(express.static('resources'));
+server.use('js-script', express.static('js-scripts'));
 server.use(express.urlencoded({ extended: true }));
 server.use(session({ secret: 'my_secret', resave: false, saveUninitialized: false }));
 server.use(flash())
@@ -194,6 +198,47 @@ server.get('/visual_math_test', (req, res) => {
     }
 })
 
+server.get('/create_invite', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('CreateInviteLinkPage')
+    }
+})
+
+server.post('/get_tests_from_db', async (req, res) => {
+    const type = req.body.type
+    const testId = req.body.testId
+    const username = req.body.username
+    const testType = req.body.testType
+
+    const tests = await filterTest(type, username, testId, testType)
+
+    if (tests !== {}){
+        res.send(tests)
+    }
+})
+
+server.post('/get_users_from_db', async (req, res) => {
+    const users = await getUsers()
+
+    if (users !== []){
+        res.send({logins: users})
+    }
+})
+
+server.get('/invite/:code', async (req, res) => {
+    const link = await InviteLink.findOne({
+        where: {
+            code: req.params.code
+        }
+    })
+
+    if (link) {
+        res.redirect('/' + link.testType)
+    }
+})
+
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
@@ -209,9 +254,11 @@ server.post('/login', passport.authenticate('local', {
 server.post('/register', async (req, res, next) => {
     const { login, password } = req.body;
     const isAdmin = false;
+    const sex = req.body.sex
+    const age = req.body.age
 
     try {
-        const user = await User.create({ login, password, isAdmin });
+        const user = await User.create({ login, password, isAdmin, sex, age });
         req.login(user, (err) => {
             if (err) {
                 console.log(err);
@@ -228,9 +275,11 @@ server.post('/register', async (req, res, next) => {
 server.post('/admin/register', async (req, res, next) => {
     const { login, password } = req.body;
     const isAdmin = true;
+    const sex = req.body.sex;
+    const age = req.body.age;
 
     try {
-        const user = await User.create({ login, password, isAdmin });
+        const user = await User.create({ login, password, isAdmin, age, sex});
         req.login(user, (err) => {
             if (err) {
                 console.log(err);
@@ -311,6 +360,20 @@ server.post('/complex_reaction_test', async (req, res) => {
         console.log(e)
     }
 
+})
+
+server.post('/create_invite', async (req, res) => {
+    const userWhoCreated = req.user.id;
+    const used = false;
+    const testType = req.body.testType;
+    const code = crypto.randomBytes(10).toString('hex');
+
+    try {
+        const inviteLink = await InviteLink.create({userWhoCreated, testType, code, used})
+        res.send({link: '/invite/' + code})
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 sequelize.sync().then(() => {
