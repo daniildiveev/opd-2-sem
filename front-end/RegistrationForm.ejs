@@ -17,6 +17,12 @@
     <input type="text" name="login" id="user-name" placeholder="Login" required class = "input">
     <br>
     <input type="password" name="password" id="user-password" placeholder="Password" required class = "input">
+    <select name="age" id="id-select"></select>
+    <br>
+    <select name="sex">
+      <option value="m">Мужчина</option>
+      <option value="f">Женщина</option>
+    </select>
     <br>
     <button class="first-button" type="submit" id="register">REGISTER</button>
   </form>
@@ -32,4 +38,11 @@
   </div>
 </section>
 </body>
+<script>
+  const ageSelect = document.getElementById("id-select")
+
+  for (let i=18;i <= 45;i++){
+    ageSelect.innerHTML += "<option value=\"" + i + "\">" + i + "</option>"
+  }
+</script>
 </html>
