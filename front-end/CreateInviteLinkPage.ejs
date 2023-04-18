@@ -5,29 +5,59 @@
     <title>Title</title>
 </head>
 <body>
-<select id="test-type-select" required>
-    <option value="">-</option>
-    <option value="poll_1_part_1">Тест на характеристики</option>
-    <option value="sound_test">Тест на реакцию на звук</option>
-    <option value="light_test">Тест на реакцию на свет</option>
-    <option value="visual_math_test">Математические примеры(визуально)</option>
-    <option value="math_sound">Математические примеры (на слух)</option>
-    <option value="multiple_colours_test">Тест на изменение цвета</option>
-</select>
+<div id="test-type-selects">
+    <select id="test-type-select-0" required>
+        <option value="">-</option>
+        <option value="poll_1_part_1">Тест на характеристики</option>
+        <option value="sound_test">Тест на реакцию на звук</option>
+        <option value="light_test">Тест на реакцию на свет</option>
+        <option value="visual_math_test">Математические примеры(визуально)</option>
+        <option value="math_sound">Математические примеры (на слух)</option>
+        <option value="multiple_colours_test">Тест на изменение цвета</option>
+    </select>
+</div>
 <button type="submit" id="get-invite-button">Создать ссылку-приглашение</button>
 <div id="invite-link-enclosing"></div>
 <div id="link-copied"></div>
 </body>
 <script>
-    let inviteLink = null, linkGenerated
+    let inviteLink = null, linkGenerated, i=1
+    testTypeSelects = document.getElementById('test-type-selects')
     getInviteButton = document.getElementById('get-invite-button')
-
     getInviteButton.addEventListener('click', getLink)
+
+    testTypeSelects.addEventListener('change', addAnotherButton)
+
+    function addAnotherButton(){
+        const select = document.createElement('select')
+        select.id = "test-type-select-" + i;
+
+        select.innerHTML += "<option value=\"\">-</option>" +
+        "<option value=\"poll_1_part_1\">Тест на характеристики</option>" +
+        "<option value=\"sound_test\">Тест на реакцию на звук</option>" +
+        "<option value=\"light_test\">Тест на реакцию на свет</option>" +
+        "<option value=\"visual_math_test\">Математические примеры(визуально)</option>" +
+        "<option value=\"math_sound\">Математические примеры (на слух)</option>" +
+        "<option value=\"multiple_colours_test\">Тест на изменение цвета</option>"
+
+        testTypeSelects.appendChild(select)
+        i++;
+    }
 
     async function getLink(){
         const data = {
-            testType: document.getElementById("test-type-select").value
+            tests: []
         }
+
+        for (let j=0;j<i;j++){
+            if(document.getElementById("test-type-select-" + j) ){
+                if (document.getElementById("test-type-select-" + j).value){
+                    data.tests.push(document.getElementById("test-type-select-" + j).value)
+                }
+            }
+        }
+
+        console.log(data)
 
         await fetch('/create_invite', {
             method: "POST",
