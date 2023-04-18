@@ -8,7 +8,9 @@ module.exports = function(sequelize) {
             unique: true
         },
         password: Sequelize.STRING,
-        isAdmin: Sequelize.BOOLEAN
+        isAdmin: Sequelize.BOOLEAN,
+        age: Sequelize.INTEGER,
+        sex: Sequelize.STRING
     });
 
     User.beforeCreate(async (user, options) => {
