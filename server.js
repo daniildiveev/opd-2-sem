@@ -150,7 +150,7 @@ server.get('/poll_1_part_2', (req, res) => {
         res.redirect('/')
     }
     else {
-        const data = JSON.parse(decodeURIComponent(req.query.data));
+        const data = JSON.parse(decodeURIComponent(req.query.data)).pollData;
 
         const profession = data.profession
         let characteristics = []
@@ -234,8 +234,19 @@ server.get('/invite/:code', async (req, res) => {
         }
     })
 
+    console.log(link)
+
+    const tests = link.tests
+    const data = {
+        tests: tests,
+        i: 1
+    }
+
+    console.log(tests)
+
     if (link) {
-        res.redirect('/' + link.testType)
+        const url = '/' + tests[0] + '?data=' + encodeURIComponent(JSON.stringify(data))
+        res.redirect(url)
     }
 })
 
@@ -300,9 +311,25 @@ server.post("/poll_1_part_2", async (req, res) => {
     }
 
     else{
-        const data = req.body
+        let data = null
+
+        if (req.query.data){
+            data = JSON.parse(decodeURIComponent(req.query.data))
+        }
+
+        const pollData = req.body
+
         req.flash("passed_1_part", true)
-        res.redirect(`/poll_1_part_2?data=${encodeURIComponent(JSON.stringify(data))}`)
+
+        if(data){
+            data = {
+                pollData: pollData,
+                data: data
+            }
+            res.redirect(`/poll_1_part_2?data=${encodeURIComponent(JSON.stringify(data))}`)
+        } else {
+            res.redirect(`/poll_1_part_2?data=${encodeURIComponent(JSON.stringify(data))}`)
+        }
     }
 })
 
@@ -321,16 +348,30 @@ server.post("/1st_test", async (req, res) => {
     const profession = decodeURIComponent(req.query.profession)
     const points = results
     const user = req.user.id
+    const allData = JSON.parse(decodeURIComponent(req.query.data))
+    let data = null
+
+    if (allData.data){
+        data = allData.data
+        data.i++;
+    }
 
     try {
         const poll = await Poll.create({user, profession,  points})
-        return res.redirect('/polls_results')
+
+        if(data){
+            if (data.i - 1 !== data.tests.length) {
+                res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
+            }  else {
+                res.redirect('/polls_results')
+            }
+        } else {
+            return res.redirect('/polls_results')
+        }
     }
     catch (err){
         console.log(err)
     }
-
-    res.redirect("/")
 })
 
 server.post('/reaction_test', async (req, res) => {
@@ -338,9 +379,25 @@ server.post('/reaction_test', async (req, res) => {
     const type = req.body.testType
     const reactionTime = req.body.reactionTime
 
+    let data = null
+
+    if (req.query.data){
+        data = JSON.parse(decodeURIComponent(req.query.data))
+        data.i++;
+    }
+
     try {
         const reactionTest = await ReactionTest.create({user, type, reactionTime})
-        return res.redirect('/polls_results')
+
+        if(data){
+            if (data.i - 1 !== data.tests.length) {
+                res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
+            }  else {
+                res.redirect('/polls_results')
+            }
+        } else {
+            return res.redirect('/polls_results')
+        }
     } catch (e) {
         console.log(e)
     }
@@ -353,9 +410,25 @@ server.post('/complex_reaction_test', async (req, res) => {
     const reactionTime2 = req.body.reactionTimings[1]
     const reactionTime3 = req.body.reactionTimings[2]
 
+    let data = null
+
+    if (req.query.data){
+        data = JSON.parse(decodeURIComponent(req.query.data))
+        data.i++;
+    }
+
     try{
         const complexReactionTest = await ComplexReactionTest.create({user, type, reactionTime1, reactionTime2, reactionTime3})
-        return res.redirect('/polls_results')
+
+        if(data){
+            if (data.i - 1 !== data.tests.length) {
+                res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
+            }  else {
+                res.redirect('/polls_results')
+            }
+        } else {
+            return res.redirect('/polls_results')
+        }
     } catch (e){
         console.log(e)
     }
@@ -365,11 +438,11 @@ server.post('/complex_reaction_test', async (req, res) => {
 server.post('/create_invite', async (req, res) => {
     const userWhoCreated = req.user.id;
     const used = false;
-    const testType = req.body.testType;
+    const tests = req.body.tests;
     const code = crypto.randomBytes(10).toString('hex');
 
     try {
-        const inviteLink = await InviteLink.create({userWhoCreated, testType, code, used})
+        const inviteLink = await InviteLink.create({userWhoCreated, tests, code, used})
         res.send({link: '/invite/' + code})
     } catch (e) {
         console.log(e)
