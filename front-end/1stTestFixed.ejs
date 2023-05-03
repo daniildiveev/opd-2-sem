@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <link rel="stylesheet" href="1stTestStyles.css"> -->
+     <link rel="stylesheet" href="1stTestStyles.css">
     <title>1st Test</title>
 </head>
 <body>
 <section class = "container">
     <header>
         <div>
-            <h1>Тест: выбор профессиональных характеристик</h1>
+            <h1>Тест <br> выбор профессиональных характеристик</h1>
         </div>
     </header>
     <form id = "test1" method="POST" action="/poll">
@@ -27,7 +27,7 @@
             <tr>
                 <td>Характеристика</td>
                 <td>Нужна?</td>
-                <td>Оценка</td>
+                <td class="mark">Оценка</td>
             </tr>
             </thead>
 
@@ -2256,7 +2256,7 @@
                     </select>
                 </td>
             </tr><tr>
-                <td>Физическая сила.</td>
+                <td>Физическая сила</td>
                 <td><input type="radio" name="question139" value="1" id="q139_check"></td>
                 <td>
                     <select name="profession" id="q139-score">
@@ -2719,26 +2719,10 @@
                         <option value="9">9</option>
                     </select>
                 </td>
-            </tr><tr>
-                <td></td>
-                <td><input type="radio" name="question168" value="1" id="q168_check"></td>
-                <td>
-                    <select name="profession" id="q168-score">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                    </select>
-                </td>
             </tr></tbody>
         </table>
 
-        <button class="next-btn" type="submit">Submit</button>
+        <button class="submit-btn" type="submit">SUBMIT</button>
     </form>
 
 </section>

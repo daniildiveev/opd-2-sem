@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="EasyActionTestStyle.css">
+    <title>Hard Action Test</title>
+</head>
+
+<body>
+<progress id="progress" value="0" max="100"></progress>
+<div id="start-button-enclosing">
+    <button id="start-button" onclick="hideButton()">Начать тест</button>
+</div>
+<div id="submit-button-enclosing"></div>
+<div id="restart-button-enclosing"></div>
+<div id="result-enclosing"></div>
+
+<canvas id="canvas" width="550" height="400"></canvas>
+</body>
+
+<script>
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+    const circleRadius = 30;
+    const fixedCircleX = canvas.width / 2;
+    const fixedCircleY = canvas.height / 2;
+    let directionX1 = Math.floor(Math.random() * 350) + 25;
+    let directionY1 = Math.floor(Math.random() * 250) + 25;
+    let speedX1 = Math.floor(Math.random() * 10) + 3;
+    let speedY1 = Math.floor(Math.random() * 10) + 3;
+    let directionX2 = Math.floor(Math.random() * 350) + 25;
+    let directionY2 = Math.floor(Math.random() * 250) + 25;
+    let speedX2 = Math.floor(Math.random() * 10) + 3;
+    let speedY2 = Math.floor(Math.random() * 10) + 3;
+    let testCounter = 0;
+    let totalDistance = 0;
+    let result = 0;
+
+    function changeBackgroundColor() {
+        canvas.style.backgroundColor = "#fff";
+    }
+
+    function hideButton() {
+        //const newColor = prompt("Введите новый цвет фона:");
+        document.getElementById("start-button").style.display = "none";
+        //canvas.style.backgroundColor = newColor;
+        changeBackgroundColor();
+        drawFrame();
+        drawCircles();
+        moveCircle();
+
+    }
+    function drawFrame() {
+        const frameX = canvas.width;
+        const frameY = canvas.height;
+        context.fillStyle = canvas.style.backgroundColor;
+        context.fillRect(frameX, frameY, canvas.width, canvas.height); // draw frame
+    }
+
+    function drawCircles() {
+        context.beginPath();
+        context.arc(fixedCircleX, fixedCircleY, circleRadius, 0, 2 * Math.PI); // draw fixed circle
+        context.fillStyle = "rgba(12, 28, 67)";
+        context.fill();
+
+        context.beginPath();
+        context.arc(directionX1, directionY1, circleRadius, 0, 2 * Math.PI); // draw moving circle
+        context.fillStyle = "rgba(0, 103, 187)";
+        context.fill();
+
+        context.beginPath();
+        context.arc(directionX2, directionY2, circleRadius, 0, 2 * Math.PI); // draw second moving circle
+        context.fillStyle = "rgba(120, 50, 290)";
+        context.fill();
+    }
+
+    function moveCircle() {
+        directionX1 += speedX1;
+        directionY1 += speedY1;
+
+        if (directionX1 < 20 || directionX1 > canvas.width) {
+            speedX1 = -speedX1;
+        }
+        if (directionY1 < 20 || directionY1 > canvas.height) {
+            speedY1 = -speedY1;
+        }
+        directionX2 += speedX2;
+        directionY2 += speedY2;
+
+        if (directionX2 < 20 || directionX2 > canvas.width) {
+            speedX2 = -speedX2;
+        }
+        if (directionY2 < 20 || directionY2 > canvas.height) {
+            speedY2 = -speedY2;
+        }
+
+        context.clearRect(0, 0, canvas.width, canvas.height); // clear screen
+        drawFrame();
+        drawCircles();
+        requestAnimationFrame(moveCircle);
+    }
+    window.addEventListener("keydown", function (event) {
+        if (event.code === "Space" || isFirstColliding() || isSecondColliding()) {
+                testCounter++;
+                document.getElementById("progress").value = testCounter * 10;
+            }
+            //showResult();
+            if (testCounter === 10) {
+                showResult();
+                canvas.style.display = "none";
+                const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+                const submitButton = document.createElement("button");
+                submitButton.textContent = "Отправить результат"
+                submitButtonEnclosing.appendChild(submitButton);
+
+                const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+                const restartButton = document.createElement("button");
+                restartButton.textContent = "Пройти заново"
+                //restartButton.onclick = runTest
+                restartButtonEnclosing.appendChild(restartButton);
+
+                document.getElementById("progress").value = 0
+                const resultEnclosing = document.getElementById("result-enclosing");
+                const averageResult = result / testCounter;
+                resultEnclosing.innerText = `Процент попадания: ${averageResult.toFixed(2)}%`;
+            }
+    });
+
+    function isFirstColliding() {
+        const distance = Math.sqrt((directionX1 - fixedCircleX) ** 2 + (directionY1 - fixedCircleY) ** 2);
+        if (distance <= circleRadius * 2) {
+            totalDistance += distance;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function isSecondColliding() {
+        const distance2 = Math.sqrt((directionX2 - fixedCircleX) ** 2 + (directionY2 - fixedCircleY) ** 2);
+        if (distance2 <= circleRadius * 2) {
+            totalDistance += distance2;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function showResult() {
+        const resultEnclosing = document.getElementById("result-enclosing");
+        const average = totalDistance;
+        totalDistance = 0;
+        let matchPercent;
+        matchPercent = 100 - (average / circleRadius * 100);
+        if (matchPercent < 0) {
+            matchPercent = 0;
+            resultEnclosing.innerText = `Процент попадания: ${matchPercent.toFixed(2)}%`;
+            result += matchPercent;
+        } else{
+            resultEnclosing.innerText = `Процент попадания: ${matchPercent.toFixed(2)}%`;
+            result += matchPercent;
+        }
+    }
+
+</script>
+</html>

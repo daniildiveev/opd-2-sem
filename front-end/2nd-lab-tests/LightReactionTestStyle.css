@@ -1,0 +1,39 @@
+:root {
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, 0.8);
+    --font-style: 'Verdana', sans-serif;
+}
+
+body {
+    font-family: var(--font-style);
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+}
+
+button {
+    border: none;
+    border-radius: 3px;
+    background-color: var(--primary-color);
+    color: white;
+    text-transform: uppercase;
+    padding: 1.2rem 2.8rem;
+    margin-top: 20%;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    transition: opacity .6s ease-in-out;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+}
+button:hover {
+    opacity: .9;
+}
+button:focus {
+    outline: none;
+}

@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel = "stylesheet" href = "LightReactionTestStyle.css">
+    <title>Light Reaction Test</title>
 </head>
 <body>
+<div id="send-button-enclosing"></div>
 </body>
 <script>
 let initialColor = "white";
@@ -59,8 +61,10 @@ function handleKeyPress(event) {
             if (!testPassed){
                 const submitButton = document.createElement("button")
                 submitButton.innerHTML = "Отправить результат"
+
                 submitButton.onclick = sendData
-                bodyElement.appendChild(submitButton)
+                document.getElementById("send-button-enclosing").appendChild(submitButton)
+                //bodyElement.appendChild(submitButton)
             }
 
             testPassed = true
