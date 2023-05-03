@@ -6,7 +6,7 @@ const path = require('path')
 const crypto = require('crypto')
 const LocalStrategy = require('passport-local').Strategy;
 const {sequelize, User, Poll, ReactionTest} = require('./models/index');
-const {ComplexReactionTest, InviteLink} = require("./models");
+const {ComplexReactionTest, InviteLink, AccuracyTest} = require("./models");
 const {filterTest, getUsers} = require('./js-scripts/databaseManipulations')
 const {login} = require("passport/lib/http/request");
 
@@ -227,6 +227,22 @@ server.post('/get_users_from_db', async (req, res) => {
     }
 })
 
+server.get('/easy_action', async (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    }
+
+    res.render('3rd-lab-tests/EasyActionTest')
+})
+
+server.get('/hard_action', async (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    }
+
+    res.render('3rd-lab-tests/HardActionTest')
+})
+
 server.get('/invite/:code', async (req, res) => {
     const link = await InviteLink.findOne({
         where: {
@@ -434,6 +450,35 @@ server.post('/complex_reaction_test', async (req, res) => {
     }
 
 })
+
+server.post('/accuracy_test', async (req, res) => {
+    const user = req.user.id
+    const type = req.body.testType
+    const accuracy = req.body.accuracy
+
+    let data = null
+
+    if(req.query.data){
+        data = JSON.parse(decodeURIComponent(req.query.data))
+    }
+
+    try{
+        const accuracyTest = await AccuracyTest.create({user, type, accuracy})
+
+        if(data){
+            if (data.i - 1 !== data.tests.length) {
+                res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
+            }  else {
+                res.redirect('/polls_results')
+            }
+        } else {
+            return res.redirect('/polls_results')
+        }
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 
 server.post('/create_invite', async (req, res) => {
     const userWhoCreated = req.user.id;
