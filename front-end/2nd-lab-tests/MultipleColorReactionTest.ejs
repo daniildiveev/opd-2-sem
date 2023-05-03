@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel = "stylesheet" href = "MultipleColorTestStyle.css">
+    <title>Multiple Color Test</title>
 </head>
 <body>
 <progress id="progress" value="0" max="100"></progress>
@@ -104,7 +105,7 @@
 
         if (!testPassed){
             const submitButton = document.createElement("button")
-            submitButton.innerHTML = "Отправить результат"
+            submitButton.innerHTML = "ОТПРАВИТЬ РЕЗУЛЬТАТ"
             submitButton.onclick = sendData
             bodyElement.appendChild(submitButton)
         }
@@ -119,7 +120,7 @@
 
     // получаем элемент страницы, на который будем добавлять кнопку для старта теста
     const startButton = document.createElement("button");
-    startButton.innerHTML = "Начать тест";
+    startButton.innerHTML = "НАЧАТЬ ТЕСТ";
     startButton.onclick = startTest;
     bodyElement.appendChild(startButton);
 </script>

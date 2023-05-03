@@ -1,0 +1,64 @@
+:root {
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, 0.8);
+    --font-style: 'Verdana', sans-serif;
+}
+
+body {
+    font-family: var(--font-style);
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+}
+
+#progress {
+    color: white;
+    width: 90%;
+    height: 1.5em;
+    margin-top: 10%;
+    margin-left: 5%;
+    background-color: white;
+    border-radius: 3px;
+}
+
+#progress::-webkit-progress-bar {
+    border-radius: 3px;
+    background-color: var(--primary-color);
+}
+
+#progress::-webkit-progress-value {
+    border-radius: 3px;
+    background-color: var(--addl-color);
+}
+
+button {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.2rem 2.8rem;
+    margin-top: 5rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: white;
+    color: var(--primary-color);
+    transition: opacity .6s ease-in-out;
+
+}
+
+button:focus {
+    outline: none;
+}
+

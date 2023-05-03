@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="VisualMathTestStyle.css">
+    <title>Visual Math Test</title>
 </head>
 <body>
 <div id="problem"></div>
 <div id="incorrect_field"></div>
 <div id="select_for_number_of_numbers">
-    <select id="num_numbers_for_test" required>
+    <select id="numbers_for_test_time" required>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -30,11 +31,11 @@
   problemDiv = document.getElementById("problem")
   progressElement = document.getElementById("progress")
 
-  let numbersSelect = document.getElementById("num_numbers_for_test")
-  let numberOfNumbers = document.getElementById("num_numbers_for_test").value
+  let numbersSelect = document.getElementById("numbers_for_test_time")
+  let numberOfNumbers = document.getElementById("numbers_for_test_time").value
 
   numbersSelect.addEventListener("change", () => {
-      numberOfNumbers = document.getElementById("num_numbers_for_test").value
+      numberOfNumbers = document.getElementById("numbers_for_test_time").value
   })
 
   let problems = [], timings = [], results = []

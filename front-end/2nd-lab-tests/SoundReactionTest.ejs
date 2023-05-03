@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel = "stylesheet" href = "SoundReactionTestStyle.css">
+    <title>Sound Reaction Test</title>
 </head>
 <body>
+<div id="send-button-enclosing"></div>
 </body>
 <script>
 let bodyElement = document.getElementsByTagName("body")[0];
@@ -59,9 +61,9 @@ function handleKeyPress(event) {
 
             if (!testPassed){
                 const submitButton = document.createElement("button")
-                submitButton.innerHTML = "Отправить результат"
+                submitButton.innerHTML = "ОТПРАВИТЬ РЕЗУЛЬТАТ"
                 submitButton.onclick = sendData
-                bodyElement.appendChild(submitButton)
+                document.getElementById("send-button-enclosing").appendChild(submitButton)
             }
 
             testPassed = true
@@ -82,7 +84,7 @@ function startTest() {
             Math.random() * 5000 )
 }
 const startButton = document.createElement("button");
-startButton.innerHTML = "Начать тест";
+startButton.innerHTML = "НАЧАТЬ ТЕСТ";
 startButton.onclick = startTest;
 bodyElement.appendChild(startButton);
 

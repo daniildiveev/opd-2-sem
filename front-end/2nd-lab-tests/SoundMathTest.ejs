@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="VisualMathTestStyle.css">
+  <title>Sound Math Test</title>
+</head>
+<body>
+<div id="problem"></div>
+<div id="incorrect_field"></div>
+<div id="select_for_number_of_numbers">
+  <select id="numbers_for_test_time" required>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</div>
+<div id="answer_buttons"></div>
+<br>
+<progress id="progress" value="0" max="100"></progress>
+<div id="start-button-enclosing">
+  <button id="start-button">Начать тест</button>
+</div>
+<div id="submit-button-enclosing"></div>
+</body>
+<script>
+  bodyElement = document.getElementsByTagName("body")[0]
+  startButton = document.getElementById("start-button")
+  startButton.onclick = runTest
+  problemDiv = document.getElementById("problem")
+  progressElement = document.getElementById("progress")
+
+  let numbersSelect = document.getElementById("numbers_for_test_time")
+  let numberOfNumbers = document.getElementById("numbers_for_test_time").value
+
+  numbersSelect.addEventListener("change", () => {
+    numberOfNumbers = document.getElementById("numbers_for_test_time").value
+  })
+
+  let problems = [], timings = [], results = []
+  const NUM_OF_TESTS = 9;
+  let testCounter = 0, testPassed = false;
+
+  function runTest(){
+    if (testCounter <= NUM_OF_TESTS){
+      progressElement.value = (testCounter) / NUM_OF_TESTS * 100;
+      document.getElementById("select_for_number_of_numbers").innerHTML = "";
+      document.getElementById("start-button-enclosing").innerHTML = "";
+      document.getElementById("submit-button-enclosing").innerHTML = "";
+
+      let {numbers, options, correctSum} = generateProblem();
+      let problem = "";
+
+      problems.push(numbers)
+
+      for (let i = 0; i < numberOfNumbers; i++) {
+        if (i !== numberOfNumbers - 1) {
+          problem += numbers[i] + "+"
+        } else {
+          problem += numbers[i]
+        }
+      }
+
+      //voice acting
+      const utterance = new SpeechSynthesisUtterance(problem);
+      window.speechSynthesis.speak(utterance);
+
+      for (let i = 0; i < 4; i++) {
+        let button = document.createElement("button")
+        button.innerHTML = options[i]
+        button.value = options[i]
+        button.name = "answer_button"
+        button.addEventListener("click", checkAnswer)
+        document.getElementById("answer_buttons").appendChild(button)
+      }
+
+      startTime = new Date().getTime();
+
+      function checkAnswer(event) {
+        if (event.srcElement.value === correctSum.toString()) {
+          let endTime = new Date().getTime()
+          timings.push(endTime - startTime)
+          document.getElementById("incorrect_field").innerHTML = "";
+          document.getElementById("answer_buttons").innerHTML = "";
+          testCounter++;
+          runTest();
+        } else {
+          document.getElementById("incorrect_field").innerHTML = "Неправильно, попробуйте еще раз!";
+        }
+      }
+
+    } else {
+      testCounter = 0;
+      results.push(timings);
+      timings = [];
+
+      const submitButton = document.createElement("button")
+      submitButton.type = "submit"
+      submitButton.onclick = sendData
+      submitButton.textContent = "Отправить результат"
+      document.getElementById("submit-button-enclosing").appendChild(submitButton)
+
+      testPassed = true;
+
+      const startButton = document.createElement("button")
+      startButton.id = "start-button"
+      startButton.textContent = "Пройти заново"
+      startButton.onclick = runTest
+      document.getElementById("start-button-enclosing").appendChild(startButton)
+
+      progressElement.value = 0
+    }
+  }
+
+  async function sendData(){
+    if (testPassed){
+      const reactionTimings = [results.at(-1).slice(0, 3).reduce((a, b) => a + b, 0) / 3,
+        results.at(-1).slice(3, 6).reduce((a, b) => a + b, 0) / 3,
+        results.at(-1).slice(6).reduce((a, b) => a + b, 0) / 3]
+
+      const data = {
+        testType: "math_sound_test",
+        reactionTimings: reactionTimings
+      }
+
+      let url = ''
+      const urlObject = new URL(window.location.href)
+
+      if (urlObject.searchParams.has('data')){
+        url += '/complex_reaction_test?data=' + urlObject.searchParams.get('data')
+      } else {
+        url += '/complex_reaction_test'
+      }
+
+      await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      })
+              .then(res => {
+                console.log(res)
+                // Redirect to another URL
+                window.location.href = res.url;
+              })
+              .catch(error => console.error(error));
+    }
+  }
+
+  function generateProblem(){
+    let numbers = []
+
+    for (let i = 0; i < numberOfNumbers; i++) {
+      numbers.push(Math.round(Math.random() * 20))
+    }
+
+    let options = []
+    let correctSum = numbers.reduce((a, b) => a + b, 0), option
+    options.push(correctSum)
+
+    for (let i = 0; i < 3; i++){
+      if(Math.random() < 0.5){
+        option = Math.ceil(correctSum - Math.random() * 10)
+      } else {
+        option = Math.floor(correctSum + Math.random() * 10)
+      }
+
+      options.push(option)
+    }
+
+    options = options
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
+
+    return {numbers, options, correctSum}
+  }
+</script>
+</html>

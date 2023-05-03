@@ -1,0 +1,156 @@
+:root {
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, .8);
+    --font-style: 'Verdana', sans-serif;
+}
+
+body {
+    font-family: var(--font-style);
+    background-color: var(--main-color);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+
+#select_for_number_of_numbers select {
+    padding: .5em;
+    border: none;
+    background-color: var(--overlay-color);
+    color: white;
+    border-radius: 3px;
+    margin-left: 4.2em;
+    font-size: 1.6rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#answer_buttons button {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.2rem 2.8rem;
+    margin-top: 5rem;
+    transition: opacity .6s ease-in-out;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    position: relative;
+    left: 19%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+}
+
+#answer_buttons button {
+    margin-left: 7%;
+}
+
+#problem{
+    text-align: center;
+    margin-top: 3em;
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+#incorrect_field{
+    text-align: center;
+    margin-top: 1.8em;
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+
+#start-button-enclosing {
+    text-align: center;
+    margin-top: 1.6em;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+
+}
+
+#start-button {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.4rem 4.5rem;
+    margin-top: 5rem;
+    transition: opacity .6s ease-in-out;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.start-button:hover{
+    opacity: .7;
+}
+
+#submit-button-enclosing {
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+
+#submit-button-enclosing button {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.4rem 2.4rem;
+    margin-top: 2.5rem;
+    transition: opacity .6s ease-in-out;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+progress {
+    margin-top: 1.8em;
+    margin-left: 5%;
+    width: 90%;
+    height: 1.5em;
+    background-color: var(--addl-color);
+}
+
+progress::-webkit-progress-bar {
+    background-color: var(--overlay-color);
+    border-radius: 3px;
+}
+
+progress::-webkit-progress-value {
+    background-color: var(--addl-color);
+    border-radius: 3px;
+}
+
+::-moz-selection {
+    color: #fff;
+}
+
+::selection {
+    color: #fff;
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}

@@ -9,12 +9,18 @@ body {
     padding: 0;
     font-family: var(--font-style);
     background-color: var(--overlay-color);
+    color: white;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 64%;
     margin: 0 auto;
-    padding: 20px;
+}
+tbody{
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: .15em;
+
 }
 
 header {
@@ -23,62 +29,56 @@ header {
 }
 
 h1 {
-    font-size: 36px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    font-size: 2.4em;
+    margin-top: 7%;
+    margin-bottom: 1.5em;
+    font-weight: 500;
+    letter-spacing: 0.18rem;
 }
-
-.question-form {
-    margin-top: 40px;
+thead{
+    font-size: 1.5em;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    margin-bottom: 1em;
 }
+.mark{
 
-h2 {
-    font-size: 28px;
-    color: white;
-}
-
-ul {
-    list-style-type: none;
-    margin-top: 20px;
-}
-
-li {
-    margin-top: 10px;
-}
-
-input[type="radio"] {
-    margin-right: 10px;
-}
-
-label {
-    color: white;
 }
 
 select{
-    padding: 10px;
-    border-radius: 5px;
+    padding: 1em;
+    border-radius: 3px;
     border: none;
     font-size: 18px;
     width: 100%;
-    margin-top: 20px;
+    margin-bottom: 5em;
+    align-items: center;
+}
+/*.q0-score{*/
+/*    margin-top: 2em;*/
+/*}*/
+input[type="radio"] {
+    margin-top: 2em;
+    /*бля почему оно не работает??*/
 }
 
-input[type="text"]:focus {
-    outline: none;
-}
-
-.next-btn {
-    padding: 10px 20px;
-    background-color: var(--primary-color);
+.submit-btn {
     border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
     cursor: pointer;
-    margin-top: 40px;
+    margin-top: 2em;
+    display: inline-block;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.2rem 5.5rem;
+    transition: opacity .6s ease-in-out;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
 }
 
-.next-btn:hover {
-    background-color: #0c204d;
+.submit-btn:hover {
+    opacity: .7;
 }
 
