@@ -1,4 +1,4 @@
-const {Poll, ReactionTest, ComplexReactionTest, User} = require('../models')
+const {Poll, ReactionTest, ComplexReactionTest, User, AccuracyTest} = require('../models')
 
 async function filterTest(type, username, testId, testType){
     let userId = null
@@ -12,7 +12,6 @@ async function filterTest(type, username, testId, testType){
 
         userId = user.id
     }
-
 
     if (type === "characteristicsTest"){
         if (testId){
@@ -53,7 +52,7 @@ async function filterTest(type, username, testId, testType){
         } else {
             return await ReactionTest.findAll()
         }
-    } else {
+    } else if(type === "complexReactionTest") {
         if (testId){
             return await ComplexReactionTest.findByPk(testId)
         }
@@ -74,6 +73,28 @@ async function filterTest(type, username, testId, testType){
             })
         } else {
             return await ComplexReactionTest.findAll()
+        }
+    } else if(type === "accuracyTest") {
+        if (testId){
+            return await AccuracyTest.findByPk(testId)
+        }
+
+        let filters = {}
+
+        if (userId){
+            filters["user"] = userId
+        }
+
+        if(testType){
+            filters["type"] = testType
+        }
+
+        if (filters){
+            return await AccuracyTest.findAll({
+                where : filters
+            })
+        } else {
+            return await AccuracyTest.findAll()
         }
     }
 }

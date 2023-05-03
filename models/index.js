@@ -4,6 +4,7 @@ const PollModel = require('./poll');
 const ReactionTestModel = require('./reactionTest')
 const ComplexReactionTestModel = require('./complexReactionTest')
 const InviteLinkModel = require('./inviteLink')
+const AccuracyTestModel = require('./accuracyTest')
 
 const sequelize = new Sequelize('opd_2_sem', 'postgres', 'N29EXFdw', {
     dialect: 'postgres',
@@ -15,6 +16,7 @@ const Poll = PollModel(sequelize);
 const ReactionTest = ReactionTestModel(sequelize);
 const ComplexReactionTest = ComplexReactionTestModel(sequelize);
 const InviteLink = InviteLinkModel(sequelize);
+const AccuracyTest = AccuracyTestModel(sequelize);
 
 module.exports = {
     sequelize,
@@ -22,5 +24,6 @@ module.exports = {
     Poll,
     ReactionTest,
     ComplexReactionTest,
-    InviteLink
+    InviteLink,
+    AccuracyTest
 };
