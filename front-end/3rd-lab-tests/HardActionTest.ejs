@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="EasyActionTestStyle.css">
+    <link rel="stylesheet" href="3rd-lab-tests/EasyActionTestStyle.css">
     <title>Hard Action Test</title>
 </head>
 
@@ -34,7 +34,9 @@
     let speedY2 = Math.floor(Math.random() * 10) + 3;
     let testCounter = 0;
     let totalDistance = 0;
+    let accuracy = 0;
     let result = 0;
+    let testPassed = false;
 
     function changeBackgroundColor() {
         canvas.style.backgroundColor = "#fff";
@@ -50,6 +52,38 @@
         moveCircle();
 
     }
+
+    async function sendData(){
+        if(testPassed){
+            const data = {
+                testType : "hard_action",
+                accuracy: accuracy
+            }
+
+            let url = ''
+            const urlObject = new URL(window.location.href)
+
+            if (urlObject.searchParams.has('data')){
+                url += '/accuracy_test?data=' + urlObject.searchParams.get('data')
+            } else {
+                url += '/accuracy_test'
+            }
+
+            await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(res => {
+                    console.log(res)
+                    // Redirect to another URL
+                    window.location.href = res.url;
+                })
+                .catch(error => console.error(error));
+
+        }
+    }
+
     function drawFrame() {
         const frameX = canvas.width;
         const frameY = canvas.height;
@@ -106,11 +140,18 @@
             }
             //showResult();
             if (testCounter === 10) {
+                document.getElementById("submit-button-enclosing").innerHTML = '';
+                document.getElementById("restart-button-enclosing").innerHTML = ''
+                document.getElementById("result-enclosing").innerHTML = '';
+
+                testPassed = true;
+
                 showResult();
                 canvas.style.display = "none";
                 const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
                 const submitButton = document.createElement("button");
                 submitButton.textContent = "Отправить результат"
+                submitButton.onclick = sendData
                 submitButtonEnclosing.appendChild(submitButton);
 
                 const restartButtonEnclosing = document.getElementById("restart-button-enclosing");

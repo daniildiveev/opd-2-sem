@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="EasyActionTestStyle.css">
+  <link rel="stylesheet" href="3rd-lab-tests/EasyActionTestStyle.css" type="text/css">
   <title>Easy Action Test</title>
 </head>
 
@@ -33,6 +33,8 @@
   let result = 0;
   let hitAccuracy = 0;
   let reactionTime = 0;
+  let accuracy = 0;
+  let testPassed = false;
 
   function changeBackgroundColor() {
     canvas.style.backgroundColor = "#fff";
@@ -47,6 +49,38 @@
     drawCircles();
     moveCircle();
   }
+
+  async function sendData(){
+    if(testPassed){
+      const data = {
+        testType : "easy_action",
+        accuracy: accuracy
+      }
+
+      let url = ''
+      const urlObject = new URL(window.location.href)
+
+      if (urlObject.searchParams.has('data')){
+        url += '/accuracy_test?data=' + urlObject.searchParams.get('data')
+      } else {
+        url += '/accuracy_test'
+      }
+
+      await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      })
+              .then(res => {
+                console.log(res)
+                // Redirect to another URL
+                window.location.href = res.url;
+              })
+              .catch(error => console.error(error));
+
+    }
+  }
+
   function drawFrame() {
     const frameX = canvas.width;
     const frameY = canvas.height;
@@ -82,17 +116,21 @@
     drawCircles();
     requestAnimationFrame(moveCircle);
   }
+
   window.addEventListener("keydown", function (event) {
     if (event.code === "Space") {
       testCounter++;
       document.getElementById("progress").value = testCounter * 10;
       checkHit();
       if (testCounter === 15) {
+        testPassed = true;
+
         showResult();
         canvas.style.display = "none";
         const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
         const submitButton = document.createElement("button");
         submitButton.textContent = "Отправить результат"
+        submitButton.onclick = sendData
         submitButtonEnclosing.appendChild(submitButton);
 
         const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
@@ -128,7 +166,7 @@
     if (hitAccuracy > 0) {
       let averageReactionTime;
       averageReactionTime = reactionTime / hitAccuracy;
-      const accuracy = hitAccuracy / testCounter * 100;
+      accuracy = hitAccuracy / testCounter * 100;
       message = `Среднее время реакции: ${averageReactionTime.toFixed(2)} мс`;
       message += `Точность попадания: ${accuracy.toFixed(2)}%`;
     } else {
