@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="EasyActionTestStyle.css">
-    <title>Hard Action Test</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="EasyActionTestStyle.css">
+        <title>Hard Action Test</title>
+    </head>
 
-<body>
-<progress id="progress" value="0" max="100"></progress>
-<div id="start-button-enclosing">
-    <button id="start-button" onclick="hideButton()">Начать тест</button>
-</div>
-<div id="submit-button-enclosing"></div>
-<div id="restart-button-enclosing"></div>
-<div id="result-enclosing"></div>
-
-<canvas id="canvas" width="550" height="400"></canvas>
-</body>
+    <body>
+        <progress id="progress" value="0" max="100"></progress>
+        <div id="start-button-enclosing">
+            <button id="start-button" onclick="hideButton()">Начать тест</button>
+        </div>
+        <div id="submit-button-enclosing"></div>
+        <div id="restart-button-enclosing"></div>
+        <div id="result-enclosing"></div>
+        <canvas id="canvas" width="550" height="400"></canvas>
+    </body>
 
 <script>
     const canvas = document.getElementById("canvas");
@@ -33,18 +32,12 @@
     let speedX2 = Math.floor(Math.random() * 5) + 3;
     let speedY2 = Math.floor(Math.random() * 5) + 3;
     let testCounter = 0;
-    let testCounter1 = 0;
-    let testCounter2= 0;
     let match = 0;
-    let match1 = 0;
-    let match2= 0;
     let accuracy = 0;
     let testPassed = false;
     let averageAccuracy = 0;
     let totalAccuracy = 0;
     let hit = 0;
-    let hit1 = 0;
-    let hit2 = 0;
 
     function changeBackgroundColor() {
         canvas.style.backgroundColor = "#fff";
@@ -56,7 +49,6 @@
         drawFrame();
         drawCircles();
         moveCircle();
-
     }
 
     async function sendData(){
@@ -86,7 +78,6 @@
                     window.location.href = res.url;
                 })
                 .catch(error => console.error(error));
-
         }
     }
 
@@ -176,23 +167,25 @@
             }
         }
     });
-    function checkHit1() {
+    function checkHit() {
         const distance1 = Math.sqrt((directionX1 - fixedCircleX) ** 2 + (directionY1 - fixedCircleY) ** 2);
         const distance2 = Math.sqrt((directionX2 - fixedCircleX) ** 2 + (directionY2 - fixedCircleY) ** 2);
-        if (distance1 <= circleRadius * 2) {
-            testCounter1++;
-            match1++;
-            hit1 = distance1;
+        if ((distance1 <= circleRadius * 2) || (distance2 <= circleRadius * 2)) {
+            testCounter++;
+            match++;
+            if ((distance1 <= circleRadius * 2) && (distance2 > circleRadius * 2)){
+                hit = distance1;
+            }
+            if((distance2 <= circleRadius * 2) && (distance1 > circleRadius * 2)){
+                hit = distance2;
+            }
+            if((distance2 <= circleRadius * 2) && (distance1 <= circleRadius * 2)){
+                hit = (distance1 + distance2)/2;
+            }
             showReactionAndAccuracy();
-        } if (distance2 <= circleRadius * 2) {
-            testCounter2++;
-            match2++;
-            hit2 = distance2;
-            showReactionAndAccuracy();
-        } if (distance2 <= circleRadius * 2) {
-
         }else {
             match = 0;
+            hit = 0;
             showReactionAndAccuracy();
         }
     }

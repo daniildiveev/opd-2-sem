@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="EasyActionTestStyle.css" type="text/css">
-  <title>Easy Action Test</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="EasyActionTestStyle.css" type="text/css">
+    <title>Easy Action Test</title>
+  </head>
 
-<body>
-<progress id="progress" value="0" max="100"></progress>
-<div id="start-button-enclosing">
-  <button id="start-button" onclick="hideButton()">Начать тест</button>
-</div>
-<div id="submit-button-enclosing"></div>
-<div id="restart-button-enclosing"></div>
-<div id="result-enclosing"></div>
+  <body>
+    <progress id="progress" value="0" max="100"></progress>
+    <div id="start-button-enclosing">
+      <button id="start-button" onclick="hideButton()">Начать тест</button>
+    </div>
+    <div id="submit-button-enclosing"></div>
+    <div id="restart-button-enclosing"></div>
+    <div id="result-enclosing"></div>
 
-<canvas id="canvas" width="550" height="400"></canvas>
-</body>
+    <canvas id="canvas" width="550" height="400"></canvas>
+  </body>
 
 <script>
   const canvas = document.getElementById("canvas");
@@ -32,15 +32,15 @@
   let match = 0;
   let accuracy = 0;
   let testPassed = false;
-  let averageAccuracy = 0;
-  let totalAccuracy = 0;
-  let hit = 0;
+  let averageAccuracy = 0; //total result
+  let totalAccuracy = 0; //accuracy sum
+  let hit = 0; //
 
-
+// open canvas when start button onclick
   function changeBackgroundColor() {
     canvas.style.backgroundColor = "#fff";
   }
-
+// draw canvas with circles
   function hideButton() {
     //const newColor = prompt("Введите новый цвет фона:");
     //canvas.style.backgroundColor = newColor;
@@ -82,19 +82,21 @@
     }
   }
 
+  //draw canvas
   function drawFrame() {
     const frameX = canvas.width;
     const frameY = canvas.height;
     context.fillStyle = canvas.style.backgroundColor;
     context.fillRect(frameX, frameY, canvas.width, canvas.height); // draw frame
   }
+  // calculate position and speed of moving circle
   function calculatePosition(){
     directionX = Math.floor(Math.random() * 350) + 30;
     directionY = Math.floor(Math.random() * 250) + 30;
     speedX = Math.floor(Math.random() * 5) + 3;
     speedY = Math.floor(Math.random() * 5) + 3;
   }
-
+//draw fixed and moving circles
   function drawCircles() {
     context.beginPath();
     context.arc(fixedCircleX, fixedCircleY, circleRadius, 0, 2 * Math.PI); // draw fixed circle
@@ -106,7 +108,7 @@
     context.fillStyle = "rgba(0, 103, 187)";
     context.fill();
   }
-
+//draw moving and fixed circles with frame restrictions
   function moveCircle() {
     directionX += speedX;
     directionY += speedY;
@@ -151,7 +153,7 @@
       }
     }
   });
-
+// calculate distance and check match
   function checkHit() {
     const distance = Math.sqrt((directionX - fixedCircleX) ** 2 + (directionY - fixedCircleY) ** 2);
     if (distance <= circleRadius * 2) {
@@ -164,7 +166,7 @@
       showReactionAndAccuracy();
     }
   }
-
+//calculate and show accuracy
   function showReactionAndAccuracy() {
     const resultEnclosing = document.getElementById("result-enclosing");
     let message;
@@ -181,6 +183,7 @@
     }
     resultEnclosing.innerText = message;
   }
+  // restart test
   function runTest() {
     document.getElementById("progress").value = 0;
 
@@ -191,10 +194,6 @@
     averageAccuracy = 0;
     totalAccuracy = 0;
     hit = 0;
-/*    directionX = Math.floor(Math.random() * 350) + 30;
-    directionY = Math.floor(Math.random() * 250) + 30;
-    speedX = Math.floor(Math.random() * 5) + 3;
-    speedY = Math.floor(Math.random() * 5) + 3;*/
 
     const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
     if (submitButtonEnclosing.firstChild) {
@@ -210,7 +209,5 @@
     calculatePosition();
     hideButton();
   }
-
-
 </script>
 </html>
