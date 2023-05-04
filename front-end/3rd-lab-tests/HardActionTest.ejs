@@ -26,12 +26,12 @@
     const fixedCircleY = canvas.height / 2;
     let directionX1 = Math.floor(Math.random() * 350) + 25;
     let directionY1 = Math.floor(Math.random() * 250) + 25;
-    let speedX1 = Math.floor(Math.random() * 10) + 3;
-    let speedY1 = Math.floor(Math.random() * 10) + 3;
+    let speedX1 = Math.floor(Math.random() * 5) + 3;
+    let speedY1 = Math.floor(Math.random() * 5) + 3;
     let directionX2 = Math.floor(Math.random() * 350) + 25;
     let directionY2 = Math.floor(Math.random() * 250) + 25;
-    let speedX2 = Math.floor(Math.random() * 10) + 3;
-    let speedY2 = Math.floor(Math.random() * 10) + 3;
+    let speedX2 = Math.floor(Math.random() * 5) + 3;
+    let speedY2 = Math.floor(Math.random() * 5) + 3;
     let testCounter = 0;
     let totalDistance = 0;
     let accuracy = 0;
@@ -43,9 +43,7 @@
     }
 
     function hideButton() {
-        //const newColor = prompt("Введите новый цвет фона:");
         document.getElementById("start-button").style.display = "none";
-        //canvas.style.backgroundColor = newColor;
         changeBackgroundColor();
         drawFrame();
         drawCircles();
@@ -89,6 +87,16 @@
         const frameY = canvas.height;
         context.fillStyle = canvas.style.backgroundColor;
         context.fillRect(frameX, frameY, canvas.width, canvas.height); // draw frame
+    }
+    function calculatePosition(){
+        directionX1 = Math.floor(Math.random() * 350) + 30;
+        directionY1 = Math.floor(Math.random() * 250) + 30;
+        speedX1 = Math.floor(Math.random() * 5) + 3;
+        speedY1 = Math.floor(Math.random() * 5) + 3;
+        directionX2 = Math.floor(Math.random() * 350) + 30;
+        directionY2 = Math.floor(Math.random() * 250) + 30;
+        speedX2 = Math.floor(Math.random() * 5) + 3;
+        speedY2 = Math.floor(Math.random() * 5) + 3;
     }
 
     function drawCircles() {
@@ -166,25 +174,31 @@
                 resultEnclosing.innerText = `Процент попадания: ${averageResult.toFixed(2)}%`;
             }
     });
-
-    function isFirstColliding() {
-        const distance = Math.sqrt((directionX1 - fixedCircleX) ** 2 + (directionY1 - fixedCircleY) ** 2);
-        if (distance <= circleRadius * 2) {
-            totalDistance += distance;
-            return true;
+    function checkHit1() {
+        const distance1 = Math.sqrt((directionX1 - fixedCircleX) ** 2 + (directionY1 - fixedCircleY) ** 2);
+        if (distance1 <= circleRadius * 2) {
+            testCounter++;
+            match++;
+            hit1 = distance1;
+            showReactionAndAccuracy();
         } else {
-            return false;
+            match = 0;
+            showReactionAndAccuracy();
         }
     }
-    function isSecondColliding() {
+    function checkHit2() {
         const distance2 = Math.sqrt((directionX2 - fixedCircleX) ** 2 + (directionY2 - fixedCircleY) ** 2);
         if (distance2 <= circleRadius * 2) {
-            totalDistance += distance2;
-            return true;
+            testCounter++;
+            match++;
+            hit = distance2;
+            showReactionAndAccuracy();
         } else {
-            return false;
+            match = 0;
+            showReactionAndAccuracy();
         }
     }
+
 
     function showResult() {
         const resultEnclosing = document.getElementById("result-enclosing");
