@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="3rd-lab-tests/EasyActionTestStyle.css">
+    <link rel="stylesheet" href="EasyActionTestStyle.css">
     <title>Hard Action Test</title>
 </head>
 
@@ -33,10 +33,18 @@
     let speedX2 = Math.floor(Math.random() * 5) + 3;
     let speedY2 = Math.floor(Math.random() * 5) + 3;
     let testCounter = 0;
-    let totalDistance = 0;
+    let testCounter1 = 0;
+    let testCounter2= 0;
+    let match = 0;
+    let match1 = 0;
+    let match2= 0;
     let accuracy = 0;
-    let result = 0;
     let testPassed = false;
+    let averageAccuracy = 0;
+    let totalAccuracy = 0;
+    let hit = 0;
+    let hit1 = 0;
+    let hit2 = 0;
 
     function changeBackgroundColor() {
         canvas.style.backgroundColor = "#fff";
@@ -55,7 +63,7 @@
         if(testPassed){
             const data = {
                 testType : "hard_action",
-                accuracy: accuracy
+                accuracy: averageAccuracy
             }
 
             let url = ''
@@ -142,19 +150,13 @@
         requestAnimationFrame(moveCircle);
     }
     window.addEventListener("keydown", function (event) {
-        if (event.code === "Space" || isFirstColliding() || isSecondColliding()) {
-                testCounter++;
-                document.getElementById("progress").value = testCounter * 10;
-            }
-            //showResult();
-            if (testCounter === 10) {
-                document.getElementById("submit-button-enclosing").innerHTML = '';
-                document.getElementById("restart-button-enclosing").innerHTML = ''
-                document.getElementById("result-enclosing").innerHTML = '';
-
+        if (event.code === "Space" && testPassed === false) {
+            testCounter++;
+            document.getElementById("progress").value = testCounter * 10;
+            checkHit();
+            if (testCounter > 10 && testPassed === false) {
                 testPassed = true;
 
-                showResult();
                 canvas.style.display = "none";
                 const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
                 const submitButton = document.createElement("button");
@@ -165,55 +167,75 @@
                 const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
                 const restartButton = document.createElement("button");
                 restartButton.textContent = "Пройти заново"
-                //restartButton.onclick = runTest
+                restartButton.addEventListener('click', runTest);
                 restartButtonEnclosing.appendChild(restartButton);
 
                 document.getElementById("progress").value = 0
                 const resultEnclosing = document.getElementById("result-enclosing");
-                const averageResult = result / testCounter;
-                resultEnclosing.innerText = `Процент попадания: ${averageResult.toFixed(2)}%`;
+                resultEnclosing.innerText = `Средняя точность попадания: ${averageAccuracy.toFixed(2)}%`;
             }
+        }
     });
     function checkHit1() {
         const distance1 = Math.sqrt((directionX1 - fixedCircleX) ** 2 + (directionY1 - fixedCircleY) ** 2);
+        const distance2 = Math.sqrt((directionX2 - fixedCircleX) ** 2 + (directionY2 - fixedCircleY) ** 2);
         if (distance1 <= circleRadius * 2) {
-            testCounter++;
-            match++;
+            testCounter1++;
+            match1++;
             hit1 = distance1;
             showReactionAndAccuracy();
-        } else {
+        } if (distance2 <= circleRadius * 2) {
+            testCounter2++;
+            match2++;
+            hit2 = distance2;
+            showReactionAndAccuracy();
+        } if (distance2 <= circleRadius * 2) {
+
+        }else {
             match = 0;
             showReactionAndAccuracy();
         }
     }
-    function checkHit2() {
-        const distance2 = Math.sqrt((directionX2 - fixedCircleX) ** 2 + (directionY2 - fixedCircleY) ** 2);
-        if (distance2 <= circleRadius * 2) {
-            testCounter++;
-            match++;
-            hit = distance2;
-            showReactionAndAccuracy();
-        } else {
-            match = 0;
-            showReactionAndAccuracy();
-        }
-    }
-
-
-    function showResult() {
+    function showReactionAndAccuracy() {
         const resultEnclosing = document.getElementById("result-enclosing");
-        const average = totalDistance;
-        totalDistance = 0;
-        let matchPercent;
-        matchPercent = 100 - (average / circleRadius * 100);
-        if (matchPercent < 0) {
-            matchPercent = 0;
-            resultEnclosing.innerText = `Процент попадания: ${matchPercent.toFixed(2)}%`;
-            result += matchPercent;
-        } else{
-            resultEnclosing.innerText = `Процент попадания: ${matchPercent.toFixed(2)}%`;
-            result += matchPercent;
+        let message;
+        if (match > 0) {
+            accuracy = 100 - (hit/(circleRadius*2) * 100);
+            totalAccuracy += accuracy;
+            averageAccuracy = totalAccuracy/testCounter;
+            message = `Точность попадания: ${accuracy.toFixed(2)}%`;
+        } else {
+            accuracy = 0;
+            totalAccuracy += accuracy;
+            averageAccuracy = totalAccuracy/testCounter;
+            message = 'Промах';
         }
+        resultEnclosing.innerText = message;
+    }
+    function runTest() {
+        document.getElementById("progress").value = 0;
+
+        testCounter = 0;
+        match = 0;
+        accuracy = 0;
+        testPassed = false;
+        averageAccuracy = 0;
+        totalAccuracy = 0;
+        hit = 0;
+
+        const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+        if (submitButtonEnclosing.firstChild) {
+            submitButtonEnclosing.removeChild(submitButtonEnclosing.firstChild);
+        }
+        const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+        if (restartButtonEnclosing.firstChild) {
+            restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
+        }
+        document.getElementById("result-enclosing").innerHTML = '';
+
+        canvas.style.display = "block";
+        calculatePosition();
+        hideButton();
     }
 
 </script>
