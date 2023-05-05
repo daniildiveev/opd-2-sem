@@ -25,12 +25,12 @@
     const fixedCircleY = canvas.height / 2;
     let directionX1 = Math.floor(Math.random() * 350) + 25;
     let directionY1 = Math.floor(Math.random() * 250) + 25;
-    let speedX1 = Math.floor(Math.random() * 5) + 3;
-    let speedY1 = Math.floor(Math.random() * 5) + 3;
+    let speedX1 = 0;
+    let speedY1 = 0;
     let directionX2 = Math.floor(Math.random() * 350) + 25;
     let directionY2 = Math.floor(Math.random() * 250) + 25;
-    let speedX2 = Math.floor(Math.random() * 5) + 3;
-    let speedY2 = Math.floor(Math.random() * 5) + 3;
+    let speedX2 = 0
+    let speedY2 = 0;
     let testCounter = 0;
     let match = 0;
     let accuracy = 0;
@@ -215,6 +215,10 @@
         averageAccuracy = 0;
         totalAccuracy = 0;
         hit = 0;
+        speedX1 = 0;
+        speedY1 = 0;
+        speedX2 = 0;
+        speedY2 = 0;
 
         const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
         if (submitButtonEnclosing.firstChild) {
