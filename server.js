@@ -170,7 +170,7 @@ server.get('/light_test', (req, res) => {
     if (!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('LightReactionTest')
+        res.render('2nd-lab-tests/LightReactionTest')
     }
 })
 {}
@@ -178,7 +178,7 @@ server.get('/multiple_colours_test', (req, res) => {
     if(!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('MultipleColorReactionTest')
+        res.render('2nd-lab-tests/MultipleColorReactionTest')
     }
 })
 
@@ -186,7 +186,7 @@ server.get('/sound_test', (req, res) => {
     if (!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('SoundReactionTest')
+        res.render('2nd-lab-tests/SoundReactionTest')
     }
 })
 
@@ -194,7 +194,15 @@ server.get('/visual_math_test', (req, res) => {
     if (!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('VisualMathTest')
+        res.render('2nd-lab-tests/VisualMathTest')
+    }
+})
+
+server.get('/sound_math_test', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('2nd-lab-tests/SoundMathTest')
     }
 })
 
@@ -249,8 +257,6 @@ server.get('/invite/:code', async (req, res) => {
             code: req.params.code
         }
     })
-
-    console.log(link)
 
     const tests = link.tests
     const data = {
