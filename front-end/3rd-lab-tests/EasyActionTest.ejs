@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="3rd-lab-tests/EasyActionTestStyle.css" type="text/css">
-  <title>Easy Action Test</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="EasyActionTestStyle.css" type="text/css">
+    <title>Easy Action Test</title>
+  </head>
 
-<body>
-<progress id="progress" value="0" max="100"></progress>
-<div id="start-button-enclosing">
-  <button id="start-button" onclick="hideButton()">Начать тест</button>
-</div>
-<div id="submit-button-enclosing"></div>
-<div id="restart-button-enclosing"></div>
-<div id="result-enclosing"></div>
+  <body>
+    <progress id="progress" value="0" max="100"></progress>
+    <div id="start-button-enclosing">
+      <button id="start-button" onclick="hideButton()">Начать тест</button>
+    </div>
+    <div id="submit-button-enclosing"></div>
+    <div id="restart-button-enclosing"></div>
+    <div id="result-enclosing"></div>
 
-<canvas id="canvas" width="550" height="400"></canvas>
-</body>
+    <canvas id="canvas" width="550" height="400"></canvas>
+  </body>
 
 <script>
   const canvas = document.getElementById("canvas");
@@ -24,26 +24,27 @@
   const circleRadius = 30;
   const fixedCircleX = canvas.width / 2;
   const fixedCircleY = canvas.height / 2;
-  let directionX = Math.floor(Math.random() * 350) + 25;
-  let directionY = Math.floor(Math.random() * 250) + 25;
-  let speedX = Math.floor(Math.random() * 10) + 3;
-  let speedY = Math.floor(Math.random() * 10) + 3;
+  let directionX = Math.floor(Math.random() * 350) + 30;
+  let directionY = Math.floor(Math.random() * 250) + 30;
+  let speedX = Math.floor(Math.random() * 5) + 3;
+  let speedY = Math.floor(Math.random() * 5) + 3;
   let testCounter = 0;
-  let totalDistance = 0;
-  let result = 0;
-  let hitAccuracy = 0;
-  let reactionTime = 0;
+  let match = 0;
   let accuracy = 0;
   let testPassed = false;
+  let averageAccuracy = 0; //total result
+  let totalAccuracy = 0; //accuracy sum
+  let hit = 0; //
 
+// open canvas when start button onclick
   function changeBackgroundColor() {
     canvas.style.backgroundColor = "#fff";
   }
-
+// draw canvas with circles
   function hideButton() {
     //const newColor = prompt("Введите новый цвет фона:");
-    document.getElementById("start-button").style.display = "none";
     //canvas.style.backgroundColor = newColor;
+    document.getElementById("start-button").style.display = "none";
     changeBackgroundColor();
     drawFrame();
     drawCircles();
@@ -54,7 +55,7 @@
     if(testPassed){
       const data = {
         testType : "easy_action",
-        accuracy: accuracy
+        accuracy: averageAccuracy
       }
 
       let url = ''
@@ -81,13 +82,21 @@
     }
   }
 
+  //draw canvas
   function drawFrame() {
     const frameX = canvas.width;
     const frameY = canvas.height;
     context.fillStyle = canvas.style.backgroundColor;
     context.fillRect(frameX, frameY, canvas.width, canvas.height); // draw frame
   }
-
+  // calculate position and speed of moving circle
+  function calculatePosition(){
+    directionX = Math.floor(Math.random() * 350) + 30;
+    directionY = Math.floor(Math.random() * 250) + 30;
+    speedX = Math.floor(Math.random() * 5) + 3;
+    speedY = Math.floor(Math.random() * 5) + 3;
+  }
+//draw fixed and moving circles
   function drawCircles() {
     context.beginPath();
     context.arc(fixedCircleX, fixedCircleY, circleRadius, 0, 2 * Math.PI); // draw fixed circle
@@ -99,7 +108,7 @@
     context.fillStyle = "rgba(0, 103, 187)";
     context.fill();
   }
-
+//draw moving and fixed circles with frame restrictions
   function moveCircle() {
     directionX += speedX;
     directionY += speedY;
@@ -118,14 +127,13 @@
   }
 
   window.addEventListener("keydown", function (event) {
-    if (event.code === "Space") {
+    if (event.code === "Space" && testPassed === false) {
       testCounter++;
       document.getElementById("progress").value = testCounter * 10;
       checkHit();
-      if (testCounter === 15) {
+      if (testCounter > 10 && testPassed === false) {
         testPassed = true;
 
-        showResult();
         canvas.style.display = "none";
         const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
         const submitButton = document.createElement("button");
@@ -136,80 +144,72 @@
         const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
         const restartButton = document.createElement("button");
         restartButton.textContent = "Пройти заново"
-        //restartButton.onclick = runTest
+        restartButton.addEventListener('click', runTest);
         restartButtonEnclosing.appendChild(restartButton);
 
         document.getElementById("progress").value = 0
         const resultEnclosing = document.getElementById("result-enclosing");
-        const averageResult = result / testCounter;
-        resultEnclosing.innerText = `Средняя точность попадания: ${averageResult.toFixed(2)}%`;
+        resultEnclosing.innerText = `Средняя точность попадания: ${averageAccuracy.toFixed(2)}%`;
       }
     }
   });
-
+// calculate distance and check match
   function checkHit() {
     const distance = Math.sqrt((directionX - fixedCircleX) ** 2 + (directionY - fixedCircleY) ** 2);
     if (distance <= circleRadius * 2) {
       testCounter++;
-      hitAccuracy++;
-      totalDistance += distance;
-      reactionTime = new Date().getTime();
+      match++;
+      hit = distance;
       showReactionAndAccuracy();
     } else {
-      hitAccuracy = 0;
+      match = 0;
       showReactionAndAccuracy();
     }
   }
+//calculate and show accuracy
   function showReactionAndAccuracy() {
     const resultEnclosing = document.getElementById("result-enclosing");
     let message;
-    if (hitAccuracy > 0) {
-      let averageReactionTime;
-      averageReactionTime = reactionTime / hitAccuracy;
-      accuracy = hitAccuracy / testCounter * 100;
-      message = `Среднее время реакции: ${averageReactionTime.toFixed(2)} мс`;
-      message += `Точность попадания: ${accuracy.toFixed(2)}%`;
+    if (match > 0) {
+      accuracy = 100 - (hit/(circleRadius*2) * 100);
+      totalAccuracy += accuracy;
+      averageAccuracy = totalAccuracy/testCounter;
+      message = `Точность попадания: ${accuracy.toFixed(2)}%`;
     } else {
+      accuracy = 0;
+      totalAccuracy += accuracy;
+      averageAccuracy = totalAccuracy/testCounter;
       message = 'Промах';
     }
     resultEnclosing.innerText = message;
   }
+  // restart test
+  function runTest() {
+    document.getElementById("progress").value = 0;
 
-  function showResult() {
-    /*    const resultEnclosing = document.getElementById("result-enclosing");
-        let matchPercent;
-        if (testCounter > 0) {
-          const average = totalDistance / testCounter;
-          matchPercent = 100 - (average / circleRadius * 100);
-        } else {
-          matchPercent = 0;
-        }
-        resultEnclosing.innerText = `Процент попадания: ${matchPercent.toFixed(2)}%`;
-        result += matchPercent;*/
-    const resultEnclosing = document.getElementById("result-enclosing");
-    const average = totalDistance;
-    totalDistance = 0;
-    let matchPercent;
-    if (hitAccuracy > 0) {
-      matchPercent = 100 - (average / circleRadius * 100);
-      if (matchPercent < 0) {
-        matchPercent = 0;
-      }
-    } else {
-      matchPercent = 0;
+    testCounter = 0;
+    match = 0;
+    accuracy = 0;
+    testPassed = false;
+    averageAccuracy = 0;
+    totalAccuracy = 0;
+    hit = 0;
+
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    if (submitButtonEnclosing.firstChild) {
+      submitButtonEnclosing.removeChild(submitButtonEnclosing.firstChild);
     }
-    result += matchPercent;
-    resultEnclosing.innerText = `Процент попадания: ${matchPercent.toFixed(2)}%`;
-    /*    matchPercent = 100 - (average / circleRadius * 100);
-        if (matchPercent < 0) {
-          matchPercent = 0;
-          resultEnclosing.innerText = `Процент попадания: ${matchPercent.toFixed(2)}%`;
-          result += matchPercent;
-        } else{
-          resultEnclosing.innerText = `Процент попадания: ${matchPercent.toFixed(2)}%`;
-          result += matchPercent;
-        }*/
-  }
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    if (restartButtonEnclosing.firstChild) {
+      restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
+    }
+    document.getElementById("result-enclosing").innerHTML = '';
 
+    canvas.style.display = "block";
+    speedX = 0;
+    speedY = 0;
+    calculatePosition();
+    hideButton();
+  }
 </script>
 </html>
