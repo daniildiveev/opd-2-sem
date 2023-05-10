@@ -1,0 +1,64 @@
+:root{
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, .8);
+    --font-style: 'Verdana', sans-serif;
+}
+body {
+    margin: 3em;
+    padding: 0;
+    background-color: var(--main-color);
+    font-family: var(--font-style);
+}
+
+canvas {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.circle {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--addl-color);
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-top: 30px;
+}
+
+canvas {
+    background-color: #eee;
+    border: 1px solid black;
+}
+
+#score, #timer {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+#buttons {
+    margin-top: 20px;
+}
+
+button {
+    font-size: 18px;
+    margin-right: 20px;
+    padding: 10px 20px;
+}
