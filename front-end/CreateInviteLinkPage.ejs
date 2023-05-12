@@ -47,11 +47,12 @@
         testTypeSelects.appendChild(select)
         i++;
     }
+
     async function getLink(){
         const data = {
             tests: []
         }
-        for (let j=0;j<i;j++){
+        for (let j=0;j<=i;j++){
             if(document.getElementById("test-type-select-" + j) ){
                 if (document.getElementById("test-type-select-" + j).value){
                     data.tests.push(document.getElementById("test-type-select-" + j).value)
