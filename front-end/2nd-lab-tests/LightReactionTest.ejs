@@ -34,7 +34,7 @@ async function sendData(){
     if(testPassed){
         const data = {
             testType : "light",
-            reactionTime: testResults.at(-1)
+            reactionTime: testResults.reduce((a, b) => a + b, 0) / testResults.length
         }
 
         let url = ''
