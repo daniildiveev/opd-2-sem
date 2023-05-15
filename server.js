@@ -198,7 +198,7 @@ server.get('/visual_math_test', (req, res) => {
     }
 })
 
-server.get('/sound_math_test', (req, res) => {
+server.get('/math_sound', (req, res) => {
     if (!req.isAuthenticated()){
         res.redirect('/login')
     } else {
@@ -212,6 +212,10 @@ server.get('/create_invite', (req, res) => {
     } else {
         res.render('CreateInviteLinkPage')
     }
+})
+
+server.get('/tests_list', (req, res) => {
+    res.render('TestListPage')
 })
 
 server.post('/get_tests_from_db', async (req, res) => {
