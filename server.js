@@ -178,7 +178,7 @@ server.get('/multiple_colours_test', (req, res) => {
     if(!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('2nd-lab-tests/MultipleColorReactionTest')
+        res.render('2nd-lab-tests/ColorReactionTest')
     }
 })
 
