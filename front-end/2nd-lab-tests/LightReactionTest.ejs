@@ -6,14 +6,29 @@
     <title>Light Reaction Test</title>
 </head>
 <body>
-<div id="send-button-enclosing"></div>
+<h1>Light Reaction Test</h1>
+<progress id="progress" value="0" max="100"></progress>
+<div id="start-button-enclosing">
+    <button id="start-button" onclick="hideButton()">Начать тест</button>
+</div>
+<div id="submit-button-enclosing"></div>
+<div id="restart-button-enclosing"></div>
+<div id="result-enclosing"></div>
+<p id="result"></p>
+
+<!--<div id="square" class="square single-color"></div>-->
+
 </body>
 <script>
-let initialColor = "white";
-let newColor = "lightblue";
-let bodyElement = document.getElementsByTagName("body")[0];
-let startTime, testStarted = false, testPassed = false;
-let testResults = []
+    const colors = ['lightblue'];
+    let intervalId;
+    let startTime;
+    let reactionTime;
+    let correctAnswer = 0; // square number
+    let testCounter = 0;
+    let totalReactionTime = 0;
+    let testPassed = false;
+    let testResults = []
 
 async function sendData(){
     if(testPassed){
@@ -46,52 +61,91 @@ async function sendData(){
     }
 }
 
-// задаем функцию, которая будет вызываться при нажатии на клавишу пробел
-function handleKeyPress(event) {
-    // проверяем, что нажата именно клавиша пробел
-    if (event.keyCode === 32) {
-        if (testStarted){
-            let endTime = new Date().getTime(); // сохраняем время завершения изменения цвета фона
-            let reactionTime = endTime - startTime; // вычисляем время реакции пользователя
+    function hideButton(){
+        document.getElementById("start-button").style.display = "none";
+        const squareDiv = document.createElement("div");
+        squareDiv.id = "square";
+        squareDiv.classList.add("single-color");
+        document.body.appendChild(squareDiv);
+        alert("Нажмите на клавишу пробел, когда увидите изменение цвета фона страниц");
+        startTest()
+    }
+
+    function startTest() {
+        resetSquare();
+        intervalId = setInterval(() => {
+            resetSquare();
+            document.getElementById('square').style.backgroundColor = colors[0];
+            correctAnswer = 0;
+            startTime = Date.now();
+        }, Math.floor(Math.random() * 2000) + 1000);
+    }
+
+    function resetSquare() {
+        document.getElementById('square').style.backgroundColor = 'white';
+    }
+
+    document.addEventListener('keydown', event => {
+        if (event.code === 'Space') {
+            checkAnswer();
+        }
+    });
+
+    function checkAnswer() {
+        clearInterval(intervalId);
+
+        if (testCounter <= 10 && testPassed === false) {
+            reactionTime = Date.now() - startTime;
             testResults.push(reactionTime)
-            alert("Ваше время реакции на изменение цвета фона страницы: " + reactionTime + " мс"); // выводим результат пользователю
-            bodyElement.style.backgroundColor = initialColor; // возвращаем начальный цвет фона
-            testStarted = false;
+            document.getElementById("progress").value = testCounter * 10;
+            testCounter++;
+            totalReactionTime += reactionTime;
+            document.getElementById('result').innerHTML = `Your reaction time: ${reactionTime}ms`;
+            startTest();
+        } else if (testCounter > 10 && testPassed === false) {
+            testPassed = true;
 
-            if (!testPassed){
-                const submitButton = document.createElement("button")
-                submitButton.innerHTML = "Отправить результат"
+            document.getElementById("progress").value = 0
+            document.getElementById('result').innerHTML = '';
 
-                submitButton.onclick = sendData
-                document.getElementById("send-button-enclosing").appendChild(submitButton)
-                //bodyElement.appendChild(submitButton)
-            }
+            const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+            const submitButton = document.createElement("button");
+            submitButton.textContent = "Отправить результат"
+            submitButton.onclick = sendData
+            submitButtonEnclosing.appendChild(submitButton);
 
-            testPassed = true
+            const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+            const restartButton = document.createElement("button");
+            restartButton.textContent = "Пройти заново"
+            restartButton.addEventListener('click', runTest);
+            restartButtonEnclosing.appendChild(restartButton);
+
+            const resultEnclosing = document.getElementById("result-enclosing");
+            resultEnclosing.innerHTML = `You have completed the test! Your average reaction time is ${totalReactionTime / testCounter}ms.`;
+            resultEnclosing.appendChild(resultEnclosing);
         }
     }
-}
+    function runTest() {
+        document.getElementById("progress").value = 0;
+        testCounter = 0;
+        testPassed = false;
+        reactionTime = 0;
+        startTime = 0;
 
-// добавляем обработчик события нажатия на клавишу
-document.addEventListener("keydown", handleKeyPress);
-
-// задаем начальный цвет фона страницы
-bodyElement.style.backgroundColor = initialColor;
-
-function startTest() {
-    setTimeout(() => {
-                bodyElement.style.backgroundColor = newColor; // меняем цвет фона
-                startTime = new Date().getTime();
-                testStarted = true;
-                bodyElement.focus();
-            },
-            Math.random() * 5000 )
-}
-const startButton = document.createElement("button");
-startButton.innerHTML = "Начать тест";
-startButton.onclick = startTest;
-bodyElement.appendChild(startButton);
-
-alert("Нажмите на клавишу пробел, когда увидите изменение цвета фона страниц")
+        const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+        if (submitButtonEnclosing.firstChild) {
+            submitButtonEnclosing.removeChild(submitButtonEnclosing.firstChild);
+        }
+        const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+        if (restartButtonEnclosing.firstChild) {
+            restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
+        }
+        const resultEnclosing = document.getElementById("result-enclosing");
+        if (resultEnclosing.firstChild) {
+            resultEnclosing.removeChild(resultEnclosing.firstChild);
+        }
+        hideButton();
+        startTest();
+    }
 </script>
 </html>

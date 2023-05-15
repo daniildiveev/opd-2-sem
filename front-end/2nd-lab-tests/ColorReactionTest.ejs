@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel = "stylesheet" href = "ColorReactionStyle.css">
+  <title>Color Reaction Test</title>
+</head>
+<body>
+<h1>Color Reaction Test</h1>
+<progress id="progress" value="0" max="100"></progress>
+<div id="start-button-enclosing">
+  <button id="start-button" onclick="hideButton()">Начать тест</button>
+</div>
+<div id="submit-button-enclosing"></div>
+<div id="restart-button-enclosing"></div>
+<div id="result-enclosing"></div>
+<p id="result"></p>
+
+</body>
+
+<script>
+  const colors = ['red', 'blue', 'green'];
+  let intervalId;
+  let startTime;
+  let reactionTime;
+  let correctAnswer; // square number
+  let currentSquare;
+  let testCounter = 0;
+  let correctTestCounter = 0;
+  let totalReactionTime = 0;
+  let testPassed = false;
+  let reactionTimings = [], results = [];
+
+
+  async function sendData(){
+    if(testPassed){
+      const data = {
+        testType : "3_colors",
+        reactionTimings: results.at(-1)
+      }
+
+      let url = ''
+      const urlObject = new URL(window.location.href)
+
+      if (urlObject.searchParams.has('data')){
+        url += '/complex_reaction_test?data=' + encodeURIComponent(urlObject.searchParams.get('data'))
+      } else {
+        url += '/complex_reaction_test'
+      }
+
+      await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      })
+              .then(res => {
+                console.log(res)
+                // Redirect to another URL
+                window.location.href = res.url;
+              })
+              .catch(error => console.error(error));
+
+    }
+  }
+
+  function hideButton(){
+    document.getElementById("start-button").style.display = "none";
+    const squaresDiv = document.createElement("div");
+    squaresDiv.id = "squares";
+    for (let i = 0; i < 3; i++) {
+      const squareDiv = document.createElement("div");
+      squareDiv.className = "square";
+      squaresDiv.appendChild(squareDiv);
+    }
+    document.body.appendChild(squaresDiv);
+
+    startTest()
+  }
+
+  function startTest() {
+    resetSquares();
+    intervalId = setInterval(() => {
+      resetSquares();
+      const randomIndex = Math.floor(Math.random() * 3);
+      document.querySelectorAll('.square')[randomIndex].style.backgroundColor = colors[randomIndex];
+      correctAnswer = randomIndex;
+      startTime = Date.now();
+    }, Math.floor(Math.random() * 2000) + 1000);
+  }
+
+  function resetSquares() {
+    document.querySelectorAll('.square').forEach(square => {
+      square.style.backgroundColor = 'white';
+    });
+  }
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'z') {
+      currentSquare = 0;
+      checkAnswer();
+    } else if (event.key === 'x') {
+      currentSquare = 1;
+      checkAnswer();
+    } else if (event.key === 'c') {
+      currentSquare = 2;
+      checkAnswer();
+    }
+  });
+
+  function checkAnswer() {
+    clearInterval(intervalId);
+    if (currentSquare === correctAnswer) {
+      reactionTime = Date.now() - startTime;
+      document.getElementById("progress").value = testCounter * 10;
+      correctTestCounter++;
+      testCounter++;
+      totalReactionTime += reactionTime;
+      reactionTimings.push(reactionTime);
+
+
+      document.getElementById('result').innerHTML = `Your reaction time: ${reactionTime}ms. Correct!`;
+    } else {
+      totalReactionTime += reactionTime * 2;
+      reactionTimings.push(reactionTime*2);
+      document.getElementById('result').innerHTML = 'Wrong answer. Try again!';
+      testCounter++;
+
+    }
+    if (testCounter <= 10 && testPassed === false) {
+      startTest();
+    } else if (testCounter > 10 && testPassed === false){
+      testPassed = true;
+
+      document.getElementById("progress").value = 0
+      document.getElementById('result').innerHTML = '';
+
+      const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+      const submitButton = document.createElement("button");
+      submitButton.textContent = "Отправить результат"
+      submitButton.onclick = sendData
+      submitButtonEnclosing.appendChild(submitButton);
+
+      const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+      const restartButton = document.createElement("button");
+      restartButton.textContent = "Пройти заново"
+      restartButton.addEventListener('click', runTest);
+      restartButtonEnclosing.appendChild(restartButton);
+
+      const resultEnclosing = document.getElementById("result-enclosing");
+      resultEnclosing.innerHTML = `You have completed the test! Your average reaction time is ${totalReactionTime / correctTestCounter}ms. You answered ${correctTestCounter} out of 10 correctly.`;
+      resultEnclosing.appendChild(resultEnclosing);
+    }
+  }
+
+  function runTest(){
+    document.getElementById("progress").value = 0;
+    correctTestCounter = 0;
+    testCounter = 0;
+    testPassed = false;
+    reactionTime = 0;
+    startTime = 0;
+
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    if (submitButtonEnclosing.firstChild) {
+      submitButtonEnclosing.removeChild(submitButtonEnclosing.firstChild);
+    }
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    if (restartButtonEnclosing.firstChild) {
+      restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
+    }
+    const resultEnclosing = document.getElementById("result-enclosing");
+    if (resultEnclosing.firstChild) {
+      resultEnclosing.removeChild(resultEnclosing.firstChild);
+    }
+    hideButton();
+    startTest();
+  }
+</script>
+</html>
