@@ -46,7 +46,7 @@ body {
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 3px;
@@ -88,12 +88,22 @@ body {
 #result-enclosing {
     display: none;
 }
-
 #progress {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    width: 90%;
+    height: 1em;
+    margin-top: 3%;
+    margin-left: 5%;
+    background-color: white;
+    border-radius: 3px;
+}
+#progress::-webkit-progress-bar {
+    border-radius: 3px;
+    background-color: var(--overlay-color);
+}
+
+#progress::-webkit-progress-value {
+    border-radius: 3px;
+    background-color: var(--addl-color);
 }
 
 @media only screen and (max-width: 600px) {
@@ -116,72 +126,21 @@ body {
     #timer,
     #score,
     #reaction {
-        font-size: 18px;
+        font-size: 1.2em;
     }
 }
-
-
-/*
-body {
-    margin: 3em;
-    padding: 0;
-    background-color: var(--main-color);
+#result-enclosing {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    color: white;
+    margin-top: 2em;
     font-family: var(--font-style);
 }
-
 canvas {
     position: absolute;
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-#progress {
-    width: 90%;
-    height: 1em;
-    margin-top: 3%;
-    margin-left: 5%;
-    background-color: white;
-    border-radius: 3px;
-}
-
-#progress::-webkit-progress-bar {
-    border-radius: 3px;
-    background-color: var(--overlay-color);
-}
-
-#progress::-webkit-progress-value {
-    border-radius: 3px;
-    background-color: var(--addl-color);
-}
-#start-button, #submit-button-enclosing button{
-    border: none;
-    border-radius: 3px;
-    background-color: white;
-    color: var(--overlay-color);
-    padding: 1.2rem 2.8rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    letter-spacing: 0.1rem;
-    text-align: center;
-    text-decoration: none;
-    transition: opacity .6s ease-in-out;
-    margin-top: 3em;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, 0);
-    cursor: pointer;
-    text-transform: uppercase;
-}
-.start-button:hover {
-    opacity: .9;
-}
-
-#timer, #score {
-    font-size: 1.2em;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 20px;
-    color: white;
-    letter-spacing: 0.1rem;
-}*/

@@ -22,70 +22,63 @@
   let context = canvas.getContext("2d");
   let ballX = canvas.width / 2;
   let ballY = canvas.height / 2;
-  let ballRadius = 10;
-  let ballSpeed = 5;
+  let radius = 30;
+  let ballSpeed = 3;
   let dx = ballSpeed;
-  let dy = -ballSpeed;
-  let targetX = Math.floor(Math.random() * (canvas.width - 2 * ballRadius) + ballRadius);
-  let targetY = Math.floor(Math.random() * (canvas.height - 2 * ballRadius) + ballRadius);
-  let targetRadius = 20;
-  let userX = canvas.width / 2;
-  let userY = canvas.height - 50;
-  let userRadius = 15;
-  let userColor = "#0000FF";
+  let targetX = Math.floor(Math.random() * (canvas.width/2 - 2 * radius) + radius);
+  let targetY = canvas.height/2;
+  let userX = canvas.width/2;
+  let userY = canvas.height/2;
+  let userColor = "rgb(0, 103, 187)";
   let leftPressed = false;
   let rightPressed = false;
   let accuracy = 0;
+  let totalAccuracy = 0;
+  let accuracies = [];
   let countDownDate, timerInterval;
 
-  // Функция для отрисовки кадра
   function drawFrame() {
-    // Очищаем холст
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Рисуем управляемый шарик пользователя
     context.beginPath();
-    context.arc(userX, userY, userRadius, 0, Math.PI*2);
+    context.arc(userX, userY, radius, 0, Math.PI*2);
     context.fillStyle = userColor;
     context.fill();
     context.closePath();
 
-    // Рисуем шарик, двигающийся по экрану
     context.beginPath();
-    context.arc(ballX, ballY, ballRadius, 0, Math.PI*2);
+    context.arc(ballX, ballY, radius, 0, Math.PI*2);
     context.fillStyle = "#0095DD";
     context.fill();
     context.closePath();
 
     // calculate accuracy
-    const distance = Math.sqrt((userX - targetX) ** 2 + (userY - targetY) ** 2);
-    accuracy = (1 - distance / (canvas.width + canvas.height - 4 * ballRadius)) * 100;
+    const distance = Math.sqrt((userX - targetX) ** 2);
+    accuracy = (1 - distance / (canvas.width - 4 * radius)) * 100;
+    accuracies.push(accuracy);
+
+    // update average accuracy every 5 seconds
+    if (accuracies.length % 50 === 0) {
+      updateAverageAccuracy();
+    }
+
 
     // output accuracy
-    context.font = "20px Arial";
-    context.fillStyle = "#000000";
-    context.fillText("Accuracy: " + accuracy.toFixed(2) + "%", 10, 30);
+    const resultEnclosing = document.getElementById("result-enclosing");
+    resultEnclosing.innerHTML = `Точность попадания: ${accuracy.toFixed(2)}%`
 
-    // update coordinates
+    // update coordinate
     ballX += dx;
-    ballY += dy;
 
-    // Если шарик вышел за границы холста, меняем направление движения
-    if (ballX < ballRadius || ballX > canvas.width - ballRadius) {
+    if (ballX < radius || ballX > canvas.width - radius) {
       dx = -dx;
     }
-    if (ballY < ballRadius || ballY > canvas.height - ballRadius) {
-      dy = -dy;
-    }
-
-    // Проверяем, не столкнулся ли управляемый шарик с мишенью
-    if (distance <= userRadius + targetRadius) {
-      targetX = Math.floor(Math.random() * (canvas.width - 2 * ballRadius) + ballRadius);
-      targetY = Math.floor(Math.random() * (canvas.height - 2 * ballRadius) + ballRadius);
+    if (distance <= radius*2) {
+      targetX = Math.floor(Math.random() * (canvas.width - 2 * radius) + radius);
+      targetY = canvas.height/2;
     }
   }
 
-  // Функция для обработки нажатия клавиш
   function keyDownHandler(event) {
     if (event.keyCode === 37) {
       leftPressed = true;
@@ -94,8 +87,6 @@
       rightPressed = true;
     }
   }
-
-  // Функция для обработки отпускания клавиш
   function keyUpHandler(event) {
     if (event.keyCode === 37) {
       leftPressed = false;
@@ -107,37 +98,73 @@
 
   // Функция для перемещения управляемого шарика
   function moveUserBall() {
-    if (leftPressed && userX > userRadius) {
+    if (leftPressed && userX > radius) {
       userX -= ballSpeed;
     }
-    else if (rightPressed && userX < canvas.width - userRadius) {
+    else if (rightPressed && userX < canvas.width - radius) {
       userX += ballSpeed;
     }
-  }
-
-  // Функция для скрытия кнопки "Начать тест" и запуска таймера
-  function hideButton() {
-    document.getElementById("start-button-enclosing").style.display = "none";
-
-// Начинаем отсчет времени
-    countDownDate = new Date().getTime() + 120000;
-    timerInterval = setInterval(updateTimer, 1000);
-
-// Запускаем анимацию шариков
-    setInterval(function() {
-      drawFrame();
-      moveUserBall();
-    }, 10);
   }
 
   // Функция для обновления таймера
   function updateTimer() {
     let now = new Date().getTime();
     let distance = countDownDate - now;
+    const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    let timerText = "До конца теста: " + minutes + "мин " + seconds + "сек ";
+    context.font = "1.2em Verdana";
+    context.fillStyle = "#fff";
+    context.fillText(timerText, canvas.width - 150, 30);
+
+    const progress = document.getElementById("progress");
+    progress.value = ((120000 - distance) / 120000) * 100;
+
+    if (distance < 0) {
+      clearInterval(timerInterval);
+      updateAverageAccuracy();
+      showResult();
+    }
+  }
+
+  function hideButton() {
+    document.getElementById("start-button-enclosing").style.display = "none";
+
+    countDownDate = new Date().getTime() + 120000;
+    timerInterval = setInterval(updateTimer, 1000);
+
+    setInterval(function() {
+      drawFrame();
+      moveUserBall();
+    }, 10);
+    // Удаляем шарики и показываем экранные кнопки через 2 минуты
+    setTimeout(function () {
+      clearInterval(timerInterval);
+      ballX = null;
+      ballY = null;
+      targetX = null;
+      targetY = null;
+      userX = null;
+
+      updateAverageAccuracy();
+      showResult();
+    }, 120000);
+  }
+  // Функция для вычисления среднего значения точности
+  function updateAverageAccuracy() {
+    totalAccuracy = accuracies.reduce((sum, currentValue) => sum + currentValue, 0) / accuracies.length;
+  }
+
+/*  // Функция для обновления таймера
+  function updateTimer() {
+    let now = new Date().getTime();
+    let distance = countDownDate - now;
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
     let timerText = "Time Left: " + minutes + "m " + seconds + "s ";
-    context.font = "20px Arial";
+    context.font = "20px Verdana";
     context.fillStyle = "#000000";
     context.fillText(timerText, canvas.width - 150, 30);
 
@@ -145,13 +172,26 @@
       clearInterval(timerInterval);
       showResult();
     }
-  }
+  }*/
 
   // Функция для показа итогового результата
   function showResult() {
     clearInterval(timerInterval);
-    let resultText = "Your accuracy is " + accuracy.toFixed(2) + "%. Submit your result?";
-    document.getElementById("result-enclosing").innerHTML = '<p>' + resultText + '</p><button id="result-submit" onclick="submitResult()">Yes</button><button id="result-cancel" onclick="hideResult()">Cancel</button>';
+    canvas.style.display = "none";
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    const submitButton = document.createElement("button");
+    submitButton.textContent = "Отправить результат"
+    submitButton.onclick = sendData
+    submitButtonEnclosing.appendChild(submitButton);
+
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    const restartButton = document.createElement("button");
+    restartButton.textContent = "Пройти заново"
+    restartButton.addEventListener('click', restartTest);
+    restartButtonEnclosing.appendChild(restartButton);
+
+    const resultEnclosing = document.getElementById("result-enclosing");
+    resultEnclosing.innerHTML = `Your accuracy is ${accuracy.toFixed(2)}%`;
   }
 
   // Функция для скрытия итогового результата
@@ -165,11 +205,12 @@
     ballX = canvas.width / 2;
     ballY = canvas.height / 2;
     dx = ballSpeed;
-    dy = -ballSpeed;
-    targetX = Math.floor(Math.random() * (canvas.width - 2 * ballRadius) + ballRadius);
-    targetY = Math.floor(Math.random() * (canvas.height - 2 * ballRadius) + ballRadius);
+    targetX = Math.floor(Math.random() * (canvas.width - 2 * radius) + radius);
+    targetY = canvas.height/2;
     userX = canvas.width / 2;
     accuracy = 0;
+    totalAccuracy = 0;
+    accuracies = [];
     document.getElementById("start-button-enclosing").style.display = "block";
     document.getElementById("submit-button-enclosing").innerHTML = '';
     document.getElementById("restart-button-enclosing").innerHTML = '';
@@ -180,12 +221,8 @@
   function submitResult() {
 // Отправляем результат на сервер
     alert("Result submitted!");
-
-// Перезапускаем тест
-    restartTest();
   }
 
-  // Добавляем обработчики событий для клавиатуры
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
 

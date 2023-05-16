@@ -6,141 +6,187 @@
   <title>Stalking Test</title>
 </head>
 <body>
-<div id="game-container">
-  <h1>Snake Game</h1>
-  <canvas id="canvas" width="600" height="600"></canvas>
-  <div id="score">Score: 0</div>
-  <div id="timer">Timer: 2:00</div>
-  <div id="buttons">
-    <button onclick="restartGame()">Restart</button>
-    <button onclick="endGame()">End Game</button>
+  <progress id="progress" value="0" max="100"></progress>
+  <div id="start-button-enclosing">
+    <button id="start-button" onclick="startTest()">Начать тест</button>
   </div>
-</div>
-<script>
-  let canvas = document.getElementById("canvas");
-  let ctx = canvas.getContext("2d");
+  <div id="timer"></div>
+  <div id="submit-button-enclosing"></div>
+  <div id="restart-button-enclosing"></div>
+  <div id="result-enclosing"></div>
 
-  let circle = {x: 300, y: 300, r: 50};
-  let snake = [{x: 100, y: 100}];
-  let direction = "";
-  let score = 0;
-  let timer;
+  <canvas id="canvas" width="550" height="400"></canvas>
+</body>
+<script>
+  const canvas = document.getElementById("canvas");
+  const context = canvas.getContext("2d");
+  let userX = canvas.width/2;
+  let userY = canvas.height/2;
+  let leftPressed = false;
+  let rightPressed = false;
+  let radius = 30;
+  let ballSpeed = 10;
+  let speedX = Math.random() * 7 + 3;
+  let elapsedTime;
+  let accuracy = 0;
+  let totalAccuracy = 0;
+  let timeLimit = 120000;
+  canvas.style.display = "none";
+
+  function changeBackgroundColor() {
+    canvas.style.backgroundColor = "#fff";
+  }
+
+  function startTest() {
+    let startTime = new Date().getTime();
+    let interval = setInterval(function() {
+      let currentTime = new Date().getTime();
+      elapsedTime = currentTime - startTime;
+      document.getElementById("progress").value = elapsedTime / timeLimit * 100;
+      updateTimer();
+      if (elapsedTime >= timeLimit) {
+        document.getElementById("timer").innerText = '';
+        clearInterval(interval);
+        endTest();
+      }
+    }, 10);
+
+    document.getElementById("start-button-enclosing").style.display = "none";
+    canvas.style.display = "block";
+    changeBackgroundColor()
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+    canvas.addEventListener('click', handleClick);
+    moveCircle();
+  }
+  function updateTimer() {
+    let remainingTime = timeLimit - elapsedTime;
+    let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+    let timerElement = document.getElementById("timer");
+    timerElement.innerHTML = "Времени осталось: " + minutes + ":" + seconds;
+  }
+
+  function drawFrame() {
+    context.beginPath();
+    context.moveTo(canvas.width/2, 0);
+    context.lineTo(canvas.width/2, canvas.height);
+    context.lineWidth = 5;
+    context.stroke();
+    context.closePath();
+  }
 
   function drawCircle() {
-    ctx.beginPath();
-    ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI*2);
-    ctx.fillStyle = "red";
-    ctx.fill();
-    ctx.closePath();
+    context.beginPath();
+    context.arc(userX, userY, radius, 0, Math.PI*2);
+    context.fillStyle = "rgb(0, 103, 187)";
+    context.fill();
+    context.closePath();
   }
-
-  function drawSnake() {
-    for (let i = 0; i < snake.length; i++) {
-      ctx.beginPath();
-      ctx.rect(snake[i].x, snake[i].y, 20, 20);
-      ctx.fillStyle = "blue";
-      ctx.fill();
-      ctx.closePath();
+  function keyDownHandler(event) {
+    if (event.keyCode === 37) {
+      leftPressed = true;
+    }
+    else if (event.keyCode === 39) {
+      rightPressed = true;
     }
   }
-
-  function moveSnake() {
-    let head = {x: snake[0].x, y: snake[0].y};
-
-    if (direction === "right") {
-      head.x += 20;
-    } else if (direction === "left") {
-      head.x -= 20;
-    } else if (direction === "up") {
-      head.y -= 20;
-    } else if (direction === "down") {
-      head.y += 20;
+  function keyUpHandler(event) {
+    if (event.keyCode === 37) {
+      leftPressed = false;
     }
-
-    if (head.x < 0 || head.x > canvas.width-20 || head.y < 0 || head.y > canvas.height-20) {
-      endGame();
-      return;
+    else if (event.keyCode === 39) {
+      rightPressed = false;
     }
+  }
+  function moveCircle() {
+    let startTime = Date.now();
 
-    for (let i = 1; i < snake.length; i++) {
-      if (head.x === snake[i].x && head.y === snake[i].y) {
-        endGame();
-        return;
+    function loop() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      drawFrame();
+      drawCircle();
+      moveUserBall();
+
+      if (userX + speedX > canvas.width - radius || userX + speedX < radius) {
+        speedX = -speedX;
       }
-    }
+      userX += speedX;
 
-    if (head.x === circle.x && head.y === circle.y) {
-      circle.x = Math.floor(Math.random() * (canvas.width-40)) + 20;
-      circle.y = Math.floor(Math.random() * (canvas.height-40)) + 20;
-      score++;
-      snake.push({x: head.x, y: head.y});
-    } else {
-      snake.pop();
-      snake.unshift({x: head.x, y: head.y});
-    }
+      let currentTime = Date.now();
+      let elapsedTime = currentTime - startTime;
 
-    drawSnake();
-    document.getElementById("score").innerText = "Score: " + score;
-  }
-
-  function startTimer(duration, display) {
-    let timer = duration, minutes, seconds;
-    setInterval(function () {
-      minutes = parseInt(timer / 60, 10);
-      seconds = parseInt(timer % 60, 10);
-
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds;
-
-      display.textContent = "Timer: " + minutes + ":" + seconds;
-
-      if (--timer < 0) {
-        endGame();
+      if (elapsedTime > Math.floor(Math.random() * 8000) + 2000) { // Случайная пауза от 2 до 10 секунд
+        changeDirection();
+        startTime = currentTime; // Обновляем время запуска следующей паузы
       }
-    }, 1000);
-  }
 
-  function restartGame() {
-    location.reload();
-  }
-
-  function endGame() {
-    clearInterval(timer);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let resultEnclosing = document.getElementById("result-enclosing");
-    resultEnclosing.innerHTML = "<h2>Game Over!</h2><p>Your final score is: " + score + "</p>";
-
-    let submitButtonEnclosing = document.getElementById("submit-button-enclosing");
-    submitButtonEnclosing.innerHTML = "<button onclick='submitScore()'>Submit Score</button>";
-
-    let restartButtonEnclosing = document.getElementById("restart-button-enclosing");
-    restartButtonEnclosing.innerHTML = "<button onclick='restartGame()'>Play Again</button>";
-  }
-
-  function submitScore() {
-    let playerName = prompt("Enter your name: ");
-// отправка данных на сервер
-  }
-
-  document.addEventListener("keydown", function(event) {
-    if (event.key === "ArrowRight" && direction !== "left") {
-      direction = "right";
-    } else if (event.key === "ArrowLeft" && direction !== "right") {
-      direction = "left";
-    } else if (event.key === "ArrowUp" && direction !== "down") {
-      direction = "up";
-    } else if (event.key === "ArrowDown" && direction !== "up") {
-      direction = "down";
+      requestAnimationFrame(loop);
     }
-  });
-  drawCircle();
-  drawSnake();
 
-  let timerDisplay = document.getElementById("timer");
-  startTimer(120, timerDisplay);
+    loop();
+  }
 
+  function changeDirection() {
+    speedX = -speedX;
+  }
+  function moveUserBall() {
+    if (leftPressed && userX > radius) {
+      userX -= ballSpeed;
+    }
+    else if (rightPressed && userX < canvas.width - radius) {
+      userX += ballSpeed;
+    }
+  }
+  function handleClick(event) {
+    const clickPosition = event.clientX - canvas.offsetLeft;
+    const distanceFromLine = Math.abs(clickPosition - canvas.width / 2);
+    accuracy += 100 - distanceFromLine;
+    const resultEnclosing = document.getElementById("result-enclosing");
+    resultEnclosing.innerHTML = `Точность попадания: ${accuracy.toFixed(2)}%`
+    if (elapsedTime >= timeLimit) {
+      canvas.removeEventListener('click', handleClick);
+    }
+  }
 
+  function endTest() {
+    canvas.style.display = "none";
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    const submitButton = document.createElement("button");
+    submitButton.textContent = "Отправить результат"
+    submitButton.onclick = sendData
+    submitButtonEnclosing.appendChild(submitButton);
+
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    const restartButton = document.createElement("button");
+    restartButton.textContent = "Пройти заново"
+    restartButton.addEventListener('click', restartTest);
+    restartButtonEnclosing.appendChild(restartButton);
+
+    const resultEnclosing = document.getElementById("result-enclosing");
+    totalAccuracy = Math.round(accuracy/(canvas.width / 2 * 1200) * 100);
+    resultEnclosing.innerHTML = `Ваша точность: ${totalAccuracy}%`;
+  }
+
+  function restartTest() {
+    document.getElementById("progress").value = 0;
+    accuracy = 0;
+    totalAccuracy = 0;
+    leftPressed = false;
+    rightPressed = false;
+
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    if (submitButtonEnclosing.firstChild) {
+      submitButtonEnclosing.removeChild(submitButtonEnclosing.firstChild);
+    }
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    if (restartButtonEnclosing.firstChild) {
+      restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
+    }
+    document.getElementById("result-enclosing").innerHTML = '';
+
+    startTest();
+
+  }
 </script>
-</body>
 </html>
-
