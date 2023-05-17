@@ -276,6 +276,22 @@ server.get('/invite/:code', async (req, res) => {
     }
 })
 
+server.get('/analog_tracking_test', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('4th-lab-tests/AnalogTrackingTest')
+    }
+})
+
+server.get('/stalking_test', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('4th-lab-tests/StalkingTest')
+    }
+})
+
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
