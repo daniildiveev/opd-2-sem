@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="StalkingTest.css">
+  <title>Stalking Test</title>
+</head>
+<body>
+<progress id="progress" value="0" max="100"></progress>
+<div id="start-button-enclosing">
+  <button id="start-button" onclick="hideButton()">Начать тест</button>
+</div>
+<div id="timer"></div>
+<div id="submit-button-enclosing"></div>
+<div id="restart-button-enclosing"></div>
+<div id="result-enclosing"></div>
+
+<canvas id="canvas" width="550" height="400"></canvas>
+</body>
+<script>
+  let canvas = document.getElementById("canvas");
+  let context = canvas.getContext("2d");
+  let ballX = canvas.width / 2;
+  let ballY = canvas.height / 2;
+  let radius = 30;
+  let ballSpeed = 3;
+  let dx = ballSpeed;
+  let targetX = Math.floor(Math.random() * (canvas.width/2 - 2 * radius) + radius);
+  let targetY = canvas.height/2;
+  let userX = canvas.width/2;
+  let userY = canvas.height/2;
+  let userColor = "rgb(0, 103, 187)";
+  let leftPressed = false;
+  let rightPressed = false;
+  let accuracy = 0;
+  let totalAccuracy = 0;
+  let accuracies = [];
+  let countDownDate, timerInterval;
+  let timeLimit = 120000;
+
+
+  function drawFrame() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    context.beginPath();
+    context.arc(userX, userY, radius, 0, Math.PI*2);
+    context.fillStyle = userColor;
+    context.fill();
+    context.closePath();
+
+    context.beginPath();
+    context.arc(ballX, ballY, radius, 0, Math.PI*2);
+    context.fillStyle = "#0095DD";
+    context.fill();
+    context.closePath();
+
+    // calculate accuracy
+    const distance = Math.sqrt((userX - targetX) ** 2);
+    accuracy = (1 - distance / (canvas.width - 4 * radius)) * 100;
+    accuracies.push(accuracy);
+
+    // update average accuracy every 5 seconds
+    if (accuracies.length % 50 === 0) {
+      updateAverageAccuracy();
+    }
+
+    // output accuracy
+    const resultEnclosing = document.getElementById("result-enclosing");
+    resultEnclosing.textContent = `Точность попадания: ${accuracy.toFixed(2)}%`
+
+    // update coordinate
+    ballX += dx;
+
+    if (ballX < radius || ballX > canvas.width - radius) {
+      dx = -dx;
+    }
+    if (distance <= radius*2) {
+      targetX = Math.floor(Math.random() * (canvas.width - 2 * radius) + radius);
+      targetY = canvas.height/2;
+    }
+  }
+
+  function keyDownHandler(event) {
+    if (event.keyCode === 37) {
+      leftPressed = true;
+    }
+    else if (event.keyCode === 39) {
+      rightPressed = true;
+    }
+  }
+  function keyUpHandler(event) {
+    if (event.keyCode === 37) {
+      leftPressed = false;
+    }
+    else if (event.keyCode === 39) {
+      rightPressed = false;
+    }
+  }
+
+  function moveUserBall() {
+    if (leftPressed && userX > radius) {
+      userX -= ballSpeed;
+    }
+    else if (rightPressed && userX < canvas.width - radius) {
+      userX += ballSpeed;
+    }
+  }
+
+  function updateTimer() {
+    let now = new Date().getTime();
+    let distance = countDownDate - now;
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    let timerText = "До конца теста: " + minutes + "мин " + seconds + "сек ";
+    document.getElementById("timer").textContent = timerText
+    context.font = "1.2em Verdana";
+    context.fillStyle = "#fff";
+    //context.fillText(timerText, canvas.width - 150, 30);
+    const progress = document.getElementById("progress");
+    progress.value = ((timeLimit - distance) / timeLimit) * 100;
+    if (distance < 0) {
+      clearInterval(timerInterval);
+      updateAverageAccuracy();
+    }
+  }
+  function hideButton() {
+    document.getElementById("start-button-enclosing").style.display = "none";
+    countDownDate = new Date().getTime() + timeLimit;
+    timerInterval = setInterval(updateTimer, 1000);
+    setInterval(function() {
+      drawFrame();
+      moveUserBall();
+    }, 10);
+    setTimeout(function () {
+              clearInterval(timerInterval);
+              ballX = null;
+              ballY = null;
+              targetX = null;
+              targetY = null;
+              userX = null;
+
+              updateAverageAccuracy();
+              showResult();
+            }, timeLimit
+    );
+  }
+  // Функция для вычисления среднего значения точности
+  function updateAverageAccuracy() {
+    totalAccuracy = accuracies.reduce((sum, currentValue) => sum + currentValue, 0) / accuracies.length;
+  }
+
+  // Функция для показа итогового результата
+  function showResult() {
+    clearInterval(timerInterval);
+    document.getElementById("timer").textContent = "";
+    canvas.style.display = "none";
+    document.getElementById("progress").value = 0;
+
+    let submitButton = document.createElement("button");
+    submitButton.textContent = "Отправить результат"
+    submitButton.onclick = sendData
+    submitButton.style.display = "block"
+    document.getElementById("submit-button-enclosing").appendChild(submitButton);
+
+    let restartButton = document.createElement("button");
+    restartButton.textContent = "Пройти заново"
+    restartButton.addEventListener('click', restartTest);
+    document.getElementById("restart-button-enclosing").appendChild(restartButton);
+
+    const resultEnclosing = document.getElementById("result-enclosing");
+    resultEnclosing.innerHTML = `Your accuracy is ${accuracy.toFixed(2)}%`;
+  }
+  function sendData(){
+
+  }
+  function hideResult() {
+    document.getElementById("result-enclosing").innerHTML = '';
+  }
+
+  function restartTest() {
+    clearInterval(timerInterval);
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+    dx = ballSpeed;
+    targetX = Math.floor(Math.random() * (canvas.width - 2 * radius) + radius);
+    targetY = canvas.height/2;
+    userX = canvas.width / 2;
+    accuracy = 0;
+    totalAccuracy = 0;
+    accuracies = [];
+    document.getElementById("start-button-enclosing").style.display = "block";
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    if (submitButtonEnclosing.firstChild) {
+      submitButtonEnclosing.removeChild(submitButtonEnclosing.firstChild);
+    }
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    if (restartButtonEnclosing.firstChild) {
+      restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
+    }
+    document.getElementById("result-enclosing").innerHTML = '';
+
+  }
+
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
+
+</script>
+</html>

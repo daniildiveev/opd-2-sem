@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="AnalogTranckingTest.css">
+  <title>Analog Tracking Test</title>
+</head>
+<body>
+  <progress id="progress" value="0" max="100"></progress>
+  <div id="start-button-enclosing">
+    <button id="start-button" onclick="startTest()">Начать тест</button>
+  </div>
+  <div id="timer"></div>
+  <div id="submit-button-enclosing"></div>
+  <div id="restart-button-enclosing"></div>
+  <div id="result-enclosing"></div>
+
+  <canvas id="canvas" width="550" height="400"></canvas>
+</body>
+<script>
+  const canvas = document.getElementById("canvas");
+  const context = canvas.getContext("2d");
+  let userX = canvas.width/2;
+  let userY = canvas.height/2;
+  let leftPressed = false;
+  let rightPressed = false;
+  let radius = 30;
+  let ballSpeed = 10;
+  let speedX = Math.random() * 7 + 3;
+  let elapsedTime;
+  let accuracy = 0;
+  let totalAccuracy = 0;
+  let timeLimit = 120000;
+  canvas.style.display = "none";
+
+  function changeBackgroundColor() {
+    canvas.style.backgroundColor = "#fff";
+  }
+
+  function startTest() {
+    let startTime = new Date().getTime();
+    let interval = setInterval(function() {
+      let currentTime = new Date().getTime();
+      elapsedTime = currentTime - startTime;
+      document.getElementById("progress").value = elapsedTime / timeLimit * 100;
+      updateTimer();
+      if (elapsedTime >= timeLimit) {
+        clearInterval(interval);
+        document.getElementById("timer").innerText = '';
+        endTest();
+      }
+    }, 10);
+
+    document.getElementById("start-button-enclosing").style.display = "none";
+    canvas.style.display = "block";
+    changeBackgroundColor()
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+    canvas.addEventListener('click', handleClick);
+    moveCircle();
+  }
+  function updateTimer() {
+    let remainingTime = timeLimit - elapsedTime;
+    let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+    let timerElement = document.getElementById("timer");
+    timerElement.innerHTML = `Времени осталось: ${minutes}:${seconds}`;
+  }
+
+  function drawFrame() {
+    context.beginPath();
+    context.moveTo(canvas.width/2, 0);
+    context.lineTo(canvas.width/2, canvas.height);
+    context.lineWidth = 5;
+    context.stroke();
+    context.closePath();
+  }
+
+  function drawCircle() {
+    context.beginPath();
+    context.arc(userX, userY, radius, 0, Math.PI*2);
+    context.fillStyle = "rgb(0, 103, 187)";
+    context.fill();
+    context.closePath();
+  }
+  function keyDownHandler(event) {
+    if (event.keyCode === 37) {
+      leftPressed = true;
+    }
+    else if (event.keyCode === 39) {
+      rightPressed = true;
+    }
+  }
+  function keyUpHandler(event) {
+    if (event.keyCode === 37) {
+      leftPressed = false;
+    }
+    else if (event.keyCode === 39) {
+      rightPressed = false;
+    }
+  }
+  function moveCircle() {
+    let startTime = Date.now();
+
+    function loop() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      drawFrame();
+      drawCircle();
+      moveUserBall();
+
+      if (userX + speedX > canvas.width - radius || userX + speedX < radius) {
+        speedX = -speedX;
+      }
+      userX += speedX;
+
+      let currentTime = Date.now();
+      let elapsedTime = currentTime - startTime;
+
+      if (elapsedTime > Math.floor(Math.random() * 8000) + 2000) { // Случайная пауза от 2 до 10 секунд
+        changeDirection();
+        startTime = currentTime;
+      }
+
+      requestAnimationFrame(loop);
+    }
+
+    loop();
+  }
+
+  function changeDirection() {
+    speedX = -speedX;
+  }
+  function moveUserBall() {
+    if (leftPressed && userX > radius) {
+      userX -= ballSpeed;
+    }
+    else if (rightPressed && userX < canvas.width - radius) {
+      userX += ballSpeed;
+    }
+  }
+
+  function sendData(){}
+  function handleClick(event) {
+    const clickPosition = event.clientX - canvas.offsetLeft;
+    const distance = Math.sqrt((clickPosition - canvas.width)**2);
+    accuracy = 100 - distance;
+    totalAccuracy += accuracy;
+
+    if (elapsedTime >= timeLimit) {
+      canvas.removeEventListener('click', handleClick);
+    } else {
+      setTimeout(function () {
+        const resultEnclosing = document.getElementById("result-enclosing");
+        resultEnclosing.innerHTML = `Точность попадания: ${accuracy.toFixed(2)}%`
+      }, 5000);
+    }
+  }
+
+  function endTest() {
+    canvas.style.display = "none";
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    const submitButton = document.createElement("button");
+    submitButton.textContent = "Отправить результат"
+    submitButton.onclick = sendData
+    submitButtonEnclosing.appendChild(submitButton);
+
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    const restartButton = document.createElement("button");
+    restartButton.textContent = "Пройти заново"
+    restartButton.addEventListener('click', restartTest);
+    restartButtonEnclosing.appendChild(restartButton);
+
+    const resultEnclosing = document.getElementById("result-enclosing");
+    totalAccuracy = Math.round(accuracy/(canvas.width / 2 * 1200) * 100);
+    resultEnclosing.innerHTML = `Ваша точность: ${totalAccuracy}%`;
+  }
+
+  function restartTest() {
+    document.getElementById("progress").value = 0;
+    accuracy = 0;
+    totalAccuracy = 0;
+    leftPressed = false;
+    rightPressed = false;
+
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    if (submitButtonEnclosing.firstChild) {
+      submitButtonEnclosing.removeChild(submitButtonEnclosing.firstChild);
+    }
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    if (restartButtonEnclosing.firstChild) {
+      restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
+    }
+    document.getElementById("result-enclosing").innerHTML = '';
+
+    startTest();
+
+  }
+</script>
+</html>
