@@ -13,84 +13,61 @@ body {
     font-family: var(--font-style);
 }
 
-#start-button-enclosing {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 3px;
-    background-color: white;
-    color: var(--overlay-color);
-    padding: 1.2rem 2.8rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    letter-spacing: 0.1rem;
-}
-#start-button {
+#start-button, #submit-button-enclosing button{
     border: none;
     border-radius: 3px;
-    cursor: pointer;
     background-color: white;
     color: var(--overlay-color);
     padding: 1.2rem 2.8rem;
     font-size: 1.2rem;
     font-weight: 500;
     letter-spacing: 0.1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: opacity .6s ease-in-out;
+    margin-top: 3em;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
     text-transform: uppercase;
 }
-
+.start-button:hover {
+    opacity: .9;
+}
+#restart-button-enclosing button{
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--overlay-color);
+    padding: 1.2rem 4.8rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: opacity .6s ease-in-out;
+    margin-top: 2em;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+    text-transform: uppercase;
+}
+#result-enclosing{
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    color: white;
+    margin-top: 3em;
+    font-family: var(--font-style);
+}
 canvas {
     position: absolute;
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.circle {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: var(--addl-color);
-}
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-#game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h1 {
-    font-size: 36px;
-    margin-top: 30px;
-}
-
-canvas {
-    background-color: #eee;
-    border: 1px solid black;
-}
-
-#score, #timer {
-    font-size: 24px;
-    margin-top: 20px;
-}
-
-#buttons {
-    margin-top: 20px;
-}
-
-button {
-    font-size: 18px;
-    margin-right: 20px;
-    padding: 10px 20px;
 }
 #progress {
     width: 90%;

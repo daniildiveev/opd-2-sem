@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="StalkingTestStyle.css">
-  <title>Stalking Test</title>
+  <link rel="stylesheet" href="AnalogTranckingTest.css">
+  <title>Analog Tracking Test</title>
 </head>
 <body>
   <progress id="progress" value="0" max="100"></progress>
@@ -45,8 +45,8 @@
       document.getElementById("progress").value = elapsedTime / timeLimit * 100;
       updateTimer();
       if (elapsedTime >= timeLimit) {
-        document.getElementById("timer").innerText = '';
         clearInterval(interval);
+        document.getElementById("timer").innerText = '';
         endTest();
       }
     }, 10);
@@ -64,7 +64,7 @@
     let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
     let timerElement = document.getElementById("timer");
-    timerElement.innerHTML = "Времени осталось: " + minutes + ":" + seconds;
+    timerElement.innerHTML = `Времени осталось: ${minutes}:${seconds}`;
   }
 
   function drawFrame() {
@@ -118,7 +118,7 @@
 
       if (elapsedTime > Math.floor(Math.random() * 8000) + 2000) { // Случайная пауза от 2 до 10 секунд
         changeDirection();
-        startTime = currentTime; // Обновляем время запуска следующей паузы
+        startTime = currentTime;
       }
 
       requestAnimationFrame(loop);
@@ -138,14 +138,21 @@
       userX += ballSpeed;
     }
   }
+
+  function sendData(){}
   function handleClick(event) {
     const clickPosition = event.clientX - canvas.offsetLeft;
-    const distanceFromLine = Math.abs(clickPosition - canvas.width / 2);
-    accuracy += 100 - distanceFromLine;
-    const resultEnclosing = document.getElementById("result-enclosing");
-    resultEnclosing.innerHTML = `Точность попадания: ${accuracy.toFixed(2)}%`
+    const distance = Math.sqrt((clickPosition - canvas.width)**2);
+    accuracy = 100 - distance;
+    totalAccuracy += accuracy;
+
     if (elapsedTime >= timeLimit) {
       canvas.removeEventListener('click', handleClick);
+    } else {
+      setTimeout(function () {
+        const resultEnclosing = document.getElementById("result-enclosing");
+        resultEnclosing.innerHTML = `Точность попадания: ${accuracy.toFixed(2)}%`
+      }, 5000);
     }
   }
 

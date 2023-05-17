@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="AnalogTrackingTestStyle.css">
-  <title>Analog Tracking Test</title>
+  <link rel="stylesheet" href="StalkingTest.css">
+  <title>Stalking Test</title>
 </head>
 <body>
 <progress id="progress" value="0" max="100"></progress>
 <div id="start-button-enclosing">
   <button id="start-button" onclick="hideButton()">Начать тест</button>
 </div>
+<div id="timer"></div>
 <div id="submit-button-enclosing"></div>
 <div id="restart-button-enclosing"></div>
 <div id="result-enclosing"></div>
@@ -17,7 +18,6 @@
 <canvas id="canvas" width="550" height="400"></canvas>
 </body>
 <script>
-  // Определяем переменные
   let canvas = document.getElementById("canvas");
   let context = canvas.getContext("2d");
   let ballX = canvas.width / 2;
@@ -36,6 +36,8 @@
   let totalAccuracy = 0;
   let accuracies = [];
   let countDownDate, timerInterval;
+  let timeLimit = 120000;
+
 
   function drawFrame() {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -62,10 +64,9 @@
       updateAverageAccuracy();
     }
 
-
     // output accuracy
     const resultEnclosing = document.getElementById("result-enclosing");
-    resultEnclosing.innerHTML = `Точность попадания: ${accuracy.toFixed(2)}%`
+    resultEnclosing.textContent = `Точность попадания: ${accuracy.toFixed(2)}%`
 
     // update coordinate
     ballX += dx;
@@ -96,7 +97,6 @@
     }
   }
 
-  // Функция для перемещения управляемого шарика
   function moveUserBall() {
     if (leftPressed && userX > radius) {
       userX -= ballSpeed;
@@ -106,100 +106,77 @@
     }
   }
 
-  // Функция для обновления таймера
   function updateTimer() {
     let now = new Date().getTime();
     let distance = countDownDate - now;
-    const minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) / (1000 * 60)
-    );
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
     let timerText = "До конца теста: " + minutes + "мин " + seconds + "сек ";
+    document.getElementById("timer").textContent = timerText
     context.font = "1.2em Verdana";
     context.fillStyle = "#fff";
-    context.fillText(timerText, canvas.width - 150, 30);
-
+    //context.fillText(timerText, canvas.width - 150, 30);
     const progress = document.getElementById("progress");
-    progress.value = ((120000 - distance) / 120000) * 100;
-
+    progress.value = ((timeLimit - distance) / timeLimit) * 100;
     if (distance < 0) {
       clearInterval(timerInterval);
       updateAverageAccuracy();
-      showResult();
     }
   }
-
   function hideButton() {
     document.getElementById("start-button-enclosing").style.display = "none";
-
-    countDownDate = new Date().getTime() + 120000;
+    countDownDate = new Date().getTime() + timeLimit;
     timerInterval = setInterval(updateTimer, 1000);
-
     setInterval(function() {
       drawFrame();
       moveUserBall();
     }, 10);
-    // Удаляем шарики и показываем экранные кнопки через 2 минуты
     setTimeout(function () {
-      clearInterval(timerInterval);
-      ballX = null;
-      ballY = null;
-      targetX = null;
-      targetY = null;
-      userX = null;
+              clearInterval(timerInterval);
+              ballX = null;
+              ballY = null;
+              targetX = null;
+              targetY = null;
+              userX = null;
 
-      updateAverageAccuracy();
-      showResult();
-    }, 120000);
+              updateAverageAccuracy();
+              showResult();
+            }, timeLimit
+    );
   }
   // Функция для вычисления среднего значения точности
   function updateAverageAccuracy() {
     totalAccuracy = accuracies.reduce((sum, currentValue) => sum + currentValue, 0) / accuracies.length;
   }
 
-/*  // Функция для обновления таймера
-  function updateTimer() {
-    let now = new Date().getTime();
-    let distance = countDownDate - now;
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    let timerText = "Time Left: " + minutes + "m " + seconds + "s ";
-    context.font = "20px Verdana";
-    context.fillStyle = "#000000";
-    context.fillText(timerText, canvas.width - 150, 30);
-
-    if (distance < 0) {
-      clearInterval(timerInterval);
-      showResult();
-    }
-  }*/
-
   // Функция для показа итогового результата
   function showResult() {
     clearInterval(timerInterval);
+    document.getElementById("timer").textContent = "";
     canvas.style.display = "none";
-    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
-    const submitButton = document.createElement("button");
+    document.getElementById("progress").value = 0;
+
+    let submitButton = document.createElement("button");
     submitButton.textContent = "Отправить результат"
     submitButton.onclick = sendData
-    submitButtonEnclosing.appendChild(submitButton);
+    submitButton.style.display = "block"
+    document.getElementById("submit-button-enclosing").appendChild(submitButton);
 
-    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
-    const restartButton = document.createElement("button");
+    let restartButton = document.createElement("button");
     restartButton.textContent = "Пройти заново"
     restartButton.addEventListener('click', restartTest);
-    restartButtonEnclosing.appendChild(restartButton);
+    document.getElementById("restart-button-enclosing").appendChild(restartButton);
 
     const resultEnclosing = document.getElementById("result-enclosing");
     resultEnclosing.innerHTML = `Your accuracy is ${accuracy.toFixed(2)}%`;
   }
+  function sendData(){
 
-  // Функция для скрытия итогового результата
+  }
   function hideResult() {
     document.getElementById("result-enclosing").innerHTML = '';
   }
 
-  // Функция для перезапуска теста
   function restartTest() {
     clearInterval(timerInterval);
     ballX = canvas.width / 2;
@@ -212,15 +189,16 @@
     totalAccuracy = 0;
     accuracies = [];
     document.getElementById("start-button-enclosing").style.display = "block";
-    document.getElementById("submit-button-enclosing").innerHTML = '';
-    document.getElementById("restart-button-enclosing").innerHTML = '';
+    const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
+    if (submitButtonEnclosing.firstChild) {
+      submitButtonEnclosing.removeChild(submitButtonEnclosing.firstChild);
+    }
+    const restartButtonEnclosing = document.getElementById("restart-button-enclosing");
+    if (restartButtonEnclosing.firstChild) {
+      restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
+    }
     document.getElementById("result-enclosing").innerHTML = '';
-  }
 
-  // Функция для отправки результата на сервер
-  function submitResult() {
-// Отправляем результат на сервер
-    alert("Result submitted!");
   }
 
   document.addEventListener("keydown", keyDownHandler, false);
