@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel = "stylesheet" href = "2nd-lab-tests/MultipleColorTestStyle.css">
+    <title>Multiple Color Test</title>
+</head>
+<body>
+<progress id="progress" value="0" max="100"></progress>
+</body>
+<script>
+    let initialColor = "white";
+    let testStarted = false, testPassed = false, newColor=false;
+    let previousTime = 0;
+    let colors = ["red", "green", "blue"];
+    let reactionTimings = [], results = [];
+    let bodyElement = document.getElementsByTagName("body")[0];
+    let progressElement = document.getElementById("progress");
+    let startTime;
+    let currentColor = 0;
+
+    async function sendData(){
+        if(testPassed){
+            const data = {
+                testType : "3_colors",
+                reactionTimings: results.at(-1)
+            }
+
+            let url = ''
+            const urlObject = new URL(window.location.href)
+
+            if (urlObject.searchParams.has('data')){
+                url += '/complex_reaction_test?data=' + encodeURIComponent(urlObject.searchParams.get('data'))
+            } else {
+                url += '/complex_reaction_test'
+            }
+
+            await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(res => {
+                    console.log(res)
+                    // Redirect to another URL
+                    window.location.href = res.url;
+                })
+                .catch(error => console.error(error));
+
+        }
+    }
+
+    // задаем функцию, которая будет менять цвет фона и замерять время реакции пользователя
+    function changeColor() {
+        setTimeout(() => {
+            bodyElement.style.backgroundColor = colors[currentColor];
+            newColor = true;
+            startTime = new Date().getTime();
+        }, Math.random() * 5000)
+    }
+
+    // задаем функцию, которая будет вызываться при нажатии на клавишу пробел
+    function handleKeyPress(event) {
+        // проверяем, что нажата именно клавиша пробел
+        if (event.keyCode === 32 && testStarted && newColor) {
+            let endTime = new Date().getTime(); // сохраняем время завершения изменения цвета фона
+            let reactionTime = endTime - startTime; // вычисляем время реакции пользователя
+            reactionTimings.push(reactionTime);
+            currentColor++; // переходим к следующему цвету
+            newColor = false;
+            // если достигли последнего цвета, то завершаем тест
+            if (currentColor === colors.length) {
+                endTest();
+            } else {
+                changeColor(); // меняем цвет фона на следующий цвет
+                // обновляем индикатор прогресса выполнения теста
+                progressElement.value = (currentColor) / colors.length * 100;
+            }
+        }
+    }
+
+    // добавляем обработчик события нажатия на клавишу
+    document.addEventListener("keydown", handleKeyPress);
+
+    // задаем начальный цвет фона страницы
+    bodyElement.style.backgroundColor = initialColor;
+
+    // задаем функцию, которая начнет тест
+    function startTest(event) {
+        if(event.keyCode !== 32 && currentColor === 0){
+            testStarted = true;
+            changeColor();
+            startTime = new Date().getTime(); // сохраняем время начала изменения цвета фона
+            // добавляем фокус на страницу, чтобы пользователь мог нажать на клавишу без необходимости клика на страницу
+            bodyElement.focus();
+            progressElement.max = 100;
+        }
+    }
+
+    // задаем функцию, которая завершит тест
+    function endTest() {
+        testStarted = false;
+        results.push(reactionTimings);
+        reactionTimings = [];
+
+        if (!testPassed){
+            const submitButton = document.createElement("button")
+            submitButton.innerHTML = "ОТПРАВИТЬ РЕЗУЛЬТАТ"
+            submitButton.onclick = sendData
+            bodyElement.appendChild(submitButton)
+        }
+
+        testPassed = true;
+
+        bodyElement.style.backgroundColor = initialColor; // возвращаем начальный цвет фона страницы
+        currentColor = 0; // сбрасываем номер текущего цвета
+        progressElement.value = 0; // обнуляем индикатор прогресса выполнения теста
+        alert("Тест завершен!"); // выводим сообщение о завершении теста
+    }
+
+    // получаем элемент страницы, на который будем добавлять кнопку для старта теста
+    const startButton = document.createElement("button");
+    startButton.innerHTML = "НАЧАТЬ ТЕСТ";
+    startButton.onclick = startTest;
+    bodyElement.appendChild(startButton);
+</script>
+</html>

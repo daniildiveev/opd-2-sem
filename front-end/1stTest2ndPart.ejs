@@ -7,9 +7,9 @@
 <body>
 <h1>Оценивание характеристик</h1>
 <% if (profession) {%>
-    <h1><%= profession %></h1>
+    <h1 id="profession-heading"><%= profession %></h1>
 <%}%>
-<form method="POST" action="/1st_test?profession=<%= profession %>">
+<form method="POST" id="test2">
 <table>
     <thead>
         <tr>
@@ -42,6 +42,25 @@
 </table>
     <button type="submit">Submit</button>
 </form>
-
 </body>
+
+<script>
+    let redirectUrl = ''
+    const url = new URL(window.location.href)
+    let data = {}
+
+    if(url.searchParams.has(data)){
+        data.data = JSON.parse(url.searchParams.get(data))
+    }
+
+    if (document.getElementById('profession-heading')){
+        data.profession = document.getElementById('profession-heading').innerHTML;
+    }
+
+    if (url.searchParams.has('data')){
+        redirectUrl += '/1st_test?data=' + url.searchParams.get('data')
+    }
+
+    document.getElementById('test2').action = redirectUrl
+</script>
 </html>

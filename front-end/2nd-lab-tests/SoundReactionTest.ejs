@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel = "stylesheet" href = "2nd-lab-tests/SoundReactionTestStyle.css">
+    <title>Sound Reaction Test</title>
+</head>
+<body>
+<div id="send-button-enclosing"></div>
+<div id="reaction-time-enclosing"></div>
+</body>
+<script>
+let bodyElement = document.getElementsByTagName("body")[0];
+let startTime, testStarted = false, testPassed = false;
+let testResults = []
+const numTests = 30; // number of times to play the sound
+let currentTestNum = 0;
+
+const audio = new Audio("./voice_sans.mp3")
+
+async function sendData(){
+    if(testPassed){
+        const data = {
+            testType : "sound",
+            reactionTime: testResults.reduce((a, b) => a + b, 0) / testResults.length
+        }
+
+        let url = ''
+        const urlObject = new URL(window.location.href)
+
+        if (urlObject.searchParams.has('data')){
+            url += '/reaction_test?data=' + urlObject.searchParams.get('data')
+        } else {
+            url += '/reaction_test'
+        }
+
+        console.log(JSON.stringify(data))
+
+        await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(res => {
+                console.log(res)
+                // Redirect to another URL
+                window.location.href = res.url;
+            })
+            .catch(error => console.error(error));
+    }
+}
+
+// задаем функцию, которая будет вызываться при нажатии на клавишу пробел
+function handleKeyPress(event) {
+    // проверяем, что нажата именно клавиша пробел
+    if (event.keyCode === 32) {
+        if (testStarted){
+            let endTime = new Date().getTime(); // сохраняем время завершения изменения цвета фона
+            let reactionTime = endTime - startTime; // вычисляем время реакции пользователя
+            testResults.push(reactionTime)
+            document.getElementById("reaction-time-enclosing").innerHTML = "Ваше время реакции на звук: " + reactionTime + " мс"; // выводим результат пользователю
+            testStarted = false;
+
+/*            if (!testPassed){
+                const submitButton = document.createElement("button")
+                submitButton.innerHTML = "ОТПРАВИТЬ РЕЗУЛЬТАТ"
+                submitButton.onclick = sendData
+                document.getElementById("send-button-enclosing").appendChild(submitButton)
+            }
+            testPassed = true*/
+        }
+    }
+}
+
+// добавляем обработчик события нажатия на клавишу
+document.addEventListener("keydown", handleKeyPress);
+
+function startTest() {
+    // Play the sound every random interval between 1 and 4 seconds, for a total of numTests times
+    const playSoundInterval = setInterval(() => {
+        if (currentTestNum >= numTests) {
+            clearInterval(playSoundInterval); // stop playing the sound after numTests times
+            if (!testPassed) {
+                document.getElementById("reaction-time-enclosing").innerHTML = "";
+                const submitButton = document.createElement("button");
+                submitButton.innerHTML = "ОТПРАВИТЬ РЕЗУЛЬТАТ";
+                submitButton.onclick = sendData;
+                document.getElementById("send-button-enclosing").appendChild(submitButton);
+            }
+            testPassed = true;
+        } else {
+            audio.play();
+            startTime = new Date().getTime();
+            testStarted = true;
+            bodyElement.focus();
+            currentTestNum++;
+        }
+    }, Math.floor(Math.random() * 3000) + 1000); // random interval between 1 and 4 seconds
+}
+const startButton = document.createElement("button");
+startButton.innerHTML = "НАЧАТЬ ТЕСТ";
+startButton.onclick = function () {
+    startButton.style.display = "none"; // hide the start button after it's clicked
+    alert("Нажмите на клавишу пробел, когда услышите звук");
+    startTest();
+};
+bodyElement.appendChild(startButton);
+
+</script>
+</html>

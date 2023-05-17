@@ -1,0 +1,63 @@
+:root {
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, .8);
+    --font-style: 'Verdana', sans-serif;
+}
+
+body {
+    background-color: var(--main-color);
+    font-weight: 500;
+    margin-top: 10%;
+}
+
+select {
+    background-color: var(--overlay-color);
+    border-radius: 3px;
+    color: white;
+    font-family: var(--font-style);
+    font-size: 1.2em;
+    letter-spacing: .18em;
+    padding: .5em 2em;
+    /*   margin: 15% 0 3em 3em; */
+    /*   margin-top: 20%;
+      margin-left: 30%; */
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    align-items: center;
+    height: 3.5em;
+    text-transform: uppercase;
+}
+
+button {
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    padding: 1.15em 4em;
+    transition:  opacity 0.2s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 3em;
+
+}
+
+button:hover {
+    opacity: .9;
+}
+
+#invite-link-enclosing {
+    margin-top: 24px;
+}
+
+#link-copied {
+    margin-top: 12px;
+    font-size: 14px;
+}

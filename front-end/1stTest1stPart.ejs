@@ -12,7 +12,7 @@
             <h1>Тест: выбор профессиональных характеристик</h1>
         </div>
     </header>
-    <form id = "test1" method="POST" action="/poll_1_part_2">
+    <form id = "test1" method="POST">
         <select name="profession" id="profression-selector">
             <option value="">Please choose an option</option>
             <option value= "Data Scientist">Data Scientist</option>
@@ -546,6 +546,14 @@
 </section>
 <script>
     const radios = document.querySelectorAll('input[type="checkbox"]');
+
+    const url = new URL(window.location.href)
+
+    if(url.searchParams.has('data')){
+        document.getElementById('test1').action = '/poll_1_part_2?data=' + encodeURIComponent(url.searchParams.get('data'))
+    } else {
+        document.getElementById('test1').action = '/poll_1_part_2'
+    }
 
     // Add click event listener to each radio input
     radios.forEach((radio) => {

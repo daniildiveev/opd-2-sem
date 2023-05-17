@@ -1,0 +1,93 @@
+:root{
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, .8);
+    --font-style: 'Verdana', sans-serif;
+}
+.single-color{
+    display: inline-block;
+    width: 25em;
+    height: 15em;
+    background-color: white;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+body {
+
+    background-color: var(--main-color);
+    color: white;
+    font-family: var(--font-style);
+}
+h1{
+    font-size: 1.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 2em;
+}
+#start-button, #submit-button-enclosing button {
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--overlay-color);
+    padding: 1.2rem 2.8rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    margin-top: 3em;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+    text-transform: uppercase;
+}
+#restart-button-enclosing button{
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--overlay-color);
+    padding: 1.2rem 4.8rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: opacity .6s ease-in-out;
+    margin-top: 2em;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+    text-transform: uppercase;
+}
+#progress {
+    width: 90%;
+    height: 1em;
+    margin-top: 3%;
+    margin-left: 5%;
+    background-color: white;
+    border-radius: 3px;
+}
+#progress::-webkit-progress-bar {
+    border-radius: 3px;
+    background-color: var(--overlay-color);
+}
+
+#progress::-webkit-progress-value {
+    border-radius: 3px;
+    background-color: var(--addl-color);
+}
+#result-enclosing, #result{
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    color: white;
+    margin-top: 2em;
+    font-family: var(--font-style);
+}
+

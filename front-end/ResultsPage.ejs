@@ -7,25 +7,237 @@
 
 </head>
 <body>
-<table>
-    <thead><caption>POLLS RESULT</caption>
-    <tr>
-        <th>Poll ID</th>
-        <th>User ID</th>
-        <th>Profession</th>
-        <th>Points</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% polls.forEach(poll => { %>
-        <tr>
-            <td><%= poll.id %></td>
-            <td><%= poll.user %></td>
-            <td><%= poll.profession %></td>
-            <td><%= poll.points %></td>
-        </tr>
-    <% }); %>
-    </tbody>
-</table>
+<select id="select-type">
+    <option value="">-</option>
+    <option value="characteristicsTest">Тест на характеристики</option>
+    <option value="reactionTest">Оценка простых сенсомоторных реакций человека</option>
+    <option value="complexReactionTest">Оценка сложных сенсомоторных реакций человека</option>
+    <option value="accuracyTest">Оценка точности</option>
+</select>
+
+<div id="input-for-id"></div>
+<div id="user-choose-enclosing"></div>
+<div id="choose-test"></div>
+<div id="submit-button-enclosing"></div>
+<div id="output-table-enclosing"></div>
+
 </body>
+<script>
+    let chosen = false;
+    selectTypeElement = document.getElementById("select-type");
+
+    selectTypeElement.addEventListener('change', () => {
+        document.getElementById("output-table-enclosing").innerHTML = "";
+        document.getElementById("input-for-id").innerHTML = "";
+        document.getElementById("choose-test").innerHTML = "";
+        document.getElementById("submit-button-enclosing").innerHTML = "";
+        document.getElementById("user-choose-enclosing").innerHTML = "";
+
+        getUsers();
+
+        const type = selectTypeElement.value;
+
+        if (type === "reactionTest") {
+            const select = document.createElement("select")
+            select.id = "select-test"
+
+            select.innerHTML += "<option value=\"\">-</option>"
+            select.innerHTML += "<option value=\"sound\">Тест на звук</option>"
+            select.innerHTML += "<option value=\"light\">Тест на свет</option>"
+
+            document.getElementById("choose-test").appendChild(select)
+
+        } else if (type === "complexReactionTest") {
+            const select = document.createElement("select")
+            select.id = "select-test"
+
+            select.innerHTML += "<option value=\"\">-</option>"
+            select.innerHTML += "<option value=\"3_colors\">Тест на реакцию нескольких цветов</option>"
+            select.innerHTML += "<option value=\"math_vis\">Математические примеры(визуально)</option>"
+            select.innerHTML += "<option value=\"math_sound\">Математические примеры(на слух)</option>"
+
+            document.getElementById("choose-test").appendChild(select)
+        } else if (type === "accuracyTest"){
+            const select = document.createElement("select")
+            select.id = "select-test"
+
+            select.innerHTML += "<option value=\"\">-</option>"
+            select.innerHTML += "<option value=\"easy_action\">Тест на простое движение</option>"
+            select.innerHTML += "<option value=\"hard_action\">Тест на сложное движение</option>"
+            select.innerHTML += "<option value=\"analog_tracking_test\">Тест на аналоговое слежение</option>"
+            select.innerHTML += "<option value=\"stalking_test\">Тест на слежение</option>"
+
+            document.getElementById("choose-test").appendChild(select)
+        }
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = "test-id";
+        input.placeholder = "Введите ID теста";
+        input.required = true;
+
+        document.getElementById("input-for-id").appendChild(input);
+
+        const button = document.createElement("button")
+        button.type = "submit"
+        button.onclick = retrieveData
+        button.textContent = "Получить данные"
+
+        document.getElementById("submit-button-enclosing").appendChild(button)
+
+        chosen = true;
+    })
+
+    async function retrieveData(){
+        let type = document.getElementById("select-type").value;
+        let testId, testType = null, username = null;
+
+        if(document.getElementById("output-table-enclosing")){
+            document.getElementById("output-table-enclosing").innerHTML = "";
+        }
+
+        if (document.getElementById("test-id").value === ""){
+            testId = null;
+        } else {
+            testId = parseInt(document.getElementById("test-id").value)
+        }
+
+        if (document.getElementById("select-test")) {
+            if(document.getElementById("select-test").value !== ""){
+                testType = document.getElementById("select-test").value
+            }
+        }
+
+        if (document.getElementById("select-user")) {
+            if(document.getElementById("select-user").value !== ""){
+                username = document.getElementById("select-user").value
+            }
+        }
+
+        const data = {
+            type,
+            testId,
+            username,
+            testType
+        }
+
+        await fetch('/get_tests_from_db', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(data => data.json()).then(objectsArray => {
+            output(objectsArray, type)
+        })
+            .catch(e => {
+                document.getElementById("none-found-message").innerHTML = "<h1>Ничего не найдено!</h1>"
+
+                setTimeout(() => {
+                    document.getElementById("none-found-message").innerHTML = "";
+                }, 3000)
+            });
+    }
+
+    async function getUsers(){
+        await fetch('/get_users_from_db', {
+            method: "POST",
+            headers: {'Content-Type' : 'application/json'}
+        })
+            .then(data => data.json())
+            .then(objects => {
+                let userSelect = document.createElement("select")
+                userSelect.id = "select-user"
+
+                const logins = objects.logins
+                console.log(logins)
+
+                userSelect.innerHTML += "<option value=\"\">-</option>"
+
+                for (let i=0;i<logins.length;i++){
+                    userSelect.innerHTML += "<option value=\"" + logins[i] +"\">" + logins[i] + "</option>"
+                }
+
+                document.getElementById("user-choose-enclosing").appendChild(userSelect)
+            })
+            .catch(e => console.log(e))
+    }
+
+    function output(data, type){
+        if (data.length === 0){
+            document.getElementById("output-table-enclosing").innerHTML = "<h1>Ничего не найдено!</h1>"
+
+            setTimeout(() => {
+                document.getElementById("output-table-enclosing").innerHTML = "";
+            }, 3000)
+        } else {
+            let tableRow = ""
+            const table = document.createElement("table")
+            const thead = document.createElement("thead")
+            const tbody = document.createElement("tbody")
+
+            if(type === "characteristicsTest"){
+                thead.innerHTML += "<th>ID</th><th>User</th><th>Profession</th><th>Points</th>"
+
+                for(let i=0;i<data.length;i++){
+                    tableRow += "<tr>"
+                    tableRow += "<td>" + data[i].id +"</td>"
+                    tableRow += "<td>" + data[i].user +"</td>"
+                    tableRow += "<td>" + data[i].profession +"</td>"
+                    tableRow += "<td>" + data[i].points +"</td>"
+                    tableRow += "</td>"
+
+                    tbody.innerHTML += tableRow
+                    tableRow = ""
+                }
+            } else if(type === "reactionTest") {
+                thead.innerHTML += "<th>ID</th><th>User</th><th>Type</th><th>Reaction Time</th>"
+
+                for(let i=0;i<data.length;i++){
+                    tableRow += "<tr>"
+                    tableRow += "<td>" + data[i].id +"</td>"
+                    tableRow += "<td>" + data[i].user +"</td>"
+                    tableRow += "<td>" + data[i].type +"</td>"
+                    tableRow += "<td>" + data[i].reactionTime +"</td>"
+                    tableRow += "</td>"
+
+                    tbody.innerHTML += tableRow
+                    tableRow = ""
+                }
+            } else if (type === "complexReactionTest") {
+                thead.innerHTML += "<th>ID</th><th>User</th><th>Type</th><th>Reaction Time 1</th><th>Reaction Time 2</th><th>Reaction Time 3</th>"
+
+                for(let i=0;i<data.length;i++){
+                    tableRow += "<tr>"
+                    tableRow += "<td>" + data[i].id +"</td>"
+                    tableRow += "<td>" + data[i].user +"</td>"
+                    tableRow += "<td>" + data[i].type +"</td>"
+                    tableRow += "<td>" + data[i].reactionTime1 +"</td>"
+                    tableRow += "<td>" + data[i].reactionTime2 +"</td>"
+                    tableRow += "<td>" + data[i].reactionTime3 +"</td>"
+                    tableRow += "</td>"
+
+                    tbody.innerHTML += tableRow
+                    tableRow = ""
+                }
+            } else if (type === "accuracyTest"){
+                thead.innerHTML += "<th>ID</th><th>User</th><th>Type</th><th>Accuracy</th>"
+
+                for(let i=0;i<data.length;i++){
+                    tableRow += "<tr>"
+                    tableRow += "<td>" + data[i].id +"</td>"
+                    tableRow += "<td>" + data[i].user +"</td>"
+                    tableRow += "<td>" + data[i].type +"</td>"
+                    tableRow += "<td>" + data[i].accuracy +"</td>"
+                    tableRow += "</td>"
+
+                    tbody.innerHTML += tableRow
+                    tableRow = ""
+                }
+            }
+
+            table.appendChild(thead)
+            table.appendChild(tbody)
+            document.getElementById("output-table-enclosing").appendChild(table)
+        }
+    }
+</script>
 </html>

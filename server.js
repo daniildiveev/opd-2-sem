@@ -3,13 +3,19 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash')
 const path = require('path')
+const crypto = require('crypto')
 const LocalStrategy = require('passport-local').Strategy;
-const { sequelize, User, Poll } = require('./models/index');
+const {sequelize, User, Poll, ReactionTest} = require('./models/index');
+const {ComplexReactionTest, InviteLink, AccuracyTest} = require("./models");
+const {filterTest, getUsers} = require('./js-scripts/databaseManipulations')
+const {login} = require("passport/lib/http/request");
 
 const server = express();
 
 server.use(express.json());
 server.use(express.static('front-end'));
+server.use(express.static('resources'));
+server.use('js-script', express.static('js-scripts'));
 server.use(express.urlencoded({ extended: true }));
 server.use(session({ secret: 'my_secret', resave: false, saveUninitialized: false }));
 server.use(flash())
@@ -114,7 +120,7 @@ server.get('/characteristics', (req, res) => {
 server.get('/polls_results', async (req, res) => {
         try {
             const polls = await Poll.findAll();
-            console.log(polls)
+
             res.render('ResultsPage', { polls });
         } catch (error) {
             console.error(error);
@@ -144,8 +150,8 @@ server.get('/poll_1_part_2', (req, res) => {
         res.redirect('/')
     }
     else {
-        const data = JSON.parse(decodeURIComponent(req.query.data));
-        console.log(data)
+        const data = JSON.parse(decodeURIComponent(req.query.data)).pollData;
+
         const profession = data.profession
         let characteristics = []
 
@@ -156,6 +162,133 @@ server.get('/poll_1_part_2', (req, res) => {
         }
 
         res.render('1stTest2ndPart', {profession, characteristics})
+    }
+})
+
+
+server.get('/light_test', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('2nd-lab-tests/LightReactionTest')
+    }
+})
+{}
+server.get('/multiple_colours_test', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('2nd-lab-tests/ColorReactionTest')
+    }
+})
+
+server.get('/sound_test', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('2nd-lab-tests/SoundReactionTest')
+    }
+})
+
+server.get('/visual_math_test', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('2nd-lab-tests/VisualMathTest')
+    }
+})
+
+server.get('/math_sound', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('2nd-lab-tests/SoundMathTest')
+    }
+})
+
+server.get('/create_invite', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('CreateInviteLinkPage')
+    }
+})
+
+server.get('/tests_list', (req, res) => {
+    res.render('TestListPage')
+})
+
+server.post('/get_tests_from_db', async (req, res) => {
+    const type = req.body.type
+    const testId = req.body.testId
+    const username = req.body.username
+    const testType = req.body.testType
+
+    const tests = await filterTest(type, username, testId, testType)
+
+    if (tests !== {}){
+        res.send(tests)
+    }
+})
+
+server.post('/get_users_from_db', async (req, res) => {
+    const users = await getUsers()
+
+    if (users !== []){
+        res.send({logins: users})
+    }
+})
+
+server.get('/easy_action', async (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    }
+
+    res.render('3rd-lab-tests/EasyActionTest')
+})
+
+server.get('/hard_action', async (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    }
+
+    res.render('3rd-lab-tests/HardActionTest')
+})
+
+server.get('/invite/:code', async (req, res) => {
+    const link = await InviteLink.findOne({
+        where: {
+            code: req.params.code
+        }
+    })
+
+    const tests = link.tests
+    const data = {
+        tests: tests,
+        i: 1
+    }
+
+    console.log(tests)
+
+    if (link) {
+        const url = '/' + tests[0] + '?data=' + encodeURIComponent(JSON.stringify(data))
+        res.redirect(url)
+    }
+})
+
+server.get('/analog_tracking_test', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('4th-lab-tests/AnalogTrackingTest')
+    }
+})
+
+server.get('/stalking_test', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('4th-lab-tests/StalkingTest')
     }
 })
 
@@ -174,9 +307,11 @@ server.post('/login', passport.authenticate('local', {
 server.post('/register', async (req, res, next) => {
     const { login, password } = req.body;
     const isAdmin = false;
+    const sex = req.body.sex
+    const age = req.body.age
 
     try {
-        const user = await User.create({ login, password, isAdmin });
+        const user = await User.create({ login, password, isAdmin, sex, age });
         req.login(user, (err) => {
             if (err) {
                 console.log(err);
@@ -193,9 +328,11 @@ server.post('/register', async (req, res, next) => {
 server.post('/admin/register', async (req, res, next) => {
     const { login, password } = req.body;
     const isAdmin = true;
+    const sex = req.body.sex;
+    const age = req.body.age;
 
     try {
-        const user = await User.create({ login, password, isAdmin });
+        const user = await User.create({ login, password, isAdmin, age, sex});
         req.login(user, (err) => {
             if (err) {
                 console.log(err);
@@ -216,14 +353,29 @@ server.post("/poll_1_part_2", async (req, res) => {
     }
 
     else{
-        const data = req.body
+        let data = null
+
+        if (req.query.data){
+            data = JSON.parse(decodeURIComponent(req.query.data))
+        }
+
+        const pollData = req.body
+
         req.flash("passed_1_part", true)
-        res.redirect(`/poll_1_part_2?data=${encodeURIComponent(JSON.stringify(data))}`)
+
+        if(data){
+            data = {
+                pollData: pollData,
+                data: data
+            }
+            res.redirect(`/poll_1_part_2?data=${encodeURIComponent(JSON.stringify(data))}`)
+        } else {
+            res.redirect(`/poll_1_part_2?data=${encodeURIComponent(JSON.stringify(data))}`)
+        }
     }
 })
 
 server.post("/1st_test", async (req, res) => {
-    console.log(req.body)
     let results = ""
 
     for (let i = 0; i < 169; i++) {
@@ -238,16 +390,134 @@ server.post("/1st_test", async (req, res) => {
     const profession = decodeURIComponent(req.query.profession)
     const points = results
     const user = req.user.id
+    const allData = JSON.parse(decodeURIComponent(req.query.data))
+    let data = null
+
+    if (allData.data){
+        data = allData.data
+        data.i++;
+    }
 
     try {
         const poll = await Poll.create({user, profession,  points})
-        return res.redirect('/polls_results')
+
+        if(data){
+            if (data.i - 1 !== data.tests.length) {
+                res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
+            }  else {
+                res.redirect('/polls_results')
+            }
+        } else {
+            return res.redirect('/polls_results')
+        }
     }
     catch (err){
         console.log(err)
     }
+})
 
-    res.redirect("/")
+server.post('/reaction_test', async (req, res) => {
+    const user = req.user.id
+    const type = req.body.testType
+    const reactionTime = req.body.reactionTime
+
+    let data = null
+
+    if (req.query.data){
+        data = JSON.parse(decodeURIComponent(req.query.data))
+        data.i++;
+    }
+
+    try {
+        const reactionTest = await ReactionTest.create({user, type, reactionTime})
+
+        if(data){
+            if (data.i - 1 !== data.tests.length) {
+                res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
+            }  else {
+                res.redirect('/polls_results')
+            }
+        } else {
+            return res.redirect('/polls_results')
+        }
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+server.post('/complex_reaction_test', async (req, res) => {
+    const user = req.user.id
+    const type = req.body.testType
+    const reactionTime1 = req.body.reactionTimings[0]
+    const reactionTime2 = req.body.reactionTimings[1]
+    const reactionTime3 = req.body.reactionTimings[2]
+
+    let data = null
+
+    if (req.query.data){
+        data = JSON.parse(decodeURIComponent(req.query.data))
+        data.i++;
+    }
+
+    try{
+        const complexReactionTest = await ComplexReactionTest.create({user, type, reactionTime1, reactionTime2, reactionTime3})
+
+        if(data){
+            if (data.i - 1 !== data.tests.length) {
+                res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
+            }  else {
+                res.redirect('/polls_results')
+            }
+        } else {
+            return res.redirect('/polls_results')
+        }
+    } catch (e){
+        console.log(e)
+    }
+
+})
+
+server.post('/accuracy_test', async (req, res) => {
+    const user = req.user.id
+    const type = req.body.testType
+    const accuracy = req.body.accuracy
+
+    let data = null
+
+    if(req.query.data){
+        data = JSON.parse(decodeURIComponent(req.query.data))
+    }
+
+    try{
+        const accuracyTest = await AccuracyTest.create({user, type, accuracy})
+
+        if(data){
+            if (data.i - 1 !== data.tests.length) {
+                res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
+            }  else {
+                res.redirect('/polls_results')
+            }
+        } else {
+            return res.redirect('/polls_results')
+        }
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+server.post('/create_invite', async (req, res) => {
+    const userWhoCreated = req.user.id;
+    const used = false;
+    const tests = req.body.tests;
+    const code = crypto.randomBytes(10).toString('hex');
+
+    try {
+        const inviteLink = await InviteLink.create({userWhoCreated, tests, code, used})
+        res.send({link: '/invite/' + code})
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 sequelize.sync().then(() => {
