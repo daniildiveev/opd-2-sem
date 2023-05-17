@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="StalkingTest.css">
+  <link rel="stylesheet" href="4th-lab-tests/StalkingTest.css">
   <title>Stalking Test</title>
 </head>
 <body>
@@ -36,7 +36,8 @@
   let totalAccuracy = 0;
   let accuracies = [];
   let countDownDate, timerInterval;
-  let timeLimit = 120000;
+  let timeLimit = 25000;
+  let testPassed = false;
 
 
   function drawFrame() {
@@ -123,8 +124,10 @@
       updateAverageAccuracy();
     }
   }
+
   function hideButton() {
     document.getElementById("start-button-enclosing").style.display = "none";
+    canvas.style.display = "block"
     countDownDate = new Date().getTime() + timeLimit;
     timerInterval = setInterval(updateTimer, 1000);
     setInterval(function() {
@@ -151,6 +154,8 @@
 
   // Функция для показа итогового результата
   function showResult() {
+    testPassed = true;
+    document.getElementById("result-enclosing").style.display = "none"
     clearInterval(timerInterval);
     document.getElementById("timer").textContent = "";
     canvas.style.display = "none";
@@ -170,9 +175,38 @@
     const resultEnclosing = document.getElementById("result-enclosing");
     resultEnclosing.innerHTML = `Your accuracy is ${accuracy.toFixed(2)}%`;
   }
-  function sendData(){
 
+  async function sendData(){
+    if(testPassed){
+      const data = {
+        testType : "analog_tracking_test",
+        accuracy: totalAccuracy
+      }
+
+      let url = ''
+      const urlObject = new URL(window.location.href)
+
+      if (urlObject.searchParams.has('data')){
+        url += '/accuracy_test?data=' + urlObject.searchParams.get('data')
+      } else {
+        url += '/accuracy_test'
+      }
+
+      await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      })
+              .then(res => {
+                console.log(res)
+                // Redirect to another URL
+                window.location.href = res.url;
+              })
+              .catch(error => console.error(error));
+
+    }
   }
+
   function hideResult() {
     document.getElementById("result-enclosing").innerHTML = '';
   }
@@ -198,7 +232,7 @@
       restartButtonEnclosing.removeChild(restartButtonEnclosing.firstChild);
     }
     document.getElementById("result-enclosing").innerHTML = '';
-
+    hideButton();
   }
 
   document.addEventListener("keydown", keyDownHandler, false);
