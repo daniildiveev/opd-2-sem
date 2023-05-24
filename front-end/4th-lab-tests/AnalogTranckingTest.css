@@ -12,6 +12,17 @@ body {
     color: white;
     font-family: var(--font-style);
 }
+#timer {
+    font-family: var(--font-style);
+    font-weight: 500;
+    letter-spacing: .1rem;
+    font-size: 1.2em;
+    align-items: center;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 #start-button, #submit-button-enclosing button{
     border: none;

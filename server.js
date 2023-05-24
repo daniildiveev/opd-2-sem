@@ -170,7 +170,7 @@ server.get('/light_test', (req, res) => {
     if (!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('LightReactionTest')
+        res.render('2nd-lab-tests/LightReactionTest')
     }
 })
 {}
@@ -178,7 +178,7 @@ server.get('/multiple_colours_test', (req, res) => {
     if(!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('MultipleColorReactionTest')
+        res.render('2nd-lab-tests/ColorReactionTest')
     }
 })
 
@@ -186,7 +186,7 @@ server.get('/sound_test', (req, res) => {
     if (!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('SoundReactionTest')
+        res.render('2nd-lab-tests/SoundReactionTest')
     }
 })
 
@@ -194,7 +194,15 @@ server.get('/visual_math_test', (req, res) => {
     if (!req.isAuthenticated()){
         res.redirect('/login')
     } else {
-        res.render('VisualMathTest')
+        res.render('2nd-lab-tests/VisualMathTest')
+    }
+})
+
+server.get('/math_sound', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('2nd-lab-tests/SoundMathTest')
     }
 })
 
@@ -204,6 +212,10 @@ server.get('/create_invite', (req, res) => {
     } else {
         res.render('CreateInviteLinkPage')
     }
+})
+
+server.get('/tests_list', (req, res) => {
+    res.render('TestListPage')
 })
 
 server.post('/get_tests_from_db', async (req, res) => {
@@ -250,8 +262,6 @@ server.get('/invite/:code', async (req, res) => {
         }
     })
 
-    console.log(link)
-
     const tests = link.tests
     const data = {
         tests: tests,
@@ -263,6 +273,22 @@ server.get('/invite/:code', async (req, res) => {
     if (link) {
         const url = '/' + tests[0] + '?data=' + encodeURIComponent(JSON.stringify(data))
         res.redirect(url)
+    }
+})
+
+server.get('/analog_tracking_test', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('4th-lab-tests/AnalogTrackingTest')
+    }
+})
+
+server.get('/stalking_test', (req, res) => {
+    if(!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('4th-lab-tests/StalkingTest')
     }
 })
 

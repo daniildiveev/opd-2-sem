@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="AnalogTranckingTest.css">
+  <link rel="stylesheet" href="4th-lab-tests/AnalogTranckingTest.css">
   <title>Analog Tracking Test</title>
 </head>
 <body>
@@ -25,12 +25,14 @@
   let leftPressed = false;
   let rightPressed = false;
   let radius = 30;
-  let ballSpeed = 10;
-  let speedX = Math.random() * 7 + 3;
+  let ballSpeed = 7.5;
+  let speedX = Math.random() * 4.5 + 3;
   let elapsedTime;
   let accuracy = 0;
+  let accuracies = [];
   let totalAccuracy = 0;
-  let timeLimit = 120000;
+  let timeLimit = 25000;
+  let testPassed = false;
   canvas.style.display = "none";
 
   function changeBackgroundColor() {
@@ -131,20 +133,50 @@
     speedX = -speedX;
   }
   function moveUserBall() {
-    if (leftPressed && userX > radius) {
+    if (leftPressed && (userX > radius)) {
       userX -= ballSpeed;
     }
-    else if (rightPressed && userX < canvas.width - radius) {
+    else if (rightPressed && (userX < (canvas.width - radius))) {
       userX += ballSpeed;
     }
   }
 
-  function sendData(){}
+  async function sendData(){
+    if(testPassed){
+      const data = {
+        testType : "analog_tracking_test",
+        accuracy: totalAccuracy
+      }
+
+      let url = ''
+      const urlObject = new URL(window.location.href)
+
+      if (urlObject.searchParams.has('data')){
+        url += '/accuracy_test?data=' + urlObject.searchParams.get('data')
+      } else {
+        url += '/accuracy_test'
+      }
+
+      await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      })
+              .then(res => {
+                console.log(res)
+                // Redirect to another URL
+                window.location.href = res.url;
+              })
+              .catch(error => console.error(error));
+
+    }
+  }
+
   function handleClick(event) {
     const clickPosition = event.clientX - canvas.offsetLeft;
     const distance = Math.sqrt((clickPosition - canvas.width)**2);
-    accuracy = 100 - distance;
-    totalAccuracy += accuracy;
+    accuracy = (1 - distance / (canvas.width - 4 * radius)) * 100 ;
+    accuracies.push(accuracy)
 
     if (elapsedTime >= timeLimit) {
       canvas.removeEventListener('click', handleClick);
@@ -157,6 +189,7 @@
   }
 
   function endTest() {
+    testPassed = true;
     canvas.style.display = "none";
     const submitButtonEnclosing = document.getElementById("submit-button-enclosing");
     const submitButton = document.createElement("button");
@@ -171,13 +204,14 @@
     restartButtonEnclosing.appendChild(restartButton);
 
     const resultEnclosing = document.getElementById("result-enclosing");
-    totalAccuracy = Math.round(accuracy/(canvas.width / 2 * 1200) * 100);
-    resultEnclosing.innerHTML = `Ваша точность: ${totalAccuracy}%`;
+    totalAccuracy = accuracies.reduce((sum, currentValue) => sum + currentValue, 0) / accuracies.length;
+    //resultEnclosing.innerHTML = `Ваша точность: ${totalAccuracy}%`;
   }
 
   function restartTest() {
     document.getElementById("progress").value = 0;
     accuracy = 0;
+    accuracies = [];
     totalAccuracy = 0;
     leftPressed = false;
     rightPressed = false;

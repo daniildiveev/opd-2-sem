@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="EasyActionTestStyle.css">
+        <link rel="stylesheet" href="3rd-lab-tests/EasyActionTestStyle.css">
         <title>Hard Action Test</title>
     </head>
 
@@ -48,6 +48,7 @@
         changeBackgroundColor();
         drawFrame();
         drawCircles();
+        calculatePosition();
         moveCircle();
     }
 
@@ -87,15 +88,16 @@
         context.fillStyle = canvas.style.backgroundColor;
         context.fillRect(frameX, frameY, canvas.width, canvas.height); // draw frame
     }
+
     function calculatePosition(){
         directionX1 = Math.floor(Math.random() * 350) + 30;
         directionY1 = Math.floor(Math.random() * 250) + 30;
-        speedX1 = Math.floor(Math.random() * 5) + 3;
-        speedY1 = Math.floor(Math.random() * 5) + 3;
+        speedX1 = Math.floor(Math.random() * 2.5) + 3;
+        speedY1 = Math.floor(Math.random() * 2.5) + 3;
         directionX2 = Math.floor(Math.random() * 350) + 30;
         directionY2 = Math.floor(Math.random() * 250) + 30;
-        speedX2 = Math.floor(Math.random() * 5) + 3;
-        speedY2 = Math.floor(Math.random() * 5) + 3;
+        speedX2 = Math.floor(Math.random() * 2.5) + 3;
+        speedY2 = Math.floor(Math.random() * 2.5) + 3;
     }
 
     function drawCircles() {

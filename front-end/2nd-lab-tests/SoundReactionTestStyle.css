@@ -32,5 +32,15 @@ button:hover {
     opacity: .9;
 }
 
+#reaction-time-enclosing{
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    color: white;
+    margin-top: 2em;
+    font-family: var(--font-style);
+}
+
 
 

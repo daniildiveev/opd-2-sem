@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel = "stylesheet" href = "ColorReactionStyle.css">
+  <link rel = "stylesheet" href = "2nd-lab-tests/ColorReactionStyle.css">
   <title>Color Reaction Test</title>
 </head>
 <body>
@@ -31,12 +31,20 @@
   let testPassed = false;
   let reactionTimings = [], results = [];
 
+  alert("Нажимайте z, x или с в зависимости от загоревшегося квадратика")
+
 
   async function sendData(){
     if(testPassed){
+      const reactionTimings = [
+        results.slice(0, 3).reduce((a, b) => a + b, 0) / 3,
+        results.slice(3, 6).reduce((a, b) => a + b, 0) / 3,
+        results.slice(6).reduce((a, b) => a + b, 0) / 3
+      ]
+
       const data = {
         testType : "3_colors",
-        reactionTimings: results.at(-1)
+        reactionTimings: reactionTimings
       }
 
       let url = ''
@@ -115,13 +123,13 @@
       correctTestCounter++;
       testCounter++;
       totalReactionTime += reactionTime;
-      reactionTimings.push(reactionTime);
+      results.push(reactionTime);
 
 
       document.getElementById('result').innerHTML = `Your reaction time: ${reactionTime}ms. Correct!`;
     } else {
       totalReactionTime += reactionTime * 2;
-      reactionTimings.push(reactionTime*2);
+      results.push(reactionTime*2);
       document.getElementById('result').innerHTML = 'Wrong answer. Try again!';
       testCounter++;
 

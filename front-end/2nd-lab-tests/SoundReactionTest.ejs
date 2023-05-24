@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel = "stylesheet" href = "SoundReactionTestStyle.css">
+    <link rel = "stylesheet" href = "2nd-lab-tests/SoundReactionTestStyle.css">
     <title>Sound Reaction Test</title>
 </head>
 <body>
 <div id="send-button-enclosing"></div>
+<div id="reaction-time-enclosing"></div>
 </body>
 <script>
 let bodyElement = document.getElementsByTagName("body")[0];
@@ -21,7 +22,7 @@ async function sendData(){
     if(testPassed){
         const data = {
             testType : "sound",
-            reactionTime: testResults.at(-1)
+            reactionTime: testResults.reduce((a, b) => a + b, 0) / testResults.length
         }
 
         let url = ''
@@ -57,7 +58,7 @@ function handleKeyPress(event) {
             let endTime = new Date().getTime(); // сохраняем время завершения изменения цвета фона
             let reactionTime = endTime - startTime; // вычисляем время реакции пользователя
             testResults.push(reactionTime)
-            alert("Ваше время реакции на звук: " + reactionTime + " мс"); // выводим результат пользователю
+            document.getElementById("reaction-time-enclosing").innerHTML = "Ваше время реакции на звук: " + reactionTime + " мс"; // выводим результат пользователю
             testStarted = false;
 
 /*            if (!testPassed){
@@ -75,12 +76,12 @@ function handleKeyPress(event) {
 document.addEventListener("keydown", handleKeyPress);
 
 function startTest() {
-
     // Play the sound every random interval between 1 and 4 seconds, for a total of numTests times
     const playSoundInterval = setInterval(() => {
         if (currentTestNum >= numTests) {
             clearInterval(playSoundInterval); // stop playing the sound after numTests times
             if (!testPassed) {
+                document.getElementById("reaction-time-enclosing").innerHTML = "";
                 const submitButton = document.createElement("button");
                 submitButton.innerHTML = "ОТПРАВИТЬ РЕЗУЛЬТАТ";
                 submitButton.onclick = sendData;
