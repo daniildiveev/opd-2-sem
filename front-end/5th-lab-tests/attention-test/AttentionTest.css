@@ -24,7 +24,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-#start-button, #submit-button-enclosing button{
+.start-button, #submit-button-enclosing button{
     border: none;
     border-radius: 3px;
     background-color: white;

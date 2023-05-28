@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Таблица Шульте</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+
+    td {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 24px;
+      font-weight: bold;
+      border: 1px solid #ccc;
+    }
+
+    .correct {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .incorrect {
+      background-color: #dc3545;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Таблица Шульте</h1>
+  <table id="table"></table>
+  <script>
+    var size = 5;
+    var numbers = shuffle(createNumbers(size));
+    var index = 0;
+    var startTime = new Date();
+    var table = document.getElementById("table");
+    for (var i = 0; i < size; i++) {
+      var row = document.createElement("tr");
+      for (var j = 0; j < size; j++) {
+        var cell = document.createElement("td");
+        cell.innerHTML = numbers[index];
+        cell.setAttribute("data-number", numbers[index]);
+        cell.addEventListener("click", onCellClick);
+        row.appendChild(cell);
+        index++;
+      }
+      table.appendChild(row);
+    }
+    index = 0;
+    function createNumbers(size) {
+      var numbers = [];
+      for (var i = 1; i <= size * size; i++) {
+        numbers.push(i);
+      }
+      return numbers;
+    }
+
+    function shuffle(array) {
+      for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+      return array;
+    }
+
+    function onCellClick(event) {
+      var cell = event.target;
+      console.log(index + 1)
+      console.log(parseInt(cell.innerHTML) === index + 1);
+      if (parseInt(cell.innerHTML) === index + 1) {
+        cell.classList.add("correct");
+        cell.removeEventListener("click", onCellClick);
+        index++;
+        if (index === size * size) {
+          var endTime = new Date();
+          var timeDiff = Math.round((endTime - startTime) / 1000);
+          var incorrectAnswers = document.querySelectorAll(".incorrect").length;
+          alert("Вы победили!\n" + "Время выполнения: " + timeDiff + " мс\n" + "Количество неверных попаданий: " + incorrectAnswers);
+        }
+      } else {
+        cell.classList.add("incorrect");
+        setTimeout(function () {
+          cell.classList.remove("incorrect");
+        }, 500);
+      }
+    }
+  </script>

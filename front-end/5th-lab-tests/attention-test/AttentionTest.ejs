@@ -11,20 +11,23 @@
 <body>
 
     <div>
+
+        <h1 class="start-button" onclick="startTest()">Начать тест</h1>
+
         <h2 class="test-task">
-            <text>Выберите некорректно написанное слово</text>
+            <text></text>
         </h2>
 
         <div class="word-list">
-            <div class="word-from-list" id="w1" onclick="chooseWord(1)" value="1">1</div>
-            <div class="word-from-list" id="w2" onclick="chooseWord(2)" value="2">2</div>
-            <div class="word-from-list" id="w3" onclick="chooseWord(3)" value="3">3</div>
-            <div class="word-from-list" id="w4" onclick="chooseWord(4)" value="4">4</div>
-            <div class="word-from-list" id="w5" onclick="chooseWord(5)" value="5">5</div>
+            <div class="word-from-list" id="w1" onclick="selectWord(event)" value="1"></div>
+            <div class="word-from-list" id="w2" onclick="selectWord(event)" value="2"></div>
+            <div class="word-from-list" id="w3" onclick="selectWord(event)" value="3"></div>
+            <div class="word-from-list" id="w4" onclick="selectWord(event)" value="4"></div>
+            <div class="word-from-list" id="w5" onclick="selectWord(event)" value="5"></div>
         </div>
 
         <div class="last-result">
-            Последний результат
+            
         </div>
 
     </div>
@@ -119,14 +122,30 @@
         }
     }
 
-    generateWords(words);
+
 
 
     function showResults(){
         
     }
 
-    document.addEventListener("click", function (e) {
+    function startTest(){
+
+        // Удаляем кнопку начать тест
+        var startButton = document.querySelector(".start-button");
+        startButton.style.display = "none";
+
+
+        // Вписываем текст задания
+        testTask = document.querySelector(".test-task");
+        testTask.innerHTML = "Выберите неверное написанное слово";
+
+
+        generateWords(words);
+    }
+
+    function selectWord(e) {
+        
         setA = new Set(e.target.innerHTML.split(""));
         setB = new Set(choosen_words[indexOfIncorrectWord].split(""));
         var isSubset = true;
@@ -149,7 +168,9 @@
         }
 
         generateWords(words);
-    });
+    };
+
+
 </script>
 
 </html>

@@ -307,6 +307,15 @@ server.get('/attention_test', (req, res) => {
     // }
 })
 
+server.get('/schulte_table', (req, res) => {
+    // if(!req.isAuthenticated()){
+    //     res.redirect('/login')
+    // } else {
+        
+        res.render('5th-lab-tests/table-schulte/SchulteTable')
+    // }
+})
+
 
 // #################################
 
