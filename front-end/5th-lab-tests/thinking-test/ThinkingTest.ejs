@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Тест на расшифровку перемешанных слов</title>
+    <link rel="stylesheet" href="5th-lab-tests/thinking-test/ThinkingTest.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Тест на расшифровку перемешанных слов</h1>
+        <button id="start" class="start-button">Начать тест</button>
+        <form>
+            <label for="answer">Введите предложение:</label>
+            <input type="text" id="answer" required>
+            <button id="check">Проверить ответы</button>
+        </form>
+        <div id="result"></div>
+        <button id="restart" class="restart-button" style="display: none;">Начать тест заново</button>
+    </div>
+    <script>
+        var sentences = [
+            "Мне нравится программирование",
+            "Солнце светит ярко и тепло",
+            "Мама мыла раму в воскресенье",
+            "Утром я пью кофе и читаю газету",
+            "Вечером я люблю смотреть фильмы",
+            "Каждый день я занимаюсь спортом",
+            "Я люблю путешествовать по миру",
+            "Время летит быстро, надо успевать жить",
+            "Жизнь прекрасна, если знать, как ее наслаждаться",
+            "Успех приходит к тому, кто не боится неудачи"
+        ];
+
+        var currentSentence = "";
+        var scrambledSentence = "";
+        var scrambledWords = [];
+        var index = 0;
+        var errors = 0;
+        var startTime = Date.now();
+        var endTime = 0;
+        var resultDiv = document.getElementById("result");
+        var answerInput = document.getElementById("answer");
+        var startButton = document.getElementById("start");
+        var checkButton = document.getElementById("check");
+        var restartButton = document.getElementById("restart");
+
+        function shuffleWord(word) {
+            var letters = word.split("");
+            for (var i = letters.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = letters[i];
+                letters[i] = letters[j];
+                letters[j] = temp;
+            }
+            return letters.join("");
+        }
+
+        function shuffleSentence(sentence) {
+            var words = sentence.split(" ");
+            scrambledWords = words.map(shuffleWord);
+            scrambledSentence = scrambledWords.join(" ");
+        }
+
+        function showSentence() {
+            currentSentence = sentences[Math.floor(Math.random() * sentences.length)];
+            shuffleSentence(currentSentence);
+            answerInput.value = "";
+            resultDiv.innerHTML = scrambledSentence;
+            startButton.style.display = "none";
+            checkButton.style.display = "block";
+            answerInput.style.display = "block";
+            answerInput.focus();
+        }
+
+        function checkAnswer() {
+            var answer = answerInput.value.trim().toLowerCase();
+            var originalWords = currentSentence.split(" ");
+            var answerWords = answer.split(" ");
+            var correct = true;
+            for (var i = 0; i < originalWords.length; i++) {
+                if (originalWords[i] !== answerWords[i]) {
+                    correct = false;
+                    errors++;
+                }
+            }
+            endTime = Date.now();
+            var time = (endTime - startTime) / 1000;
+            var message = "Вы допустили " + errors + " ошибок.";
+            if (correct) {
+                message = "Отлично! Вы правильно расшифровали все слова.";
+            }
+            console.log(message);
+            message += " Время выполнения: " + time + " секунд.";
+            resultDiv.innerHTML = message;
+            restartButton.style.display = "block";
+            checkButton.style.display = "none";
+            answerInput.style.display = "none";
+            errors = 0;
+        }
+
+        function restartTest() {
+            restartButton.style.display = "none";
+            resultDiv.innerHTML = "";
+            startButton.style.display = "block";
+        }
+
+        startButton.addEventListener("click", showSentence);
+        checkButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            checkAnswer();
+        });
+        restartButton.addEventListener("click", restartTest);
+    </script>
+</body>
+
+</html>

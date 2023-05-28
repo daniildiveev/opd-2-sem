@@ -316,6 +316,14 @@ server.get('/schulte_table', (req, res) => {
     // }
 })
 
+server.get('/thinking-test', (req, res) => {
+    // if(!req.isAuthenticated()){
+    //     res.redirect('/login')
+    // } else {
+        
+        res.render('5th-lab-tests/thinking-test/ThinkingTest')
+    // }
+})
 
 // #################################
 

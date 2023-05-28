@@ -1,0 +1,61 @@
+:root{
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+   }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+form {
+    margin-bottom: 2rem;
+}
+
+label {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    color: var(--primary-color);
+}
+
+input[type="text"] {
+    padding: 0.5rem;
+    border: 2px solid var(--main-color);
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    width: 25rem;
+    margin-right: 1rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: var(--main-color);
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--overlay-color);
+}
+
+.start-button {
+    margin-bottom: 2rem;
+}
+
+.restart-button {
+    margin-top: 2rem;
+}
