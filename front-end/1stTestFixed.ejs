@@ -1,0 +1,2729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link rel="stylesheet" href="1stTestStyles.css">
+    <title>1st Test</title>
+</head>
+<body>
+<section class = "container">
+    <header>
+        <div>
+            <h1>Тест <br> выбор профессиональных характеристик</h1>
+        </div>
+    </header>
+    <form id = "test1" method="POST" action="/poll">
+        <select name="profession" id="profression-selector">
+            <option value="">Please choose an option</option>
+            <option value= "Data Scientist">Data Scientist</option>
+            <option value= "Backend developer">Backend developer</option>
+            <option value= "Frontend developer">Frontend developer</option>
+            <option value= "QA-engineer">QA-engineer</option>
+            <option value= "Cyber security specialist">Cyber security specialist</option>
+        </select>
+
+        <table>
+            <thead>
+            <tr>
+                <td>Характеристика</td>
+                <td>Нужна?</td>
+                <td class="mark">Оценка</td>
+            </tr>
+            </thead>
+
+            <tbody><tr>
+                <td>Стремление к профессиональному совершенству</td>
+                <td><input type="radio" name="question0" value="1" id="q0_check"></td>
+                <td>
+                    <select name="profession" id="q0-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Адекватная самооценка</td>
+                <td><input type="radio" name="question1" value="1" id="q1_check"></td>
+                <td>
+                    <select name="profession" id="q1-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Самостоятельность</td>
+                <td><input type="radio" name="question2" value="1" id="q2_check"></td>
+                <td>
+                    <select name="profession" id="q2-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Пунктуальность</td>
+                <td><input type="radio" name="question3" value="1" id="q3_check"></td>
+                <td>
+                    <select name="profession" id="q3-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>педантичность</td>
+                <td><input type="radio" name="question4" value="1" id="q4_check"></td>
+                <td>
+                    <select name="profession" id="q4-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Дисциплинированность</td>
+                <td><input type="radio" name="question5" value="1" id="q5_check"></td>
+                <td>
+                    <select name="profession" id="q5-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Аккуратность в работе</td>
+                <td><input type="radio" name="question6" value="1" id="q6_check"></td>
+                <td>
+                    <select name="profession" id="q6-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Организованность</td>
+                <td><input type="radio" name="question7" value="1" id="q7_check"></td>
+                <td>
+                    <select name="profession" id="q7-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Самодисциплинированность</td>
+                <td><input type="radio" name="question8" value="1" id="q8_check"></td>
+                <td>
+                    <select name="profession" id="q8-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Старательность</td>
+                <td><input type="radio" name="question9" value="1" id="q9_check"></td>
+                <td>
+                    <select name="profession" id="q9-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Исполнительность</td>
+                <td><input type="radio" name="question10" value="1" id="q10_check"></td>
+                <td>
+                    <select name="profession" id="q10-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Ответственность</td>
+                <td><input type="radio" name="question11" value="1" id="q11_check"></td>
+                <td>
+                    <select name="profession" id="q11-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Трудолюбие</td>
+                <td><input type="radio" name="question12" value="1" id="q12_check"></td>
+                <td>
+                    <select name="profession" id="q12-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Инициативность</td>
+                <td><input type="radio" name="question13" value="1" id="q13_check"></td>
+                <td>
+                    <select name="profession" id="q13-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Самокритичность</td>
+                <td><input type="radio" name="question14" value="1" id="q14_check"></td>
+                <td>
+                    <select name="profession" id="q14-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Оптимистичность</td>
+                <td><input type="radio" name="question15" value="1" id="q15_check"></td>
+                <td>
+                    <select name="profession" id="q15-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Самообладание</td>
+                <td><input type="radio" name="question16" value="1" id="q16_check"></td>
+                <td>
+                    <select name="profession" id="q16-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>способность к самонаблюдению</td>
+                <td><input type="radio" name="question17" value="1" id="q17_check"></td>
+                <td>
+                    <select name="profession" id="q17-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Предусмотрительность</td>
+                <td><input type="radio" name="question18" value="1" id="q18_check"></td>
+                <td>
+                    <select name="profession" id="q18-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Фрустрационная толерантность</td>
+                <td><input type="radio" name="question19" value="1" id="q19_check"></td>
+                <td>
+                    <select name="profession" id="q19-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Самомобилизация</td>
+                <td><input type="radio" name="question20" value="1" id="q20_check"></td>
+                <td>
+                    <select name="profession" id="q20-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Интернальность</td>
+                <td><input type="radio" name="question21" value="1" id="q21_check"></td>
+                <td>
+                    <select name="profession" id="q21-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Экстернальность</td>
+                <td><input type="radio" name="question22" value="1" id="q22_check"></td>
+                <td>
+                    <select name="profession" id="q22-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Интрапунитивность</td>
+                <td><input type="radio" name="question23" value="1" id="q23_check"></td>
+                <td>
+                    <select name="profession" id="q23-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Экстрапунитивность</td>
+                <td><input type="radio" name="question24" value="1" id="q24_check"></td>
+                <td>
+                    <select name="profession" id="q24-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к планированию своей деятельности</td>
+                <td><input type="radio" name="question25" value="1" id="q25_check"></td>
+                <td>
+                    <select name="profession" id="q25-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность организовывать свою деятельность в условиях большого потока информации и разнообразия поставленных задач</td>
+                <td><input type="radio" name="question26" value="1" id="q26_check"></td>
+                <td>
+                    <select name="profession" id="q26-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность брать на себя ответственность за принимаемые решения и действия</td>
+                <td><input type="radio" name="question27" value="1" id="q27_check"></td>
+                <td>
+                    <select name="profession" id="q27-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность принимать решение в нестандартных ситуациях</td>
+                <td><input type="radio" name="question28" value="1" id="q28_check"></td>
+                <td>
+                    <select name="profession" id="q28-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность рационально действовать в экстремальных ситуациях</td>
+                <td><input type="radio" name="question29" value="1" id="q29_check"></td>
+                <td>
+                    <select name="profession" id="q29-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность эффективно действовать и принимать решения в условиях дефицита времени  </td>
+                <td><input type="radio" name="question30" value="1" id="q30_check"></td>
+                <td>
+                    <select name="profession" id="q30-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность переносить неприятные ощущения</td>
+                <td><input type="radio" name="question31" value="1" id="q31_check"></td>
+                <td>
+                    <select name="profession" id="q31-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность аргументировано отстаивать свое мнение</td>
+                <td><input type="radio" name="question32" value="1" id="q32_check"></td>
+                <td>
+                    <select name="profession" id="q32-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к переключениям с одной деятельности на другую</td>
+                <td><input type="radio" name="question33" value="1" id="q33_check"></td>
+                <td>
+                    <select name="profession" id="q33-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность преодолевать страх</td>
+                <td><input type="radio" name="question34" value="1" id="q34_check"></td>
+                <td>
+                    <select name="profession" id="q34-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сильная воля</td>
+                <td><input type="radio" name="question35" value="1" id="q35_check"></td>
+                <td>
+                    <select name="profession" id="q35-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Порядочность</td>
+                <td><input type="radio" name="question36" value="1" id="q36_check"></td>
+                <td>
+                    <select name="profession" id="q36-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Честность</td>
+                <td><input type="radio" name="question37" value="1" id="q37_check"></td>
+                <td>
+                    <select name="profession" id="q37-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Решительность</td>
+                <td><input type="radio" name="question38" value="1" id="q38_check"></td>
+                <td>
+                    <select name="profession" id="q38-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Смелость</td>
+                <td><input type="radio" name="question39" value="1" id="q39_check"></td>
+                <td>
+                    <select name="profession" id="q39-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к зрительным представлениям</td>
+                <td><input type="radio" name="question40" value="1" id="q40_check"></td>
+                <td>
+                    <select name="profession" id="q40-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к пространственному воображению</td>
+                <td><input type="radio" name="question41" value="1" id="q41_check"></td>
+                <td>
+                    <select name="profession" id="q41-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность наглядно представлять себе новое явление, ранее, не встречающееся в опыте, или старое, но в новых условиях</td>
+                <td><input type="radio" name="question42" value="1" id="q42_check"></td>
+                <td>
+                    <select name="profession" id="q42-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к переводу образа в словесное описание</td>
+                <td><input type="radio" name="question43" value="1" id="q43_check"></td>
+                <td>
+                    <select name="profession" id="q43-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к воссозданию образа по словесному описанию</td>
+                <td><input type="radio" name="question44" value="1" id="q44_check"></td>
+                <td>
+                    <select name="profession" id="q44-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Аналитичность  мышления</td>
+                <td><input type="radio" name="question45" value="1" id="q45_check"></td>
+                <td>
+                    <select name="profession" id="q45-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Синтетичность мышления</td>
+                <td><input type="radio" name="question46" value="1" id="q46_check"></td>
+                <td>
+                    <select name="profession" id="q46-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Транссонантность мышления</td>
+                <td><input type="radio" name="question47" value="1" id="q47_check"></td>
+                <td>
+                    <select name="profession" id="q47-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Логичность мышления</td>
+                <td><input type="radio" name="question48" value="1" id="q48_check"></td>
+                <td>
+                    <select name="profession" id="q48-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Креативность мышления</td>
+                <td><input type="radio" name="question49" value="1" id="q49_check"></td>
+                <td>
+                    <select name="profession" id="q49-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Оперативность мышления</td>
+                <td><input type="radio" name="question50" value="1" id="q50_check"></td>
+                <td>
+                    <select name="profession" id="q50-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Предметность мышления</td>
+                <td><input type="radio" name="question51" value="1" id="q51_check"></td>
+                <td>
+                    <select name="profession" id="q51-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Образность мышления</td>
+                <td><input type="radio" name="question52" value="1" id="q52_check"></td>
+                <td>
+                    <select name="profession" id="q52-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Абстрактность мышления</td>
+                <td><input type="radio" name="question53" value="1" id="q53_check"></td>
+                <td>
+                    <select name="profession" id="q53-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Вербальность мышления</td>
+                <td><input type="radio" name="question54" value="1" id="q54_check"></td>
+                <td>
+                    <select name="profession" id="q54-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Калькулятивность мышления</td>
+                <td><input type="radio" name="question55" value="1" id="q55_check"></td>
+                <td>
+                    <select name="profession" id="q55-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная оценка размеров предметов.</td>
+                <td><input type="radio" name="question56" value="1" id="q56_check"></td>
+                <td>
+                    <select name="profession" id="q56-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительное восприятие расстояний между предметами</td>
+                <td><input type="radio" name="question57" value="1" id="q57_check"></td>
+                <td>
+                    <select name="profession" id="q57-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Глазомер: линейный, угловой, объемный</td>
+                <td><input type="radio" name="question58" value="1" id="q58_check"></td>
+                <td>
+                    <select name="profession" id="q58-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Глазомер динамический (способность оценивать направление и скорость</td>
+                <td><input type="radio" name="question59" value="1" id="q59_check"></td>
+                <td>
+                    <select name="profession" id="q59-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>движения предмета)</td>
+                <td><input type="radio" name="question60" value="1" id="q60_check"></td>
+                <td>
+                    <select name="profession" id="q60-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к различению фигуры (предмета, отметки, сигнала и пр.) на малоконтрастном фоне</td>
+                <td><input type="radio" name="question61" value="1" id="q61_check"></td>
+                <td>
+                    <select name="profession" id="q61-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность различать и опознавать замаскированные объекты.</td>
+                <td><input type="radio" name="question62" value="1" id="q62_check"></td>
+                <td>
+                    <select name="profession" id="q62-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к восприятию пространственного соотношения предметов.</td>
+                <td><input type="radio" name="question63" value="1" id="q63_check"></td>
+                <td>
+                    <select name="profession" id="q63-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Точность и оценка направления на источник звука.</td>
+                <td><input type="radio" name="question64" value="1" id="q64_check"></td>
+                <td>
+                    <select name="profession" id="q64-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность узнавать и различать ритмы</td>
+                <td><input type="radio" name="question65" value="1" id="q65_check"></td>
+                <td>
+                    <select name="profession" id="q65-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность восприятия устной речи</td>
+                <td><input type="radio" name="question66" value="1" id="q66_check"></td>
+                <td>
+                    <select name="profession" id="q66-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Различение отрезков времени</td>
+                <td><input type="radio" name="question67" value="1" id="q67_check"></td>
+                <td>
+                    <select name="profession" id="q67-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по визуальным признакам</td>
+                <td><input type="radio" name="question68" value="1" id="q68_check"></td>
+                <td>
+                    <select name="profession" id="q68-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по акустическим признакам</td>
+                <td><input type="radio" name="question69" value="1" id="q69_check"></td>
+                <td>
+                    <select name="profession" id="q69-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по кинестетическим признакам</td>
+                <td><input type="radio" name="question70" value="1" id="q70_check"></td>
+                <td>
+                    <select name="profession" id="q70-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная долговременная память на лица</td>
+                <td><input type="radio" name="question71" value="1" id="q71_check"></td>
+                <td>
+                    <select name="profession" id="q71-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная долговременная память на образы предметного мира</td>
+                <td><input type="radio" name="question72" value="1" id="q72_check"></td>
+                <td>
+                    <select name="profession" id="q72-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная долговременная память на условные обозначения</td>
+                <td><input type="radio" name="question73" value="1" id="q73_check"></td>
+                <td>
+                    <select name="profession" id="q73-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная долговременная память на цифры и даты</td>
+                <td><input type="radio" name="question74" value="1" id="q74_check"></td>
+                <td>
+                    <select name="profession" id="q74-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная долговременная память на слова и фразы</td>
+                <td><input type="radio" name="question75" value="1" id="q75_check"></td>
+                <td>
+                    <select name="profession" id="q75-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная долговременная память на семантику текста</td>
+                <td><input type="radio" name="question76" value="1" id="q76_check"></td>
+                <td>
+                    <select name="profession" id="q76-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная оперативная память на лица</td>
+                <td><input type="radio" name="question77" value="1" id="q77_check"></td>
+                <td>
+                    <select name="profession" id="q77-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная оперативная память на образы предметного мира</td>
+                <td><input type="radio" name="question78" value="1" id="q78_check"></td>
+                <td>
+                    <select name="profession" id="q78-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная оперативная память на условные обозначения</td>
+                <td><input type="radio" name="question79" value="1" id="q79_check"></td>
+                <td>
+                    <select name="profession" id="q79-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная оперативная память на цифры и даты</td>
+                <td><input type="radio" name="question80" value="1" id="q80_check"></td>
+                <td>
+                    <select name="profession" id="q80-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная оперативная память на слова и фразы</td>
+                <td><input type="radio" name="question81" value="1" id="q81_check"></td>
+                <td>
+                    <select name="profession" id="q81-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Зрительная оперативная память на семантику текста</td>
+                <td><input type="radio" name="question82" value="1" id="q82_check"></td>
+                <td>
+                    <select name="profession" id="q82-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая долговременная память на лица</td>
+                <td><input type="radio" name="question83" value="1" id="q83_check"></td>
+                <td>
+                    <select name="profession" id="q83-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая долговременная память на образы предметного мира</td>
+                <td><input type="radio" name="question84" value="1" id="q84_check"></td>
+                <td>
+                    <select name="profession" id="q84-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая долговременная память на условные обозначения</td>
+                <td><input type="radio" name="question85" value="1" id="q85_check"></td>
+                <td>
+                    <select name="profession" id="q85-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая долговременная память на цифры и даты</td>
+                <td><input type="radio" name="question86" value="1" id="q86_check"></td>
+                <td>
+                    <select name="profession" id="q86-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая долговременная память на слова и фразы</td>
+                <td><input type="radio" name="question87" value="1" id="q87_check"></td>
+                <td>
+                    <select name="profession" id="q87-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая долговременная память на семантику текста</td>
+                <td><input type="radio" name="question88" value="1" id="q88_check"></td>
+                <td>
+                    <select name="profession" id="q88-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая оперативная память на цифры и даты</td>
+                <td><input type="radio" name="question89" value="1" id="q89_check"></td>
+                <td>
+                    <select name="profession" id="q89-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая оперативная память на семантику текста</td>
+                <td><input type="radio" name="question90" value="1" id="q90_check"></td>
+                <td>
+                    <select name="profession" id="q90-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Моторная память на простые движения</td>
+                <td><input type="radio" name="question91" value="1" id="q91_check"></td>
+                <td>
+                    <select name="profession" id="q91-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Моторная память на сложные движения</td>
+                <td><input type="radio" name="question92" value="1" id="q92_check"></td>
+                <td>
+                    <select name="profession" id="q92-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Моторная память на положение и перемещение тела в пространстве</td>
+                <td><input type="radio" name="question93" value="1" id="q93_check"></td>
+                <td>
+                    <select name="profession" id="q93-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Тактильная память</td>
+                <td><input type="radio" name="question94" value="1" id="q94_check"></td>
+                <td>
+                    <select name="profession" id="q94-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Обонятельная память</td>
+                <td><input type="radio" name="question95" value="1" id="q95_check"></td>
+                <td>
+                    <select name="profession" id="q95-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Вкусовая память</td>
+                <td><input type="radio" name="question96" value="1" id="q96_check"></td>
+                <td>
+                    <select name="profession" id="q96-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Энергичность, витальность (активность)</td>
+                <td><input type="radio" name="question97" value="1" id="q97_check"></td>
+                <td>
+                    <select name="profession" id="q97-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Умственная работоспособность</td>
+                <td><input type="radio" name="question98" value="1" id="q98_check"></td>
+                <td>
+                    <select name="profession" id="q98-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Физическая работоспособность (выносливость)</td>
+                <td><input type="radio" name="question99" value="1" id="q99_check"></td>
+                <td>
+                    <select name="profession" id="q99-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Нервноэмоциональная устойчивость</td>
+                <td><input type="radio" name="question100" value="1" id="q100_check"></td>
+                <td>
+                    <select name="profession" id="q100-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Острота зрения</td>
+                <td><input type="radio" name="question101" value="1" id="q101_check"></td>
+                <td>
+                    <select name="profession" id="q101-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Адаптация зрения к темноте, свету</td>
+                <td><input type="radio" name="question102" value="1" id="q102_check"></td>
+                <td>
+                    <select name="profession" id="q102-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Контрастная чувствительность монохроматического зрения</td>
+                <td><input type="radio" name="question103" value="1" id="q103_check"></td>
+                <td>
+                    <select name="profession" id="q103-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Цветовая дифференциальная чувствительность</td>
+                <td><input type="radio" name="question104" value="1" id="q104_check"></td>
+                <td>
+                    <select name="profession" id="q104-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Устойчивость зрительной чувствительности во времени</td>
+                <td><input type="radio" name="question105" value="1" id="q105_check"></td>
+                <td>
+                    <select name="profession" id="q105-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Острота слуха</td>
+                <td><input type="radio" name="question106" value="1" id="q106_check"></td>
+                <td>
+                    <select name="profession" id="q106-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Контрастная чувствительность слуха</td>
+                <td><input type="radio" name="question107" value="1" id="q107_check"></td>
+                <td>
+                    <select name="profession" id="q107-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Слуховая дифференциальная чувствительность (способность различать: тембр, длительность, высоту, силу звука, ритм, фоновые или разнообразные шумы)</td>
+                <td><input type="radio" name="question108" value="1" id="q108_check"></td>
+                <td>
+                    <select name="profession" id="q108-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Переносимость длительно действующего звукового раздражителя</td>
+                <td><input type="radio" name="question109" value="1" id="q109_check"></td>
+                <td>
+                    <select name="profession" id="q109-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Чувствительность (осязание) пальцев</td>
+                <td><input type="radio" name="question110" value="1" id="q110_check"></td>
+                <td>
+                    <select name="profession" id="q110-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Вибрационная чувствительность</td>
+                <td><input type="radio" name="question111" value="1" id="q111_check"></td>
+                <td>
+                    <select name="profession" id="q111-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Мышечносуставная чувствительность усилий или сопротивления</td>
+                <td><input type="radio" name="question112" value="1" id="q112_check"></td>
+                <td>
+                    <select name="profession" id="q112-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Ощущение равновесия</td>
+                <td><input type="radio" name="question113" value="1" id="q113_check"></td>
+                <td>
+                    <select name="profession" id="q113-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Ощущение ускорения</td>
+                <td><input type="radio" name="question114" value="1" id="q114_check"></td>
+                <td>
+                    <select name="profession" id="q114-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Обонятельная чувствительность</td>
+                <td><input type="radio" name="question115" value="1" id="q115_check"></td>
+                <td>
+                    <select name="profession" id="q115-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность узнавать и различать вкусовые ощущения</td>
+                <td><input type="radio" name="question116" value="1" id="q116_check"></td>
+                <td>
+                    <select name="profession" id="q116-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Объем внимания</td>
+                <td><input type="radio" name="question117" value="1" id="q117_check"></td>
+                <td>
+                    <select name="profession" id="q117-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Концентрированность внимания</td>
+                <td><input type="radio" name="question118" value="1" id="q118_check"></td>
+                <td>
+                    <select name="profession" id="q118-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Устойчивость внимания во времени</td>
+                <td><input type="radio" name="question119" value="1" id="q119_check"></td>
+                <td>
+                    <select name="profession" id="q119-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Переключаемость внимания</td>
+                <td><input type="radio" name="question120" value="1" id="q120_check"></td>
+                <td>
+                    <select name="profession" id="q120-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к распределению внимания между несколькими объектами или видами деятельности</td>
+                <td><input type="radio" name="question121" value="1" id="q121_check"></td>
+                <td>
+                    <select name="profession" id="q121-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Помехоустойчивость внимания</td>
+                <td><input type="radio" name="question122" value="1" id="q122_check"></td>
+                <td>
+                    <select name="profession" id="q122-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность подмечать изменения в окружающей обстановке, не сосредотачивая сознательно на них внимание</td>
+                <td><input type="radio" name="question123" value="1" id="q123_check"></td>
+                <td>
+                    <select name="profession" id="q123-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Умение подмечать незначительные (малозаметные) изменения в исследуемом объекте, в показаниях приборов</td>
+                <td><input type="radio" name="question124" value="1" id="q124_check"></td>
+                <td>
+                    <select name="profession" id="q124-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность реагировать на неожиданный зрительный сигнал посредством определённых движений</td>
+                <td><input type="radio" name="question125" value="1" id="q125_check"></td>
+                <td>
+                    <select name="profession" id="q125-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность реагировать на неожиданный слуховой сигнал посредством определённых движений</td>
+                <td><input type="radio" name="question126" value="1" id="q126_check"></td>
+                <td>
+                    <select name="profession" id="q126-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Согласованность движений с процессами восприятия </td>
+                <td><input type="radio" name="question127" value="1" id="q127_check"></td>
+                <td>
+                    <select name="profession" id="q127-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к сенсомоторному слежению за движущимся объектом</td>
+                <td><input type="radio" name="question128" value="1" id="q128_check"></td>
+                <td>
+                    <select name="profession" id="q128-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к выполнению мелких точных движений</td>
+                <td><input type="radio" name="question129" value="1" id="q129_check"></td>
+                <td>
+                    <select name="profession" id="q129-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к выполнению сложных двигательных действий</td>
+                <td><input type="radio" name="question130" value="1" id="q130_check"></td>
+                <td>
+                    <select name="profession" id="q130-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к выполнению плавных соразмерных движений</td>
+                <td><input type="radio" name="question131" value="1" id="q131_check"></td>
+                <td>
+                    <select name="profession" id="q131-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Координация движений ведущей руки</td>
+                <td><input type="radio" name="question132" value="1" id="q132_check"></td>
+                <td>
+                    <select name="profession" id="q132-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Координация движений обеих рук</td>
+                <td><input type="radio" name="question133" value="1" id="q133_check"></td>
+                <td>
+                    <select name="profession" id="q133-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Координация движений рук и ног</td>
+                <td><input type="radio" name="question134" value="1" id="q134_check"></td>
+                <td>
+                    <select name="profession" id="q134-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Координация работы кистей рук и пальцев</td>
+                <td><input type="radio" name="question135" value="1" id="q135_check"></td>
+                <td>
+                    <select name="profession" id="q135-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Твердость руки, устойчивость кистей рук</td>
+                <td><input type="radio" name="question136" value="1" id="q136_check"></td>
+                <td>
+                    <select name="profession" id="q136-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Умение быстро записывать</td>
+                <td><input type="radio" name="question137" value="1" id="q137_check"></td>
+                <td>
+                    <select name="profession" id="q137-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Красивый почерк</td>
+                <td><input type="radio" name="question138" value="1" id="q138_check"></td>
+                <td>
+                    <select name="profession" id="q138-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Физическая сила</td>
+                <td><input type="radio" name="question139" value="1" id="q139_check"></td>
+                <td>
+                    <select name="profession" id="q139-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к быстрой выработке сенсомоторных навыков</td>
+                <td><input type="radio" name="question140" value="1" id="q140_check"></td>
+                <td>
+                    <select name="profession" id="q140-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к быстрой перестройке сенсомоторных навыков</td>
+                <td><input type="radio" name="question141" value="1" id="q141_check"></td>
+                <td>
+                    <select name="profession" id="q141-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Пластичность и выразительность движений</td>
+                <td><input type="radio" name="question142" value="1" id="q142_check"></td>
+                <td>
+                    <select name="profession" id="q142-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Отсутствие дефектов речи, хорошая дикция</td>
+                <td><input type="radio" name="question143" value="1" id="q143_check"></td>
+                <td>
+                    <select name="profession" id="q143-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность речевого аппарата к интенсивной и длительной работе.</td>
+                <td><input type="radio" name="question144" value="1" id="q144_check"></td>
+                <td>
+                    <select name="profession" id="q144-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность к изменению тембра.</td>
+                <td><input type="radio" name="question145" value="1" id="q145_check"></td>
+                <td>
+                    <select name="profession" id="q145-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td> Способность к изменению силы звучания</td>
+                <td><input type="radio" name="question146" value="1" id="q146_check"></td>
+                <td>
+                    <select name="profession" id="q146-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td> Переносимость динамических физических нагрузок</td>
+                <td><input type="radio" name="question147" value="1" id="q147_check"></td>
+                <td>
+                    <select name="profession" id="q147-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Переносимость статических физических нагрузок</td>
+                <td><input type="radio" name="question148" value="1" id="q148_check"></td>
+                <td>
+                    <select name="profession" id="q148-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Быстрый переход из состояния покоя к интенсивной работе</td>
+                <td><input type="radio" name="question149" value="1" id="q149_check"></td>
+                <td>
+                    <select name="profession" id="q149-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности при недостатке сна</td>
+                <td><input type="radio" name="question150" value="1" id="q150_check"></td>
+                <td>
+                    <select name="profession" id="q150-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности при развивающемся утомлении</td>
+                <td><input type="radio" name="question151" value="1" id="q151_check"></td>
+                <td>
+                    <select name="profession" id="q151-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение бдительности в условиях монотонии</td>
+                <td><input type="radio" name="question152" value="1" id="q152_check"></td>
+                <td>
+                    <select name="profession" id="q152-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение бдительности в режиме ожидания</td>
+                <td><input type="radio" name="question153" value="1" id="q153_check"></td>
+                <td>
+                    <select name="profession" id="q153-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в некомфортных температурных условиях</td>
+                <td><input type="radio" name="question154" value="1" id="q154_check"></td>
+                <td>
+                    <select name="profession" id="q154-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в условиях знакопеременных перегрузок</td>
+                <td><input type="radio" name="question155" value="1" id="q155_check"></td>
+                <td>
+                    <select name="profession" id="q155-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в условиях воздействия вибрации</td>
+                <td><input type="radio" name="question156" value="1" id="q156_check"></td>
+                <td>
+                    <select name="profession" id="q156-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в условиях воздействия разнонаправленных перегрузок</td>
+                <td><input type="radio" name="question157" value="1" id="q157_check"></td>
+                <td>
+                    <select name="profession" id="q157-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в условиях гипо(гипер) барометрических колебаний</td>
+                <td><input type="radio" name="question158" value="1" id="q158_check"></td>
+                <td>
+                    <select name="profession" id="q158-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в условиях пониженного парциального давления кислорода</td>
+                <td><input type="radio" name="question159" value="1" id="q159_check"></td>
+                <td>
+                    <select name="profession" id="q159-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в условиях пониженного парциального давления углекислого газа</td>
+                <td><input type="radio" name="question160" value="1" id="q160_check"></td>
+                <td>
+                    <select name="profession" id="q160-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в условиях ограничения возможностей удовлетворения базовых жизненных потребностей (голод, жажда, отдых, сексуальная потребность)</td>
+                <td><input type="radio" name="question161" value="1" id="q161_check"></td>
+                <td>
+                    <select name="profession" id="q161-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Сохранение работоспособности в разных природноклиматических условиях</td>
+                <td><input type="radio" name="question162" value="1" id="q162_check"></td>
+                <td>
+                    <select name="profession" id="q162-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Способность переадаптироваться к новым средовым условиям  </td>
+                <td><input type="radio" name="question163" value="1" id="q163_check"></td>
+                <td>
+                    <select name="profession" id="q163-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Антропометрические характеристики</td>
+                <td><input type="radio" name="question164" value="1" id="q164_check"></td>
+                <td>
+                    <select name="profession" id="q164-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Особенности телосложения</td>
+                <td><input type="radio" name="question165" value="1" id="q165_check"></td>
+                <td>
+                    <select name="profession" id="q165-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Хорошее общее физическое развитие</td>
+                <td><input type="radio" name="question166" value="1" id="q166_check"></td>
+                <td>
+                    <select name="profession" id="q166-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Физическая подготовленность к воздействию неблагоприятных факторов профессиональной деятельности</td>
+                <td><input type="radio" name="question167" value="1" id="q167_check"></td>
+                <td>
+                    <select name="profession" id="q167-score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+            </tr></tbody>
+        </table>
+
+        <button class="submit-btn" type="submit">SUBMIT</button>
+    </form>
+
+</section>
+</body>

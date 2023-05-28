@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Тест на внимание к деталям</title>
+    <link rel="stylesheet" href="5th-lab-tests/attention-test/AttentionTest.css">
+
+</head>
+
+<body>
+
+    <div>
+        <h2 class="test-task">
+            <text>Выберите некорректно написанное слово</text>
+        </h2>
+
+        <div class="word-list">
+            <div class="word-from-list" id="w1" onclick="chooseWord(1)" value="1">1</div>
+            <div class="word-from-list" id="w2" onclick="chooseWord(2)" value="2">2</div>
+            <div class="word-from-list" id="w3" onclick="chooseWord(3)" value="3">3</div>
+            <div class="word-from-list" id="w4" onclick="chooseWord(4)" value="4">4</div>
+            <div class="word-from-list" id="w5" onclick="chooseWord(5)" value="5">5</div>
+        </div>
+
+        <div class="last-result">
+            Последний результат
+        </div>
+
+    </div>
+
+</body>
+<script>
+
+    const words = ["яблоко", "банан", "апельсин", "мандарин", "лимон", "груша", "абрикос", "смородина", "клубника",
+        "малина", "арбуз", "дыня", "тыква", "морковь", "капуста", "брокколи", "помидор", "огурец", "свекла", "лук"];
+
+    var NUMBER_OF_ATTEMPTS = 5;
+    var NUMBER_OF_PASSED_ATTEMPTS = 0;
+    var correct_answers = 0;
+    var incorrect_answers = 0;
+    var indexOfIncorrectWord;
+    var choosen_words;
+    var time = Date.now();
+
+
+    function shuffleString(word) {
+        // Создаем множество уникальных букв в слове
+        let uniqueLetters = new Set(word);
+        // Проходим по всем возможным парам букв
+        for (let letter1 of uniqueLetters) {
+            for (let letter2 of uniqueLetters) {
+                // Если буквы разные и их порядок в слове не меняется при замене
+                if (letter1 !== letter2 && word.indexOf(letter1) < word.indexOf(letter2)) {
+                    // Меняем буквы местами и возвращаем слово
+                    let newWord = word.slice(0, word.indexOf(letter1)) + letter2 + word.slice(word.indexOf(letter1) + 1, word.indexOf(letter2)) + letter1 + word.slice(word.indexOf(letter2) + 1);
+                    return newWord;
+                }
+            }
+        }
+        // Если не удалось найти подходящие буквы, возвращаем исходное слово
+        return word;
+    }
+
+    function getRandomStrings(strings, count = 5) {
+        // Если в списке меньше строк, чем нужно вернуть, то возвращаем весь список
+        if (strings.length <= count) {
+            return strings;
+        }
+
+        // Копируем список, чтобы не изменять оригинальный
+        const copy = [...strings];
+
+        // Выбираем count уникальных элементов из скопированного списка
+        const uniqueStrings = new Set();
+        while (uniqueStrings.size < count) {
+            const randomIndex = Math.floor(Math.random() * copy.length);
+            uniqueStrings.add(copy[randomIndex]);
+        }
+
+        return Array.from(uniqueStrings);
+    }
+
+    function getRandomColor() {
+        var letters = "0123456789ABCDEF";
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    function chooseWord(index) {
+        word = document.querySelector(".word-from-list#w" + index);
+        // if ()
+        console.log(word.innerHTML);
+    }
+
+    function generateWords(word_list) {
+
+        indexOfIncorrectWord = Math.floor(Math.random() * 4) + 1;
+
+        var html_objects = [
+            document.querySelector(".word-from-list#w" + 1),
+            document.querySelector(".word-from-list#w" + 2),
+            document.querySelector(".word-from-list#w" + 3),
+            document.querySelector(".word-from-list#w" + 4),
+            document.querySelector(".word-from-list#w" + 5)]
+
+        choosen_words = getRandomStrings(words);
+
+        for (var i = 0; i < 5; i++) {
+            if (indexOfIncorrectWord == i) {
+                html_objects[i].innerHTML = shuffleString(choosen_words[i]);
+            } else {
+                html_objects[i].innerHTML = choosen_words[i];
+            }
+            html_objects[i].style.backgroundColor = getRandomColor();
+        }
+    }
+
+    generateWords(words);
+
+
+    function showResults(){
+        
+    }
+
+    document.addEventListener("click", function (e) {
+        setA = new Set(e.target.innerHTML.split(""));
+        setB = new Set(choosen_words[indexOfIncorrectWord].split(""));
+        var isSubset = true;
+        setB.forEach(function (item) {
+            if (!setA.has(item)) {
+                isSubset = false;
+                return;
+            }
+        });
+        if (isSubset) {
+            correct_answers++;
+            document.querySelector(".last-result").innerHTML = "Правильно  Время:  " + (Date.now() - time) + "мс";
+        } else {
+            incorrect_answers++;
+            document.querySelector(".last-result").innerHTML = "Неправильно  Время:  " + (Date.now() - time) + "мс";
+        }
+        time = Date.now();
+        if (correct_answers + incorrect_answers === NUMBER_OF_ATTEMPTS) {
+            // showResults();
+        }
+
+        generateWords(words);
+    });
+</script>
+
+</html>

@@ -1,0 +1,84 @@
+:root {
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67 , 0.95);
+    --font-style: 'Verdana', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-style);
+    background-color: var(--overlay-color);
+    color: white;
+}
+
+.container {
+    max-width: 64%;
+    margin: 0 auto;
+}
+tbody{
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: .15em;
+
+}
+
+header {
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    font-size: 2.4em;
+    margin-top: 7%;
+    margin-bottom: 1.5em;
+    font-weight: 500;
+    letter-spacing: 0.18rem;
+}
+thead{
+    font-size: 1.5em;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    margin-bottom: 1em;
+}
+.mark{
+
+}
+
+select{
+    padding: 1em;
+    border-radius: 3px;
+    border: none;
+    font-size: 18px;
+    width: 100%;
+    margin-bottom: 5em;
+    align-items: center;
+}
+/*.q0-score{*/
+/*    margin-top: 2em;*/
+/*}*/
+input[type="radio"] {
+    margin-top: 2em;
+    /*бля почему оно не работает??*/
+}
+
+.submit-btn {
+    border: none;
+    cursor: pointer;
+    margin-top: 2em;
+    display: inline-block;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.2rem 5.5rem;
+    transition: opacity .6s ease-in-out;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+
+.submit-btn:hover {
+    opacity: .7;
+}
+

@@ -1,0 +1,56 @@
+:root {
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, .8);
+    --font-style: 'Verdana', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--main-color);
+    color: white;
+    font-family: var(--font-style);
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 1rem;
+}
+
+a {
+    display: inline-block;
+    padding: 1.2rem 2.8rem;
+    background-color: var(--addl-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    text-align: center;
+    height: 2.6em;
+    width: 12em;
+}
+
+a:hover {
+    background-color: var(--overlay-color);
+}
+.test-list {
+    column-count: 2;
+    column-gap: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+}

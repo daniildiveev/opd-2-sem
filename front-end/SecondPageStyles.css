@@ -1,0 +1,154 @@
+:root{
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, .8);
+}
+.tab-wrap {
+    transition: 0.3s box-shadow ease;
+    border-radius: 6px;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap; /*break into multiple lines*/
+    position: relative;
+    list-style: none;
+    background-color: var(--main-color);
+    margin: 40px 0;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4), 0 1px 10px rgba(0, 0, 0, 0.24);
+}
+.tab-wrap:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25), 0 8px 10px rgba(0, 0, 0, 0.35);
+}
+.tab {
+    display: none;
+}
+.tab:checked:nth-of-type(1) ~ .tab__content:nth-of-type(1) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    z-index: 100;
+
+}
+.tab:checked:nth-of-type(2) ~ .tab__content:nth-of-type(2) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    z-index: 100;
+
+}
+.tab:checked:nth-of-type(3) ~ .tab__content:nth-of-type(3) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    z-index: 100;
+
+
+}
+.tab:checked:nth-of-type(4) ~ .tab__content:nth-of-type(4) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    z-index: 100;
+
+}
+.tab:checked:nth-of-type(5) ~ .tab__content:nth-of-type(5) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    z-index: 100;
+
+}
+/*makes corners sharps*/
+.tab:first-of-type:not(:last-of-type) + label {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.tab:not(:first-of-type):not(:last-of-type) + label {
+    border-radius: 0;
+}
+.tab:last-of-type:not(:first-of-type) + label {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.tab:checked + label {
+    background-color: var(--main-color);
+    box-shadow: 0 -1px 0 var(--main-color) inset;
+    color: #fff;
+
+}
+.tab:checked + label:hover {
+    box-shadow: 0 -1px 0 #fff inset;
+    background-color: #fff;
+    cursor: default;
+    color: var(--main-color);
+}
+
+.tab + label {
+    box-shadow: 0 -1px 0 #eee inset;
+    border-radius: 6px 6px 0 0;
+    cursor: auto;
+    display: block;
+    text-decoration: none;
+    color: var(--main-color);
+    flex-grow: 3;
+    text-align: center;
+    background-color: #fff;
+    user-select: none;
+    text-align: center;
+    transition: 0.3s background-color ease, 0.3s box-shadow ease;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 15px;
+}
+.tab + label:hover {
+    background-color: var(--addl-color);
+    box-shadow: 0 -1px 0 var(--addl-color) inset;
+    color: #fff;
+
+}
+.tab__content {
+    padding: 10px 25px;
+    background-color: transparent;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    opacity: 0;
+    left: 0;
+    transform: translateY(-3px);
+    border-radius: 6px;
+}
+
+body {
+    font-family: 'Verdana', sans-serif;
+    background-color: #fff;
+    color: #fff;
+    padding: 30px 0;
+    font-weight: 300;
+}
+.demo-section{
+    color: var(--main-color);
+}
+.container {
+    margin: 0 auto;
+    display: block;
+    max-width: 900px;
+}
+.container > *:not(.tab-wrap) {
+    padding: 0 80px;
+}
+h1, h2 {
+    margin: 0;
+    color: var(--main-color);
+    text-align: center;
+    font-weight: 400;
+}
+h2 {
+    font-size: 1em;
+    margin-bottom: 30px;
+}
+h3 {
+    font-weight: 400;
+}
+p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="RegistrationFormStyles.css">
+  <title>Registration form</title>
+</head>
+
+<body>
+<section class = "container">
+  <header>
+    <div>
+      <h1>Registration form</h1>
+    </div>
+  </header>
+  <form id="login-form" method="POST" action="/register">
+    <input type="text" name="login" id="user-name" placeholder="Login" required class = "input">
+    <br>
+    <input type="password" name="password" id="user-password" placeholder="Password" required class = "input">
+    <select name="age" id="id-select"></select>
+    <br>
+    <select name="sex">
+      <option value="m">Мужчина</option>
+      <option value="f">Женщина</option>
+    </select>
+    <br>
+    <button class="first-button" type="submit" id="register">REGISTER</button>
+  </form>
+
+  <div id="error-message">
+    <% if (errorMessage) { %>
+      <p class = "error-message"><%= errorMessage %></p>
+    <% } %>
+  </div>
+
+  <div id="login-button">
+    <a class = "second-button" href="/login"><p><u>Already have an account?</u></p></a>
+  </div>
+</section>
+</body>
+<script>
+  const ageSelect = document.getElementById("id-select")
+
+  for (let i=18;i <= 45;i++){
+    ageSelect.innerHTML += "<option value=\"" + i + "\">" + i + "</option>"
+  }
+</script>
+</html>
