@@ -78,9 +78,12 @@
             var answer = answerInput.value.trim().toLowerCase();
             var originalWords = currentSentence.split(" ");
             var answerWords = answer.split(" ");
+
             var correct = true;
             for (var i = 0; i < originalWords.length; i++) {
-                if (originalWords[i] !== answerWords[i]) {
+                if (originalWords[i].toLowerCase() !== answerWords[i]) {
+                    console.log(originalWords[i]);
+                    console.log(answerWords[i]);
                     correct = false;
                     errors++;
                 }

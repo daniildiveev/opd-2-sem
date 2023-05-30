@@ -45,7 +45,7 @@
     var indexOfIncorrectWord;
     var choosen_words;
     var time = Date.now();
-
+    var all_time = 0;
 
     function shuffleString(word) {
         // Создаем множество уникальных букв в слове
@@ -113,6 +113,7 @@
         choosen_words = getRandomStrings(words);
 
         for (var i = 0; i < 5; i++) {
+            html_objects[i].style.display = "inline-block";
             if (indexOfIncorrectWord == i) {
                 html_objects[i].innerHTML = shuffleString(choosen_words[i]);
             } else {
@@ -126,7 +127,40 @@
 
 
     function showResults(){
+
+
         
+
+
+        var result = document.querySelector(".last-result");
+        result.innerHTML = "Ваш результат: " + correct_answers + "  Среднее время: " + all_time / 5000 + "с";
+        var startButton = document.querySelector(".start-button");
+        startButton.innerHTML = "Пройти тест еще раз";
+        startButton.style.display = "inline-block";
+
+        var test_task = document.querySelector(".test-task");
+        test_task.style.display = "none";
+
+        var html_objects = [
+            document.querySelector(".word-from-list#w" + 1),
+            document.querySelector(".word-from-list#w" + 2),
+            document.querySelector(".word-from-list#w" + 3),
+            document.querySelector(".word-from-list#w" + 4),
+            document.querySelector(".word-from-list#w" + 5)]
+
+        choosen_words = getRandomStrings(words);
+
+        for (var i = 0; i < 5; i++) {
+            html_objects[i].style.display = "none";
+        }
+
+        NUMBER_OF_ATTEMPTS = 5;
+         NUMBER_OF_PASSED_ATTEMPTS = 0;
+         correct_answers = 0;
+         incorrect_answers = 0;
+         time = Date.now();
+         all_time = 0;
+
     }
 
     function startTest(){
@@ -138,9 +172,11 @@
 
         // Вписываем текст задания
         testTask = document.querySelector(".test-task");
+        testTask.style.display= "block";
         testTask.innerHTML = "Выберите неверное написанное слово";
 
-
+        var result = document.querySelector(".last-result");
+        result.innerHTML = "";
         generateWords(words);
     }
 
@@ -162,12 +198,16 @@
             incorrect_answers++;
             document.querySelector(".last-result").innerHTML = "Неправильно  Время:  " + (Date.now() - time) + "мс";
         }
+        all_time += Date.now() - time;
         time = Date.now();
-        if (correct_answers + incorrect_answers === NUMBER_OF_ATTEMPTS) {
-            // showResults();
+        if ((correct_answers + incorrect_answers) >= NUMBER_OF_ATTEMPTS) {
+            showResults();
+        } else{
+           generateWords(words); 
         }
-
-        generateWords(words);
+        
+        
+        
     };
 
 

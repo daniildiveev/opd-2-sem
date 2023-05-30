@@ -4,43 +4,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Таблица Шульте</title>
-  <style>
-    table {
-      border-collapse: collapse;
-      margin: 0 auto;
-    }
-
-    td {
-      width: 50px;
-      height: 50px;
-      text-align: center;
-      vertical-align: middle;
-      font-size: 24px;
-      font-weight: bold;
-      border: 1px solid #ccc;
-    }
-
-    .correct {
-      background-color: #28a745;
-      color: #fff;
-    }
-
-    .incorrect {
-      background-color: #dc3545;
-      color: #fff;
-    }
-  </style>
+  <link rel="stylesheet" href="5th-lab-tests/table-schulte/SchulteTable.css">
 </head>
 
 <body>
   <h1>Таблица Шульте</h1>
-  <table id="table"></table>
+  <div id="container">
+    <table id="table"></table>
+    <button id="restart-button" style="display:none">Пройти тест еще раз</button>
+  </div>
+
   <script>
     var size = 5;
     var numbers = shuffle(createNumbers(size));
     var index = 0;
     var startTime = new Date();
     var table = document.getElementById("table");
+    var incorrectAnswers = 0;
+
     for (var i = 0; i < size; i++) {
       var row = document.createElement("tr");
       for (var j = 0; j < size; j++) {
@@ -54,6 +35,10 @@
       table.appendChild(row);
     }
     index = 0;
+
+    var restart_button = document.getElementById("restart-button");
+    restart_button.addEventListener("click", restartTest);
+
     function createNumbers(size) {
       var numbers = [];
       for (var i = 1; i <= size * size; i++) {
@@ -83,14 +68,44 @@
         if (index === size * size) {
           var endTime = new Date();
           var timeDiff = Math.round((endTime - startTime) / 1000);
-          var incorrectAnswers = document.querySelectorAll(".incorrect").length;
-          alert("Вы победили!\n" + "Время выполнения: " + timeDiff + " мс\n" + "Количество неверных попаданий: " + incorrectAnswers);
+          alert("Вы победили!\n" + "Время выполнения: " + timeDiff + " м\n" + "Количество неверных попаданий: " + incorrectAnswers);
+          table.style.display = "none";
+          restart_button.style.display = "inline-block";
         }
       } else {
+        incorrectAnswers++;
+        console.log(incorrectAnswers);
         cell.classList.add("incorrect");
         setTimeout(function () {
           cell.classList.remove("incorrect");
         }, 500);
       }
     }
+
+    function restartTest() {
+      size = 5;
+      numbers = shuffle(createNumbers(size));
+      index = 0;
+      startTime = new Date();
+      table.innerHTML = "";
+      incorrectAnswers = 0;
+      for (var i = 0; i < size; i++) {
+        var row = document.createElement("tr");
+        for (var j = 0; j < size; j++) {
+          var cell = document.createElement("td");
+          cell.innerHTML = numbers[index];
+          cell.setAttribute("data-number", numbers[index]);
+          cell.addEventListener("click", onCellClick);
+          row.appendChild(cell);
+          index++;
+        }
+        table.appendChild(row);
+      }
+      index = 0;
+      table.style.display = "table";
+      restart_button.style.display = "none";
+    }
   </script>
+</body>
+
+</html>

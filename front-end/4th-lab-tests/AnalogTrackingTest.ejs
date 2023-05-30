@@ -205,6 +205,8 @@
 
     const resultEnclosing = document.getElementById("result-enclosing");
     totalAccuracy = accuracies.reduce((sum, currentValue) => sum + currentValue, 0) / accuracies.length;
+    console.log(totalAccuracy);
+    console.log(accuracy);
     //resultEnclosing.innerHTML = `Ваша точность: ${totalAccuracy}%`;
   }
 
