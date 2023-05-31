@@ -60,6 +60,17 @@ function handleKeyPress(event) {
             testResults.push(reactionTime)
             document.getElementById("reaction-time-enclosing").innerHTML = "Ваше время реакции на звук: " + reactionTime + " мс"; // выводим результат пользователю
             testStarted = false;
+<<<<<<< HEAD
+=======
+
+/*            if (!testPassed){
+                const submitButton = document.createElement("button")
+                submitButton.innerHTML = "ОТПРАВИТЬ РЕЗУЛЬТАТ"
+                submitButton.onclick = sendData
+                document.getElementById("send-button-enclosing").appendChild(submitButton)
+            }
+            testPassed = true*/
+>>>>>>> daniildiveev/js
         }
     }
 }
@@ -82,7 +93,10 @@ function startTest() {
             testPassed = true;
         } else {
             audio.play();
+<<<<<<< HEAD
             console.log("123244");
+=======
+>>>>>>> daniildiveev/js
             startTime = new Date().getTime();
             testStarted = true;
             bodyElement.focus();

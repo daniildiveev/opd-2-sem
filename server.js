@@ -9,6 +9,10 @@ const {sequelize, User, Poll, ReactionTest} = require('./models/index');
 const {ComplexReactionTest, InviteLink, AccuracyTest} = require("./models");
 const {filterTest, getUsers} = require('./js-scripts/databaseManipulations')
 const {login} = require("passport/lib/http/request");
+<<<<<<< HEAD
+=======
+
+>>>>>>> daniildiveev/js
 const server = express();
 
 server.use(express.json());
@@ -213,8 +217,11 @@ server.get('/create_invite', (req, res) => {
     }
 })
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> daniildiveev/js
 server.get('/tests_list', (req, res) => {
     res.render('TestListPage')
 })
@@ -293,6 +300,7 @@ server.get('/stalking_test', (req, res) => {
     }
 })
 
+<<<<<<< HEAD
 //  ######### 5 ЛАБА   #############
 
 
@@ -328,6 +336,8 @@ server.get('/thinking-test', (req, res) => {
 // #################################
 
 
+=======
+>>>>>>> daniildiveev/js
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
