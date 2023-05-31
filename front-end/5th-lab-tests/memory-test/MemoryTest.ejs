@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel = "stylesheet" href = "5th-lab-tests/memory-test/MemoryTestStyle.css">
+    <title>Memory Test</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div id="start-container">
+    <button id="start-button">Начать тест</button>
+</div>
+
+<div id="test-container" style="display: none;">
+<!--    <div id="testText">Запомните числа!</div>-->
+    <div id="numbers-container"></div>
+    <form id="answer-form">
+        <label for="answer-input"><div class="beforeInputText">Введите числа в обратном порядке:</div></label>
+        <input type="text" id="answer-input" name="answer">
+        <button type="submit">Ответить</button>
+    </form>
+</div>
+
+<div id="result-container" style="display: none;">
+    <p id="result-text"></p>
+    <button id="retry-button">Пройти тест еще раз</button>
+    <button id="send-result-button">Отправить результат</button>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#start-button").click(function() {
+            $("#start-container").hide();
+            $("#test-container").show();
+
+            var numCount = Math.floor(Math.random() * 11) + 5; // случайное число от 5 до 15 TODO: переделать
+            var numbers = [];
+
+            // добавляем надпись "Запомните числа!"
+            var message = $("<div>")
+                .attr("id", "testText")
+                .text("Запомните числа:");
+            $("#numbers-container").append(message);
+
+            var i = 0;
+            var timerId = setInterval(function() {
+                if (i === numCount) {
+                    clearInterval(timerId);
+
+                    // удаляем надпись "Запомните числа!"
+                    message.hide();
+
+                    $("#answer-form").show();
+                    return;
+                }
+
+                var number = Math.floor(Math.random() * 100);
+                numbers.push(number);
+
+                var div = $("<div>").text(number);
+                $("#numbers-container").append(div);
+
+                setTimeout(function() {
+                    div.hide();
+
+                    // удаляем надпись "Запомните числа!" после последнего числа
+                    if (i === numCount +1) {
+                        message.hide();
+                    }
+                }, 1500);
+
+                i++;
+            }, 1500);
+
+            $("#answer-form").hide();
+
+            $("#answer-form").submit(function(event) {
+                event.preventDefault();
+
+                var answer = $("#answer-input").val().trim().split(" ").map(Number).reverse();
+                var correctCount = 0;
+
+                for (var i = 0; i < numCount; i++) {
+                    if (answer[i] === numbers[i]) {
+                        correctCount++;
+                    }
+                }
+
+                var resultText = "Правильных ответов: " + correctCount + "/" + numCount;
+                $("#result-text").text(resultText);
+
+                $("#test-container").hide();
+                $("#result-container").show();
+            });
+        });
+
+        $("#retry-button").click(function() {
+            $("#numbers-container").empty();
+            $("#result-text").empty();
+            $("#result-container").hide();
+            $("#start-container").show();
+        });
+    });
+//TODO: переделать спизженную функцию
+    // async function sendData(){
+    //
+    //         const correctAnswers = correctCount;
+    //         const persantage = correctCount/numCount;
+    //
+    //         const data = {
+    //             testType: "memory_test",
+    //             correctAnswers: correctAnswers
+    //         }
+    //
+    //         let url = ''
+    //         const urlObject = new URL(window.location.href)
+    //
+    //         if (urlObject.searchParams.has('data')){
+    //             url += '/complex_reaction_test?data=' + urlObject.searchParams.get('data')
+    //         } else {
+    //             url += '/complex_reaction_test'
+    //         }
+    //
+    //         await fetch(url, {
+    //             method: 'POST',
+    //             body: JSON.stringify(data),
+    //             headers: { 'Content-Type': 'application/json' },
+    //         })
+    //             .then(res => {
+    //                 console.log(res)
+    //                 // Redirect to another URL
+    //                 window.location.href = res.url;
+    //             })
+    //             .catch(error => console.error(error));
+    //
+    // }
+</script>
+
+</body>
+</html>

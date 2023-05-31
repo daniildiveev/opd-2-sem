@@ -10,6 +10,10 @@ const sequelize = new Sequelize('studs', 's367403', 'xaoVq03dAHI9DUXL', {
     dialect: 'postgres',
     host: 'localhost',
 });
+// const sequelize = new Sequelize('opd_2_sem', 'postgres', 'N29EXFdw', {
+//     dialect: 'postgres',
+//     host: 'localhost',
+// });
 
 const User = UserModel(sequelize);
 const Poll = PollModel(sequelize);

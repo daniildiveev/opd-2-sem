@@ -1,0 +1,136 @@
+:root {
+    --primary-color: rgba(12, 32, 77, 0.95);
+    --overlay-color: rgba(12, 28, 67, 0.95);
+    --main-color: rgb(12, 32, 77);
+    --addl-color: rgba(0, 103, 187, 0.8);
+    --font-style: 'Verdana', sans-serif;
+}
+
+body {
+    font-family: var(--font-style);
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    background-color: var(--main-color);
+}
+#numbers-container{
+    color: white;
+    font-size: 48px;
+    padding: 1.2rem 2.8rem;
+    margin-top: 5rem;
+    text-align: center;
+}
+#testText{
+    color: white;
+    font-size: 48px;
+    padding: 1.2rem 2.8rem;
+    text-align: center;
+}
+
+
+#start-button {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.2rem 2.8rem;
+    margin-top: 5rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+}
+
+.beforeInputText{
+    font-size: 32px;
+    color: #eeeeee;
+
+}
+#result-text{
+    color: white;
+}
+
+#answer-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#answer-form label {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#answer-input {
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius:10px;
+}
+
+#answer-form button[type="submit"] {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.2rem 2.8rem;
+    margin-top: 5rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    position: relative;
+    cursor: pointer;
+
+}
+#result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#result-text {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#retry-button {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.2rem 2.8rem;
+    margin-top: 3rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    position: relative;
+    cursor: pointer;
+}
+
+#send-result-button {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 1.2rem 2.8rem;
+    margin-top: 2rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+    position: relative;
+    cursor: pointer;
+}
