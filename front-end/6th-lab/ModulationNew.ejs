@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulation</title>
+</head>
+<body>
+    <label for="prof-list">Выберите Профессию:</label>
+    <select id="prof-list"></select>
+    <table id="modulation">
+        <thead>
+            <tr>
+                <th>PVK</th>
+                <th>Test</th>
+                <th>Raiting</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button id="add-row">Добавить запись</button>
+    <button id="save-new-rows">Сохранить новые записи</button>
+    <script>
+        var profs = ["Data Scientist", "Backend-developer", "Frontend-developer"];
+        var pvks = ["Стрессоустойчивость", "Коммуникабельность", "Аналитическое мышление"];
+        var tests = ["AttentionTest", "MemoryTest", "StalkingTest", "SchulteTable"];
+        var modulation = [{
+            prof: "Backend-developer",
+            pvk: "Стрессоустойчивость",
+            test: "AttentionTest",
+            raiting: 0.25
+        }];
+        var prof_select = document.getElementById("prof-list");
+        var modulationTable = document.getElementById("modulation").getElementsByTagName("tbody")[0];
+
+        for (var i = 0; i < profs.length; i++) {
+            var option = document.createElement("option");
+            option.innerHTML = profs[i];
+            prof_select.appendChild(option);
+        }
+
+        function outputModulationDataByProfession() {
+            var prof = prof_select.value;
+            console.log(prof);
+            //Очищаем таблицу перед выводом новых данных
+            modulationTable.innerHTML = "";
+            for (var i = 0; i < modulation.length; i++) {
+                if (modulation[i].prof === prof) {
+                    var tr = document.createElement("tr");
+                    var td_pvk = document.createElement('td');
+                    var selectPVK = document.createElement('select');
+                    for (var j = 0; j < pvks.length; j++) {
+                        var option = document.createElement("option");
+                        option.innerHTML = pvks[j];
+                        selectPVK.appendChild(option);
+                    }
+                    selectPVK.value = modulation[i].pvk;
+                    td_pvk.appendChild(selectPVK);
+                    var td_test = document.createElement('td');
+                    td_test.innerHTML = modulation[i].test;
+                    var td_raiting = document.createElement('td');
+                    td_raiting.innerHTML = modulation[i].raiting;
+                    var td_delete = document.createElement('td');
+                    var deleteBtn = document.createElement('button');
+                    deleteBtn.innerHTML = "Удалить";
+                    deleteBtn.addEventListener("click", function() {
+                        var row = this.parentNode.parentNode;
+                        row.parentNode.removeChild(row);
+                    });
+                    td_delete.appendChild(deleteBtn);
+                    tr.appendChild(td_pvk);
+                    tr.appendChild(td_test);
+                    tr.appendChild(td_raiting);
+                    tr.appendChild(td_delete);
+                    modulationTable.appendChild(tr);
+                }
+            }
+        }
+
+        prof_select.addEventListener("change", outputModulationDataByProfession);
+
+        // Добавление строки в таблицу
+        var addRowButton = document.getElementById("add-row");
+        addRowButton.addEventListener("click", function() {
+            var newRow = modulationTable.insertRow();
+            var td_pvk = newRow.insertCell();
+            var selectPVK = document.createElement('select');
+            for (var i = 0; i < pvks.length; i++) {
+                var option = document.createElement("option");
+                option.innerHTML = pvks[i];
+                selectPVK.appendChild(option);
+            }
+            td_pvk.appendChild(selectPVK);
+            var td_test = newRow.insertCell();
+            var selectTest = document.createElement('select');
+            for (var i = 0; i < tests.length; i++) {
+                var option = document.createElement("option");
+                option.innerHTML = tests[i];
+                selectTest.appendChild(option);
+            }
+            td_test.appendChild(selectTest);
+            var td_raiting = newRow.insertCell();
+            td_raiting.innerHTML = "<input type='number' min='0' max='1' step='0.01' value='0'>";
+            var td_delete = newRow.insertCell();
+            var deleteBtn = document.createElement('button');
+            deleteBtn.innerHTML = "Удалить";
+            deleteBtn.addEventListener("click", function() {
+                var row = this.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+            });
+            td_delete.appendChild(deleteBtn);
+        });
+
+        // Сохранение новых записей
+        var saveNewRowsButton = document.getElementById("save-new-rows");
+        saveNewRowsButton.addEventListener("click", function() {
+            var newRows = [];
+            var rows = modulationTable.getElementsByTagName("tr");
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+                var pvk = cells[0].getElementsByTagName("select")[0].value;
+                var test = cells[1].getElementsByTagName("select")[0].value;
+                var raiting = parseFloat(cells[2].getElementsByTagName("input")[0].value);
+                newRows.push({prof: prof_select.value, pvk: pvk, test: test, raiting: raiting});
+            }
+            modulation = modulation.concat(newRows);
+            alert("Новые записи сохранены!");
+        });
+
+        outputModulationDataByProfession();
+    </script>
+</body>
+</html>

@@ -335,6 +335,19 @@ server.get('/memory_test', (req, res) => {
 // #################################
 
 
+
+// 6 ЛАБА ##########################
+
+server.get('/modulation', (req, res) => {
+    // if (!req.isAuthenticated()){
+    //     res.redirect('/login')
+    // } else {
+        res.render('6th-lab/ModulationNew.ejs');
+    // }
+})
+
+
+// #######################
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
