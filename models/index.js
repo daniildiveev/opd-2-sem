@@ -5,12 +5,11 @@ const ReactionTestModel = require('./reactionTest')
 const ComplexReactionTestModel = require('./complexReactionTest')
 const InviteLinkModel = require('./inviteLink')
 const AccuracyTestModel = require('./accuracyTest')
+const MethodologyModel = require('./methodology')
+const PVKModel = require('./PVK')
+const ProfessionModel = require('./profession')
 
-<<<<<<< HEAD
-const sequelize = new Sequelize('studs', 's367403', 'xaoVq03dAHI9DUXL', {
-=======
 const sequelize = new Sequelize('opd_2_sem', 'postgres', 'N29EXFdw', {
->>>>>>> daniildiveev/js
     dialect: 'postgres',
     host: 'localhost',
 });
@@ -21,6 +20,9 @@ const ReactionTest = ReactionTestModel(sequelize);
 const ComplexReactionTest = ComplexReactionTestModel(sequelize);
 const InviteLink = InviteLinkModel(sequelize);
 const AccuracyTest = AccuracyTestModel(sequelize);
+const Methodology = MethodologyModel(sequelize);
+const PVK = PVKModel(sequelize);
+const Profession = ProfessionModel(sequelize);
 
 module.exports = {
     sequelize,
@@ -29,5 +31,8 @@ module.exports = {
     ReactionTest,
     ComplexReactionTest,
     InviteLink,
-    AccuracyTest
+    AccuracyTest,
+    Methodology,
+    PVK,
+    Profession
 };
