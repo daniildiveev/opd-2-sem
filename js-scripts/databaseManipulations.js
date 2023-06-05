@@ -1,4 +1,11 @@
-const {Poll, ReactionTest, ComplexReactionTest, User, AccuracyTest} = require('../models')
+const {Poll,
+    ReactionTest,
+    ComplexReactionTest,
+    User,
+    AccuracyTest,
+    Methodology,
+    PVK,
+    Profession} = require('../models')
 
 async function filterTest(type, username, testId, testType){
     let userId = null
@@ -112,4 +119,32 @@ async function getUsers(){
     return logins
 }
 
-module.exports = {filterTest, getUsers}
+async function getProfessions(){
+    return await Profession.findAll()
+}
+
+async function getPVKs(){
+    return await PVK.findAll()
+}
+
+async function getProfessionMethodology(profession){
+    return await Methodology.findAll({
+        where: {
+            profession: profession
+        }
+    })
+}
+
+async function deleteMethodology(profession, pvk, test) {
+    let methodologies = await Methodology.findAll({
+        where: {
+            profession: profession,
+            pvk: pvk,
+            test: test
+        }
+    })
+
+    methodologies.forEach(methodology => methodology.destroy())
+}
+
+module.exports = {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology}
