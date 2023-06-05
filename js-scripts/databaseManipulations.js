@@ -135,8 +135,18 @@ async function getProfessionMethodology(profession){
     })
 }
 
-async function deleteMethodology(profession, pvk, test) {
+async function deleteMethodology(profession) {
     let methodologies = await Methodology.findAll({
+        where: {
+            profession: profession,
+        }
+    })
+
+    methodologies.forEach(methodology => methodology.destroy())
+}
+
+async function deleteMethod(profession, pvk, test){
+    let method = await Methodology.findOne({
         where: {
             profession: profession,
             pvk: pvk,
@@ -144,7 +154,7 @@ async function deleteMethodology(profession, pvk, test) {
         }
     })
 
-    methodologies.forEach(methodology => methodology.destroy())
+    method.destroy()
 }
 
-module.exports = {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology}
+module.exports = {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology, deleteMethod}
