@@ -6,8 +6,11 @@ const path = require('path')
 const crypto = require('crypto')
 const LocalStrategy = require('passport-local').Strategy;
 const {sequelize, User, Poll, ReactionTest} = require('./models/index');
-const {ComplexReactionTest, InviteLink, AccuracyTest} = require("./models");
-const {filterTest, getUsers} = require('./js-scripts/databaseManipulations')
+const {ComplexReactionTest,
+       InviteLink,
+       AccuracyTest,
+       Methodology} = require("./models");
+const {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology, deleteMethod} = require('./js-scripts/databaseManipulations')
 const {login} = require("passport/lib/http/request");
 const server = express();
 
@@ -213,8 +216,6 @@ server.get('/create_invite', (req, res) => {
     }
 })
 
-
-
 server.get('/tests_list', (req, res) => {
     res.render('TestListPage')
 })
@@ -230,6 +231,44 @@ server.post('/get_tests_from_db', async (req, res) => {
     if (tests !== {}){
         res.send(tests)
     }
+})
+
+server.post('/get_pvks', async (req, res) =>{
+    const pvks = await getPVKs()
+    res.send(pvks)
+})
+
+
+server.post('/get_professions', async (req, res) =>{
+    const professions = await getProfessions()
+    res.send(professions)
+})
+
+server.post('/get_profession_methodology', async (req, res) => {
+    const methodologies= await getProfessionMethodology(req.body.profession)
+    res.send(methodology)
+})
+
+server.post('/add_methodology', async (req, res) => {
+    const profession = req.body.profession
+    await deleteMethodology(profession)
+
+    const pvks = req.body.pvks
+    const tests = req.body.tests
+    const weights = req.body.weights
+
+    for (let i=0; i++; i<pvks.length){
+        const methodology = await Methodology.create({profession: profession,
+                                                             pvk: pvks[i],
+                                                             test: tests[i],
+                                                             weight: weights[i]})
+    }
+})
+
+server.post('/delete_methodology', async (req, res) => {
+    await deleteMethod(req.body.profession,
+                       req.body.pvk,
+                       req.body.test)
 })
 
 server.post('/get_users_from_db', async (req, res) => {
@@ -293,11 +332,6 @@ server.get('/stalking_test', (req, res) => {
     }
 })
 
-//  ######### 5 ЛАБА   #############
-
-
-
-
 server.get('/attention_test', (req, res) => {
     // if(!req.isAuthenticated()){
     //     res.redirect('/login')
@@ -324,6 +358,7 @@ server.get('/thinking-test', (req, res) => {
         res.render('5th-lab-tests/thinking-test/ThinkingTest')
     // }
 })
+
 // это если что насрал я:
 server.get('/memory_test', (req, res) => {
     if (!req.isAuthenticated()){
@@ -332,11 +367,6 @@ server.get('/memory_test', (req, res) => {
         res.render('5th-lab-tests/memory-test/MemoryTest')
     }
 })
-// #################################
-
-
-
-// 6 ЛАБА ##########################
 
 server.get('/modulation', (req, res) => {
     // if (!req.isAuthenticated()){
@@ -346,8 +376,6 @@ server.get('/modulation', (req, res) => {
     // }
 })
 
-
-// #######################
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',

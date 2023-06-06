@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 
+=======
+>>>>>>> daniildiveev/js
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="2nd-lab-tests/VisualMathTestStyle.css">
   <title>Sound Math Test</title>
 </head>
+<<<<<<< HEAD
 
 <body>
   <div id="problem"></div>
@@ -25,6 +29,26 @@
     <button id="start-button">Начать тест</button>
   </div>
   <div id="submit-button-enclosing"></div>
+=======
+<body>
+<div id="problem"></div>
+<div id="incorrect_field"></div>
+<div id="select_for_number_of_numbers">
+  <select id="numbers_for_test_time" required>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</div>
+<div id="answer_buttons"></div>
+<br>
+<progress id="progress" value="0" max="100"></progress>
+<div id="start-button-enclosing">
+  <button id="start-button">Начать тест</button>
+</div>
+<div id="submit-button-enclosing"></div>
+>>>>>>> daniildiveev/js
 </body>
 <script>
   bodyElement = document.getElementsByTagName("body")[0]
@@ -44,14 +68,23 @@
   const NUM_OF_TESTS = 9;
   let testCounter = 0, testPassed = false;
 
+<<<<<<< HEAD
   function runTest() {
     if (testCounter <= NUM_OF_TESTS) {
+=======
+  function runTest(){
+    if (testCounter <= NUM_OF_TESTS){
+>>>>>>> daniildiveev/js
       progressElement.value = (testCounter) / NUM_OF_TESTS * 100;
       document.getElementById("select_for_number_of_numbers").innerHTML = "";
       document.getElementById("start-button-enclosing").innerHTML = "";
       document.getElementById("submit-button-enclosing").innerHTML = "";
 
+<<<<<<< HEAD
       let { numbers, isEven } = generateProblem();
+=======
+      let {numbers, isEven} = generateProblem();
+>>>>>>> daniildiveev/js
       let problem = "";
 
       problems.push(numbers)
@@ -120,11 +153,19 @@
     }
   }
 
+<<<<<<< HEAD
   async function sendData() {
     if (testPassed) {
       const reactionTimings = [results.at(-1).slice(0, 3).reduce((a, b) => a + b, 0) / 3,
       results.at(-1).slice(3, 6).reduce((a, b) => a + b, 0) / 3,
       results.at(-1).slice(6).reduce((a, b) => a + b, 0) / 3]
+=======
+  async function sendData(){
+    if (testPassed){
+      const reactionTimings = [results.at(-1).slice(0, 3).reduce((a, b) => a + b, 0) / 3,
+        results.at(-1).slice(3, 6).reduce((a, b) => a + b, 0) / 3,
+        results.at(-1).slice(6).reduce((a, b) => a + b, 0) / 3]
+>>>>>>> daniildiveev/js
 
       const data = {
         testType: "math_sound_test",
@@ -134,7 +175,11 @@
       let url = ''
       const urlObject = new URL(window.location.href)
 
+<<<<<<< HEAD
       if (urlObject.searchParams.has('data')) {
+=======
+      if (urlObject.searchParams.has('data')){
+>>>>>>> daniildiveev/js
         url += '/complex_reaction_test?data=' + urlObject.searchParams.get('data')
       } else {
         url += '/complex_reaction_test'
@@ -145,6 +190,7 @@
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
       })
+<<<<<<< HEAD
         .then(res => {
           console.log(res)
           // Redirect to another URL
@@ -155,6 +201,18 @@
   }
 
   function generateProblem() {
+=======
+              .then(res => {
+                console.log(res)
+                // Redirect to another URL
+                window.location.href = res.url;
+              })
+              .catch(error => console.error(error));
+    }
+  }
+
+  function generateProblem(){
+>>>>>>> daniildiveev/js
     let numbers = []
 
     for (let i = 0; i < numberOfNumbers; i++) {
@@ -163,8 +221,14 @@
 
     let isEven = numbers.reduce((a, b) => a + b, 0) % 2 === 0
 
+<<<<<<< HEAD
     return { numbers, isEven }
   }
 </script>
 
+=======
+    return {numbers, isEven}
+  }
+</script>
+>>>>>>> daniildiveev/js
 </html>
