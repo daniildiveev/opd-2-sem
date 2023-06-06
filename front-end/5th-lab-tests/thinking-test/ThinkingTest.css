@@ -11,7 +11,9 @@
     justify-content: center;
     height: 100vh;
 }
-
+body{
+    background-color: var(--main-color);
+}
 h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
@@ -42,8 +44,8 @@ button {
     border: none;
     border-radius: 0.5rem;
     font-size: 1.2rem;
-    color: #fff;
-    background-color: var(--main-color);
+    color: var(--main-color);
+    background-color: #fff;
     transition: all 0.2s ease-in-out;
 }
 
@@ -58,4 +60,18 @@ button:hover {
 
 .restart-button {
     margin-top: 2rem;
+}
+label {
+    color: white;
+    font-size: 24px;
+}
+#result{
+    color: white;
+    font-size: 24px;
+}
+h1{
+    color: #fff;
+}
+#check{
+    margin-top: 1rem;
 }

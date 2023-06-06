@@ -358,6 +358,24 @@ server.get('/thinking-test', (req, res) => {
         res.render('5th-lab-tests/thinking-test/ThinkingTest')
     // }
 })
+
+// это если что насрал я:
+server.get('/memory_test', (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login')
+    } else {
+        res.render('5th-lab-tests/memory-test/MemoryTest')
+    }
+})
+
+server.get('/modulation', (req, res) => {
+    // if (!req.isAuthenticated()){
+    //     res.redirect('/login')
+    // } else {
+        res.render('6th-lab/ModulationNew.ejs');
+    // }
+})
+
 server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
