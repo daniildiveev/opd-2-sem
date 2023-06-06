@@ -157,4 +157,9 @@ async function deleteMethod(profession, pvk, test){
     method.destroy()
 }
 
-module.exports = {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology, deleteMethod}
+
+async function deleteAllFromMethod(){
+    let method = await Methodology.findAll();
+    method.destroy();
+}
+module.exports = {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology, deleteMethod, deleteAllFromMethod}

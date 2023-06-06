@@ -9,7 +9,7 @@ const MethodologyModel = require('./methodology')
 const PVKModel = require('./PVK')
 const ProfessionModel = require('./profession')
 
-const sequelize = new Sequelize('opd_2_sem', 'postgres', 'N29EXFdw', {
+const sequelize = new Sequelize('studs', 's367403', 'xaoVq03dAHI9DUXL', {
     dialect: 'postgres',
     host: 'localhost',
 });

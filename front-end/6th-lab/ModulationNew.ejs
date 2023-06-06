@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modulation</title>
 </head>
+
 <body>
     <label for="prof-list">Выберите Профессию:</label>
     <select id="prof-list"></select>
@@ -24,14 +26,15 @@
     <button id="save-new-rows">Сохранить новые записи</button>
     <script>
         var profs = ["Data Scientist", "Backend-developer", "Frontend-developer"];
-        var pvks = ["Стрессоустойчивость", "Коммуникабельность", "Аналитическое мышление"];
+        var pvks = ['Готовность к защите Родины с оружием в руках', 'Военно-профессиональная направленность', 'Прямые внутренние мотивы военно-профессиональной деятельности', 'Стремление к профессиональному совершенству', 'Адекватная самооценка', 'Самостоятельность', 'Пунктуальность, педантичность', 'Дисциплинированность', 'Аккуратность в работе', 'Организованность, самодисциплина', 'Старательность, исполнительность', 'Ответственность', 'Трудолюбие', 'Инициативность', 'Самокритичность', 'Оптимизм, доминирование положительных эмоций', 'Самообладание, эмоциональная уравновешенность, выдержка', 'Самоконтроль, способность к самонаблюдению', 'Предусмотрительность', 'Фрустрационная толерантность', 'Интернальность', 'Экстернальность', 'Интрапунитивность', 'Экстрапунитивность', 'Способность планировать свою деятельность во времени', 'Способность организовывать свою деятельность в условиях большого потока информации и разнообразия поставленных задач', 'Способность брать на себя ответственность за принимаемые решения и действия', 'Способность принимать решение в нестандартных ситуациях', 'Способность рационально действовать в экстремальных ситуациях', 'Способность эффективно действовать в условиях дефицита времени', 'Способность переносить неприятные ощущения без потрясений', 'Способность аргументировано отстаивать свое мнение', 'Способность к переключениям с одной деятельности на другую', 'Способность преодолевать страх', 'Решительность', 'Сильная воля', 'Смелость', 'Чувство долга', 'Честность', 'Порядочность', 'Товарищество.', 'Зрительная оценка размеров предметов.', 'Зрительное восприятие расстояний между предметами.', 'Глазомер: линейный, угловой, объемный.', 'Глазомер динамический', 'Способность к различению фигуры (предмета, отметки, сигнала и пр.) на малоконтрастном фоне.', 'Способность различать и опознавать замаскированные объекты.', 'Способность к восприятию пространственного соотношения предметов.', 'Точность и оценка направления на источник звука.', 'Способность узнавать и различать ритмы', 'Речевой слух', 'Различение отрезков времени', 'Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по визуальным признакам', 'Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по акустическим признакам', 'Способность к распознаванию небольших отклонений параметров технологических процессов от заданных значений по кинестетическим признакам', 'Способность к зрительным представлениям.', 'Способность к пространственному воображению.', 'Способность к образному представлению предметов, процессов и явлений.', 'Способность наглядно представлять себе новое явление, ранее, не встречающееся в опыте, или старое, но в новых условиях', 'Способность к переводу образа в словесное описание', 'Способность к воссозданию образа по словесному описанию', 'Аналитичность', 'Синтетичность', 'Транссонантность', 'Логичность', 'Креативность', 'Оперативность', 'Предметность', 'Образность', 'Абстрактность', 'Вербальность', 'Калькулятивность', 'Зрительная долговременная память', 'Зрительная оперативная память', 'Слуховая долговременная память', 'Слуховая оперативная память', 'Тактильная память', 'Обонятельная память', 'Вкусовая память', 'Энергичность, витальность', 'Умственная работоспособность', 'Физическая работоспособность', 'Нервно-эмоциональная устойчивость, выносливость по отношению к эмоциональным нагрузкам', 'Острота зрения', 'Адаптация зрения к темноте, свету', 'Контрастная чувствительность монохроматического зрения', 'Цветовая дифференциальная чувствительность', 'Устойчивость зрительной чувствительности во времени', 'Острота слуха', 'Контрастная чувствительность слуха', 'Слуховая дифференциальная чувствительность', 'Переносимость длительно действующего звукового раздражителя', 'Чувствительность (осязание) пальцев', 'Вибрационная чувствительность', 'Мышечно-суставная чувствительность усилий или сопротивления', 'Ощущение равновесия', 'Ощущение ускорения', 'Обонятельная чувствительность', 'Способность узнавать и различать вкусовые ощущения', 'Объем внимания', 'Концентрированность внимания', 'Устойчивость внимания во времени', 'Переключаемость внимания', 'Способность к распределению внимания между несколькими объектами или видами деятельности', 'Помехоустойчивость внимания', 'Способность подмечать изменения в окружающей обстановке, не сосредотачивая сознательно на них внимание', 'Умение подмечать незначительные изменения в исследуемом объекте, в показаниях приборов', 'Способность реагировать на неожиданный зрительный сигнал посредством определённых движений', 'Способность реагировать на неожиданный слуховой сигнал посредством определённых движений', 'Согласованность движений с процессами восприятия', 'Способность к сенсомоторному слежению за движущимся объектом', 'Способность к выполнению мелких точных движений', 'Способность к выполнению сложных двигательных действий', 'Способность к выполнению плавных соразмерных движений', 'Координация движений ведущей руки.', 'Координация движений обеих рук.', 'Координация движений рук и ног.', 'Координация работы кистей рук и пальцев.', 'Твердость руки, устойчивость кистей рук', 'Умение быстро записывать', 'Красивый почерк', 'Физическая сила.', 'Способность к быстрой выработке сенсомоторных навыков', 'Способность к быстрой перестройке сенсомоторных навыков', 'Пластичность и выразительность движений', 'Отсутствие дефектов речи, хорошая дикция.', 'Способность речевого аппарата к интенсивной и длительной работе.', 'Способность к изменению тембра.', 'Способность к изменению силы звучания.', 'Переносимость динамических физических нагрузок', 'Переносимость статических физических нагрузок', 'Быстрый переход из состояния покоя к интенсивной работе', 'Сохранение работоспособности при недостатке сна', 'Сохранение работоспособности при развивающемся утомлении', 'Сохранение бдительности в условиях однообразной деятельности', 'Сохранение бдительности в режиме ожидания', 'Сохранение работоспособности в некомфортных температурных условиях', 'Сохранение работоспособности в условиях знакопеременных перегрузок', 'Сохранение работоспособности в условиях воздействия вибрации', 'Сохранение работоспособности в условиях воздействия разнонаправленных перегрузок', 'Сохранение работоспособности в условиях гипо(гипер) барометрических колебаний', 'Сохранение работоспособности в условиях пониженного парциального давления кислорода', 'Сохранение работоспособности в условиях пониженного парциального давления углекислого газа', 'Сохранение работоспособности в условиях ограничения возможностей удовлетворения базовых жизненных потребностей', 'Сохранение работоспособности в разных природно-климатических условиях', 'Способность переадаптироваться к новым средовым условиям', 'Антропометрические характеристики', 'Особенности телосложения', 'Хорошее общее физическое развитие', 'Физическая подготовленность к воздействию неблагоприятных факторов профессиональной деятельности.'];
+
         var tests = ["AttentionTest", "MemoryTest", "StalkingTest", "SchulteTable"];
-        var modulation = [{
-            prof: "Backend-developer",
-            pvk: "Стрессоустойчивость",
-            test: "AttentionTest",
-            raiting: 0.25
-        }];
+        // var modulation = [{
+        //     prof: "Backend-developer",
+        //     pvk: "Стрессоустойчивость",
+        //     test: "AttentionTest",
+        //     raiting: 0.25
+        // }];
         var prof_select = document.getElementById("prof-list");
         var modulationTable = document.getElementById("modulation").getElementsByTagName("tbody")[0];
 
@@ -43,47 +46,80 @@
 
         function outputModulationDataByProfession() {
             var prof = prof_select.value;
-            console.log(prof);
-            //Очищаем таблицу перед выводом новых данных
-            modulationTable.innerHTML = "";
-            for (var i = 0; i < modulation.length; i++) {
-                if (modulation[i].prof === prof) {
-                    var tr = document.createElement("tr");
-                    var td_pvk = document.createElement('td');
-                    var selectPVK = document.createElement('select');
-                    for (var j = 0; j < pvks.length; j++) {
-                        var option = document.createElement("option");
-                        option.innerHTML = pvks[j];
-                        selectPVK.appendChild(option);
+            fetch("/get_profession_methodology", {
+                method: "post",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+                //make sure to serialize your JSON body
+                body: JSON.stringify({
+                    profession: prof
+                })
+            }).then(data => data.json()).then(
+                modulation => {
+                    console.log(prof);
+                    console.log(modulation);
+                    //Очищаем таблицу перед выводом новых данных
+                    modulationTable.innerHTML = "";
+                    for (var i = 0; i < modulation.length; i++) {
+                        var tr = document.createElement("tr");
+                        var td_pvk = document.createElement('td');
+                        var selectPVK = document.createElement('select');
+                        for (var j = 0; j < pvks.length; j++) {
+                            var option = document.createElement("option");
+                            option.innerHTML = pvks[j];
+                            selectPVK.appendChild(option);
+                        }
+                        selectPVK.value = modulation[i].pvk;
+
+
+                        td_pvk.appendChild(selectPVK);
+                        var selectTest = document.createElement('select');
+                        var td_test = document.createElement('td');
+
+                        for (var j =0; j < tests.length; j ++){
+                            var option = document.createElement("option");
+                            option.innerHTML = tests[j];
+                            selectTest.appendChild(option);
+                        }
+                        selectTest.value = modulation[i].test;
+                        td_test.appendChild(selectTest);
+
+
+                        var td_raiting = document.createElement('td');
+                        var raiting_input = document.createElement('input');
+                        raiting_input.value = modulation[i].weight;
+                        td_raiting.appendChild(raiting_input);
+                        
+                        // td_raiting.innerHTML = modulation[i].weight;
+                        var td_delete = document.createElement('td');
+                        var deleteBtn = document.createElement('button');
+                        deleteBtn.innerHTML = "Удалить";
+                        deleteBtn.addEventListener("click", function () {
+                            var row = this.parentNode.parentNode;
+                            row.parentNode.removeChild(row);
+                        });
+                        td_delete.appendChild(deleteBtn);
+                        tr.appendChild(td_pvk);
+                        tr.appendChild(td_test);
+                        tr.appendChild(td_raiting);
+                        tr.appendChild(td_delete);
+                        modulationTable.appendChild(tr);
                     }
-                    selectPVK.value = modulation[i].pvk;
-                    td_pvk.appendChild(selectPVK);
-                    var td_test = document.createElement('td');
-                    td_test.innerHTML = modulation[i].test;
-                    var td_raiting = document.createElement('td');
-                    td_raiting.innerHTML = modulation[i].raiting;
-                    var td_delete = document.createElement('td');
-                    var deleteBtn = document.createElement('button');
-                    deleteBtn.innerHTML = "Удалить";
-                    deleteBtn.addEventListener("click", function() {
-                        var row = this.parentNode.parentNode;
-                        row.parentNode.removeChild(row);
-                    });
-                    td_delete.appendChild(deleteBtn);
-                    tr.appendChild(td_pvk);
-                    tr.appendChild(td_test);
-                    tr.appendChild(td_raiting);
-                    tr.appendChild(td_delete);
-                    modulationTable.appendChild(tr);
-                }
-            }
+                });
+
+
+
+
         }
 
         prof_select.addEventListener("change", outputModulationDataByProfession);
 
         // Добавление строки в таблицу
         var addRowButton = document.getElementById("add-row");
-        addRowButton.addEventListener("click", function() {
+        addRowButton.addEventListener("click", function () {
             var newRow = modulationTable.insertRow();
             var td_pvk = newRow.insertCell();
             var selectPVK = document.createElement('select');
@@ -106,7 +142,7 @@
             var td_delete = newRow.insertCell();
             var deleteBtn = document.createElement('button');
             deleteBtn.innerHTML = "Удалить";
-            deleteBtn.addEventListener("click", function() {
+            deleteBtn.addEventListener("click", function () {
                 var row = this.parentNode.parentNode;
                 row.parentNode.removeChild(row);
             });
@@ -115,7 +151,8 @@
 
         // Сохранение новых записей
         var saveNewRowsButton = document.getElementById("save-new-rows");
-        saveNewRowsButton.addEventListener("click", function() {
+
+        saveNewRowsButton.addEventListener("click", function () {
             var newRows = [];
             var rows = modulationTable.getElementsByTagName("tr");
             for (var i = 0; i < rows.length; i++) {
@@ -123,13 +160,31 @@
                 var pvk = cells[0].getElementsByTagName("select")[0].value;
                 var test = cells[1].getElementsByTagName("select")[0].value;
                 var raiting = parseFloat(cells[2].getElementsByTagName("input")[0].value);
-                newRows.push({prof: prof_select.value, pvk: pvk, test: test, raiting: raiting});
+                newRows.push({ profession: prof_select.value, pvk: pvk, test: test, raiting: raiting });
             }
-            modulation = modulation.concat(newRows);
+            console.log(newRows);
+
+            fetch("/add_methodology", {
+                method: "post",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+                //make sure to serialize your JSON body
+                body: JSON.stringify({
+                    modulations: newRows
+                })
+            })
+                .then((response) => {
+                    //do something awesome that makes the world a better place
+                });
+
             alert("Новые записи сохранены!");
         });
 
         outputModulationDataByProfession();
     </script>
 </body>
+
 </html>

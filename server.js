@@ -5,13 +5,13 @@ const flash = require('connect-flash')
 const path = require('path')
 const crypto = require('crypto')
 const LocalStrategy = require('passport-local').Strategy;
-const {sequelize, User, Poll, ReactionTest} = require('./models/index');
-const {ComplexReactionTest,
-       InviteLink,
-       AccuracyTest,
-       Methodology} = require("./models");
-const {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology, deleteMethod} = require('./js-scripts/databaseManipulations')
-const {login} = require("passport/lib/http/request");
+const { sequelize, User, Poll, ReactionTest } = require('./models/index');
+const { ComplexReactionTest,
+    InviteLink,
+    AccuracyTest,
+    Methodology } = require("./models");
+const { filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology, deleteMethod, deleteAllFromMethod } = require('./js-scripts/databaseManipulations')
+const { login } = require("passport/lib/http/request");
 const server = express();
 
 server.use(express.json());
@@ -66,23 +66,23 @@ server.use(passport.session());
 
 server.get('/', (req, res) => {
     let username, adminUser, loggedIn;
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         username = req.user.login;
         adminUser = req.user.isAdmin;
         loggedIn = true;
     }
-    else{
+    else {
         username = "";
         adminUser = false;
         loggedIn = false;
     }
 
-    res.render('MenuPageDraft', {username, adminUser, loggedIn})
+    res.render('MenuPageDraft', { username, adminUser, loggedIn })
 });
 
 server.get('/login', (req, res) => {
     const errorMessage = req.flash('error')[0]
-    res.render('LoginForm', {errorMessage});
+    res.render('LoginForm', { errorMessage });
 });
 
 server.get('/logout', (req, res) => {
@@ -94,24 +94,24 @@ server.get('/logout', (req, res) => {
 
 server.get('/register', (req, res) => {
     const errorMessage = req.flash('error')[0]
-    res.render('RegistrationForm', {errorMessage});
+    res.render('RegistrationForm', { errorMessage });
 });
 
 server.get('/admin/register', (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
         return
     }
 
     const checkAdmin = req.user.isAdmin;
 
-    if(!checkAdmin){
+    if (!checkAdmin) {
         res.redirect('/')
     }
 
-    else{
+    else {
         const errorMessage = req.flash('error')[0]
-        res.render('AdminRegistrationForm', {errorMessage});
+        res.render('AdminRegistrationForm', { errorMessage });
     }
 })
 
@@ -120,35 +120,35 @@ server.get('/characteristics', (req, res) => {
 })
 
 server.get('/polls_results', async (req, res) => {
-        try {
-            const polls = await Poll.findAll();
+    try {
+        const polls = await Poll.findAll();
 
-            res.render('ResultsPage', { polls });
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Internal Server Error');
-        }
+        res.render('ResultsPage', { polls });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 })
 
 server.get('/poll_1_part_1', (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
         return
     }
 
     const checkAdmin = req.user.isAdmin;
 
-    if(!checkAdmin){
+    if (!checkAdmin) {
         res.redirect('/')
     }
 
-    else{
+    else {
         res.render('1stTest1stPart');
     }
 })
 
 server.get('/poll_1_part_2', (req, res) => {
-    if (!req.flash("passed_1_part")[0]){
+    if (!req.flash("passed_1_part")[0]) {
         res.redirect('/')
     }
     else {
@@ -157,27 +157,27 @@ server.get('/poll_1_part_2', (req, res) => {
         const profession = data.profession
         let characteristics = []
 
-        for (let i = 0; i<169; i++){
-            if(data["question" + i]){
-                characteristics.push({id: i, name:data["question" + i]})
+        for (let i = 0; i < 169; i++) {
+            if (data["question" + i]) {
+                characteristics.push({ id: i, name: data["question" + i] })
             }
         }
 
-        res.render('1stTest2ndPart', {profession, characteristics})
+        res.render('1stTest2ndPart', { profession, characteristics })
     }
 })
 
 
 server.get('/light_test', (req, res) => {
-    if (!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('2nd-lab-tests/LightReactionTest')
     }
 })
-{}
+{ }
 server.get('/multiple_colours_test', (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('2nd-lab-tests/ColorReactionTest')
@@ -185,7 +185,7 @@ server.get('/multiple_colours_test', (req, res) => {
 })
 
 server.get('/sound_test', (req, res) => {
-    if (!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('2nd-lab-tests/SoundReactionTest')
@@ -193,7 +193,7 @@ server.get('/sound_test', (req, res) => {
 })
 
 server.get('/visual_math_test', (req, res) => {
-    if (!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('2nd-lab-tests/VisualMathTest')
@@ -201,7 +201,7 @@ server.get('/visual_math_test', (req, res) => {
 })
 
 server.get('/math_sound', (req, res) => {
-    if (!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('2nd-lab-tests/SoundMathTest')
@@ -209,7 +209,7 @@ server.get('/math_sound', (req, res) => {
 })
 
 server.get('/create_invite', (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('CreateInviteLinkPage')
@@ -228,59 +228,71 @@ server.post('/get_tests_from_db', async (req, res) => {
 
     const tests = await filterTest(type, username, testId, testType)
 
-    if (tests !== {}){
+    if (tests !== {}) {
         res.send(tests)
     }
 })
 
-server.post('/get_pvks', async (req, res) =>{
+server.post('/get_pvks', async (req, res) => {
     const pvks = await getPVKs()
     res.send(pvks)
 })
 
 
-server.post('/get_professions', async (req, res) =>{
+server.post('/get_professions', async (req, res) => {
     const professions = await getProfessions()
     res.send(professions)
 })
 
 server.post('/get_profession_methodology', async (req, res) => {
-    const methodologies= await getProfessionMethodology(req.body.profession)
-    res.send(methodology)
+    const methodologies = await getProfessionMethodology(req.body.profession)
+    // console.log(methodologies);
+    res.send(methodologies)
 })
 
 server.post('/add_methodology', async (req, res) => {
-    const profession = req.body.profession
-    await deleteMethodology(profession)
+    // const profession = req.body.profession
+    
 
-    const pvks = req.body.pvks
-    const tests = req.body.tests
-    const weights = req.body.weights
 
-    for (let i=0; i++; i<pvks.length){
-        const methodology = await Methodology.create({profession: profession,
-                                                             pvk: pvks[i],
-                                                             test: tests[i],
-                                                             weight: weights[i]})
+    // console.log(req.body);
+
+    const modulations = req.body.modulations;
+    console.log(modulations);
+    await deleteMethodology(modulations[0].profession);
+
+    for (let i = 0; i < modulations.length; i++) {
+        console.log(modulations[i].pvk)
+        const methodology = await Methodology.create({
+            profession: modulations[i].profession,
+            pvk: modulations[i].pvk,
+            test: modulations[i].test,
+            weight: modulations[i].raiting
+        })
+        console.log(methodology);
     }
+    res.send("ok");
 })
+
+
+
 
 server.post('/delete_methodology', async (req, res) => {
     await deleteMethod(req.body.profession,
-                       req.body.pvk,
-                       req.body.test)
+        req.body.pvk,
+        req.body.test)
 })
 
 server.post('/get_users_from_db', async (req, res) => {
     const users = await getUsers()
 
-    if (users !== []){
-        res.send({logins: users})
+    if (users !== []) {
+        res.send({ logins: users })
     }
 })
 
 server.get('/easy_action', async (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     }
 
@@ -288,7 +300,7 @@ server.get('/easy_action', async (req, res) => {
 })
 
 server.get('/hard_action', async (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     }
 
@@ -317,7 +329,7 @@ server.get('/invite/:code', async (req, res) => {
 })
 
 server.get('/analog_tracking_test', (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('4th-lab-tests/AnalogTrackingTest')
@@ -325,7 +337,7 @@ server.get('/analog_tracking_test', (req, res) => {
 })
 
 server.get('/stalking_test', (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('4th-lab-tests/StalkingTest')
@@ -336,8 +348,8 @@ server.get('/attention_test', (req, res) => {
     // if(!req.isAuthenticated()){
     //     res.redirect('/login')
     // } else {
-        const utils = require("./front-end/5th-lab-tests/attention-test/AttentionTestLogic")
-        res.render('5th-lab-tests/attention-test/AttentionTest', {utils:utils})
+    const utils = require("./front-end/5th-lab-tests/attention-test/AttentionTestLogic")
+    res.render('5th-lab-tests/attention-test/AttentionTest', { utils: utils })
     // }
 })
 
@@ -345,8 +357,8 @@ server.get('/schulte_table', (req, res) => {
     // if(!req.isAuthenticated()){
     //     res.redirect('/login')
     // } else {
-        
-        res.render('5th-lab-tests/table-schulte/SchulteTable')
+
+    res.render('5th-lab-tests/table-schulte/SchulteTable')
     // }
 })
 
@@ -354,14 +366,14 @@ server.get('/thinking-test', (req, res) => {
     // if(!req.isAuthenticated()){
     //     res.redirect('/login')
     // } else {
-        
-        res.render('5th-lab-tests/thinking-test/ThinkingTest')
+
+    res.render('5th-lab-tests/thinking-test/ThinkingTest')
     // }
 })
 
 // это если что насрал я:
 server.get('/memory_test', (req, res) => {
-    if (!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect('/login')
     } else {
         res.render('5th-lab-tests/memory-test/MemoryTest')
@@ -372,7 +384,7 @@ server.get('/modulation', (req, res) => {
     // if (!req.isAuthenticated()){
     //     res.redirect('/login')
     // } else {
-        res.render('6th-lab/ModulationNew.ejs');
+    res.render('6th-lab/ModulationNew.ejs');
     // }
 })
 
@@ -380,9 +392,9 @@ server.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true // enable flash messages
-}), function(req, res) {
+}), function (req, res) {
     res.redirect('/');
-}, function(req, res, next) {
+}, function (req, res, next) {
     req.flash('error', 'Invalid username or password');
     res.redirect('/login');
 });
@@ -416,7 +428,7 @@ server.post('/admin/register', async (req, res, next) => {
     const age = req.body.age;
 
     try {
-        const user = await User.create({ login, password, isAdmin, age, sex});
+        const user = await User.create({ login, password, isAdmin, age, sex });
         req.login(user, (err) => {
             if (err) {
                 console.log(err);
@@ -431,15 +443,15 @@ server.post('/admin/register', async (req, res, next) => {
 });
 
 server.post("/poll_1_part_2", async (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         res.redirect("/login")
         return;
     }
 
-    else{
+    else {
         let data = null
 
-        if (req.query.data){
+        if (req.query.data) {
             data = JSON.parse(decodeURIComponent(req.query.data))
         }
 
@@ -447,7 +459,7 @@ server.post("/poll_1_part_2", async (req, res) => {
 
         req.flash("passed_1_part", true)
 
-        if(data){
+        if (data) {
             data = {
                 pollData: pollData,
                 data: data
@@ -463,10 +475,10 @@ server.post("/1st_test", async (req, res) => {
     let results = ""
 
     for (let i = 0; i < 169; i++) {
-        if (req.body["value" + i]){
+        if (req.body["value" + i]) {
             results += req.body["value" + i]
         }
-        else{
+        else {
             results += "0"
         }
     }
@@ -477,25 +489,25 @@ server.post("/1st_test", async (req, res) => {
     const allData = JSON.parse(decodeURIComponent(req.query.data))
     let data = null
 
-    if (allData.data){
+    if (allData.data) {
         data = allData.data
         data.i++;
     }
 
     try {
-        const poll = await Poll.create({user, profession,  points})
+        const poll = await Poll.create({ user, profession, points })
 
-        if(data){
+        if (data) {
             if (data.i - 1 !== data.tests.length) {
                 res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
-            }  else {
+            } else {
                 res.redirect('/polls_results')
             }
         } else {
             return res.redirect('/polls_results')
         }
     }
-    catch (err){
+    catch (err) {
         console.log(err)
     }
 })
@@ -507,18 +519,18 @@ server.post('/reaction_test', async (req, res) => {
 
     let data = null
 
-    if (req.query.data){
+    if (req.query.data) {
         data = JSON.parse(decodeURIComponent(req.query.data))
         data.i++;
     }
 
     try {
-        const reactionTest = await ReactionTest.create({user, type, reactionTime})
+        const reactionTest = await ReactionTest.create({ user, type, reactionTime })
 
-        if(data){
+        if (data) {
             if (data.i - 1 !== data.tests.length) {
                 res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
-            }  else {
+            } else {
                 res.redirect('/polls_results')
             }
         } else {
@@ -538,24 +550,24 @@ server.post('/complex_reaction_test', async (req, res) => {
 
     let data = null
 
-    if (req.query.data){
+    if (req.query.data) {
         data = JSON.parse(decodeURIComponent(req.query.data))
         data.i++;
     }
 
-    try{
-        const complexReactionTest = await ComplexReactionTest.create({user, type, reactionTime1, reactionTime2, reactionTime3})
+    try {
+        const complexReactionTest = await ComplexReactionTest.create({ user, type, reactionTime1, reactionTime2, reactionTime3 })
 
-        if(data){
+        if (data) {
             if (data.i - 1 !== data.tests.length) {
                 res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
-            }  else {
+            } else {
                 res.redirect('/polls_results')
             }
         } else {
             return res.redirect('/polls_results')
         }
-    } catch (e){
+    } catch (e) {
         console.log(e)
     }
 
@@ -568,17 +580,17 @@ server.post('/accuracy_test', async (req, res) => {
 
     let data = null
 
-    if(req.query.data){
+    if (req.query.data) {
         data = JSON.parse(decodeURIComponent(req.query.data))
     }
 
-    try{
-        const accuracyTest = await AccuracyTest.create({user, type, accuracy})
+    try {
+        const accuracyTest = await AccuracyTest.create({ user, type, accuracy })
 
-        if(data){
+        if (data) {
             if (data.i - 1 !== data.tests.length) {
                 res.redirect('/' + data.tests[data.i - 1] + '?data=' + encodeURIComponent(JSON.stringify(data)))
-            }  else {
+            } else {
                 res.redirect('/polls_results')
             }
         } else {
@@ -597,8 +609,8 @@ server.post('/create_invite', async (req, res) => {
     const code = crypto.randomBytes(10).toString('hex');
 
     try {
-        const inviteLink = await InviteLink.create({userWhoCreated, tests, code, used})
-        res.send({link: '/invite/' + code})
+        const inviteLink = await InviteLink.create({ userWhoCreated, tests, code, used })
+        res.send({ link: '/invite/' + code })
     } catch (e) {
         console.log(e)
     }
