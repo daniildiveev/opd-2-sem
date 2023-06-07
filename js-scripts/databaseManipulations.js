@@ -7,6 +7,8 @@ const {Poll,
     PVK,
     Profession} = require('../models')
 
+const {calculateMean, calculateStandardDeviation, calculateZScore} = require('./utils')
+
 async function filterTest(type, username, testId, testType){
     let userId = null
 
@@ -162,4 +164,73 @@ async function deleteAllFromMethod(){
     let method = await Methodology.findAll();
     method.destroy();
 }
-module.exports = {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology, deleteMethod, deleteAllFromMethod}
+
+async function getTestDistribution(test){
+    let testsSamples = await filterTest(test)
+    let scores = []
+
+    for (let i = 0; i < testsSamples; i++) {
+        if (test === "accuracy_test") {
+            scores.push(testsSamples[i].accuracy)
+        } else if(test === "reaction_test"){
+            scores.push(testsSamples[i].reactionTime)
+        } else if (test === "complex_reaction_tests"){
+            scores.push(testsSamples[i].reactionTime1)
+            scores.push(testsSamples[i].reactionTime2)
+            scores.push(testsSamples[i].reactionTime3)
+        }
+    }
+
+    let mean = calculateMean(scores)
+    let std = calculateStandardDeviation(scores)
+
+    return {
+        mean: mean,
+        std: std
+    }
+}
+
+async function getScore(user, profession){
+    let methods = await Methodology.findAll({
+        where: {
+            profession: profession
+        }
+    })
+
+    let score = 0
+
+    let test_to_weights = {}
+    let pvkTests = []
+
+    methods.forEach(method => {
+        test_to_weights[method.test] = method.weight
+    })
+    methods.forEach(method => pvkTests.push(method.test))
+
+    let testToParams = {}
+    let usersTestsScores = {}
+
+    pvkTests.forEach(pvkTest => {
+        testToParams[pvkTest] = getTestDistribution(pvkTest)
+
+        let usersTests = filterTest(pvkTest, user)
+        usersTestsScores[pvkTest] = []
+
+        if(pvkTest === "accuracy_test"){
+            usersTests.forEach(userTest => usersTestsScores[pvkTest].push(userTest.accuracy))
+        } else if (pvkTest === "reaction_test"){
+            usersTests.forEach(userTest => usersTestsScores[pvkTest].push(userTest.reactionTime))
+        } else if (pvkTest === "complex_reaction_test"){
+            usersTests.forEach(userTest => usersTestsScores[pvkTest].push(userTest.reactionTime1))
+            usersTests.forEach(userTest => usersTestsScores[pvkTest].push(userTest.reactionTime2))
+            usersTests.forEach(userTest => usersTestsScores[pvkTest].push(userTest.reactionTime3))
+        }
+
+        usersTestsScores[pvkTest] = usersTestsScores[pvkTest].forEach(score => calculateZScore(score, testToParams[pvkTest].mean, testToParams[pvkTest].std))
+        score +=  calculateMean(usersTestsScores[pvkTest]) * test_to_weights[pvkTest]
+    })
+
+    return score
+}
+
+module.exports = {filterTest, getUsers, getProfessions, getPVKs, getProfessionMethodology, deleteMethodology, deleteMethod, deleteAllFromMethod, getScore}
